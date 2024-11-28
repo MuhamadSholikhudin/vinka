@@ -31,7 +31,7 @@ session_start(); //Memulai session
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="<?= $url ?>/app/auth/login.php"><b>CRM</b> MI AL HIDAYAH PATI</a>
+        <a href="<?= $url ?>/"><b>CRM</b> MI AL HIDAYAH PATI</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Silahkan Login</p>

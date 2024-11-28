@@ -1,0 +1,4 @@
+Home landing page
+page pendafataran
+page about
+page informasi sekolah
