@@ -7,7 +7,7 @@ session_start(); //Memulai session
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>LOGIN</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -31,7 +31,7 @@ session_start(); //Memulai session
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="<?= $url ?>/assets/index2.html"><b>Admin</b>LTE</a>
+        <a href="<?= $url ?>/app/auth/login.php"><b>CRM</b> MI AL HIDAYAH PATI</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Silahkan Login</p>

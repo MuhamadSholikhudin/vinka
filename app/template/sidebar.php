@@ -8,7 +8,7 @@
       				<img src="<?= $url ?>/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       			</div>
       			<div class="pull-left info">
-      				<p>Alexander Pierce</p>
+      				<p><?= $_SESSION['username'] ?></p>
       				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       			</div>
       		</div>
@@ -31,8 +31,8 @@
 					$dashboard = ["dashboard"];
 					$access = ["user"];
 					$data_menu = [
-						'periode', 
 						'informasi_sekolah', 
+						'periode', 
 						'pendaftaran_siswa', 
 						'berkas_pendaftaran', 
 						'jenis_guru',

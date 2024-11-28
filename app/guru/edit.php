@@ -90,7 +90,9 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $_GET['id_guru'] . 
               <div class='form-group'>
                 <label for='inputfoto_guru' class='col-sm-2 col-form-label'>Foto Guru</label>
                 <div class='col-sm-10'>
-                  <input type='file' class='form-control' id='inputfoto_guru' name='foto_guru' value='<?= $guru['foto_guru']; ?>' required>
+                  <img src="<?= $url."/foto/guru/". $guru['foto_guru']; ?>" alt="<?= $url."/foto/guru/". $guru['foto_guru']; ?>" width="100%">
+                  <input type='file' class='form-control' id='inputfoto_guru' name='foto_guru' value='<?= $guru['foto_guru']; ?>'>
+                  <input type='hidden' class='form-control' id='inputfoto_guru_old' name='foto_guru_old' value='<?= $guru['foto_guru']; ?>'>
                 </div>
               </div>
             </div>

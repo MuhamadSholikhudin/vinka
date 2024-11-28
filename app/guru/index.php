@@ -34,7 +34,7 @@
       unset($_SESSION['message']);
       unset($_SESSION['message_code']);
     } ?>
-    <a class='btn btn-social-icon btn-info' data-toggle='tooltip' data-placement='top' title='Tambah data guru' href='<?= $url ?>/app/guru/tambah.php'><i class='fa fa-plus'></i></a>
+    <a class='btn btn-social-icon btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Tambah data guru' href='<?= $url ?>/app/guru/tambah.php'><i class='fa fa-plus'></i></a>
     <div class='row'>
       <div class='col-xs-12'>
         <div class='box'>
@@ -59,20 +59,20 @@
                     <?php
                     foreach (QueryManyData('SELECT * FROM guru') as $row) {
                     ?>
-                        <tr>
-                       <td><?= $row['nip'] ?></td>
-                       <td><?= $row['id_user'] ?></td>
-                       <td><?= $row['nm_guru'] ?></td>
-                       <td><?= $row['no_guru'] ?></td>
-                       <td><?= $row['jk_guru'] ?></td>
-                       <td><?= $row['alamat_guru'] ?></td>
-                       <td><?= $row['foto_guru'] ?></td>
-                       <td>
-                              <a href='<?= $url ?>/app/guru/edit.php?id_guru=<?= $row['id_guru'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                              <button onclick='ConfirmDelete(<?= $row['id_guru'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
-                                <i class='fas fa-trash'></i>
-                                hapus
-                              </button>
+                      <tr>
+                        <td><?= $row['nip'] ?></td>
+                        <td><?= $row['id_user'] ?></td>
+                        <td><?= $row['nm_guru'] ?></td>
+                        <td><?= $row['no_guru'] ?></td>
+                        <td><?= $row['jk_guru'] ?></td>
+                        <td><?= $row['alamat_guru'] ?></td>
+                        <td><img src="<?= $url . "/foto/guru/" . $row['foto_guru'] ?> ?>" alt="" width="50" height="50"></td>
+                        <td>
+                          <a href='<?= $url ?>/app/guru/edit.php?id_guru=<?= $row['id_guru'] ?>' class='btn bg-olive btn-flat btn-xs'><i class='fa fa-edit'></i> edit</a>
+                          <button onclick="ConfirmDelete(<?= $row['id_guru'] ?>)" class='btn bg-maroon btn-flat btn-xs'>
+                            <i class='fas fa-trash'></i>
+                            hapus
+                            </button>
                         </td>
                     </tr>
                     <?php

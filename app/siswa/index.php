@@ -34,7 +34,7 @@
       unset($_SESSION['message']);
       unset($_SESSION['message_code']);
     } ?>
-    <a class='btn btn-social-icon btn-info' data-toggle='tooltip' data-placement='top' title='Tambah data siswa' href='<?= $url ?>/app/siswa/tambah.php'><i class='fa fa-plus'></i></a>
+    <a class='btn btn-social-icon btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Tambah data siswa' href='<?= $url ?>/app/siswa/tambah.php'><i class='fa fa-plus'></i></a>
     <div class='row'>
       <div class='col-xs-12'>
         <div class='box'>

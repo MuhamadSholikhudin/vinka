@@ -25,12 +25,18 @@
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputid_user' class='col-sm-2 col-form-label'>Id User</label>
+                <label for='inputnm_guru' class='col-sm-2 col-form-label'>Nama Guru</label>
+                <div class='col-sm-10'>
+                  <input type='text' class='form-control' id='inputnm_guru' name='nm_guru' required>
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputid_user' class='col-sm-2 col-form-label'>ID User</label>
                 <div class='col-sm-10'>
                   <?php ?>
-                  <select class='form-control' name='id_user' id='inputid_user'>
+                  <select class='form-control' name='id_user' id='inputid_user' required>
                     <?php
-                    $user = QueryManyData('SELECT * FROM user');
+                    $user = QueryManyData('SELECT * FROM user WHERE level = "Guru" ');
                     foreach ($user as  $row) {
                     ?>
                       <option value='<?= $row['id_user'] ?>'><?= $row['nm_pengguna'] ?></option>
@@ -41,9 +47,19 @@
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputnm_guru' class='col-sm-2 col-form-label'>Nama Guru</label>
+                <label for='inputid_jenis_guru' class='col-sm-2 col-form-label'>Jenis Guru</label>
                 <div class='col-sm-10'>
-                  <input type='text' class='form-control' id='inputnm_guru' name='nm_guru' required>
+                  <?php ?>
+                  <select class='form-control' name='id_jenis_guru' id='inputid_jenis_guru' required>
+                    <?php
+                    $guru = QueryManyData('SELECT * FROM jenis_guru ');
+                    foreach ($guru as  $row) {
+                    ?>
+                      <option value='<?= $row['id_jenis_guru'] ?>'><?= $row['nm_jenis_guru'] ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
                 </div>
               </div>
               <div class='form-group'>
