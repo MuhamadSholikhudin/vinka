@@ -34,13 +34,18 @@
                     </div>
                 </div>
                 <div class='form-group'>
-                    <label for='inputid_user' class='col-sm-2 col-form-label'>Id User</label>
+                    <label for='inputid_user' class='col-sm-2 col-form-label'>ID User</label>
                     <div class='col-sm-10'>
                         <?php ?>
                         <select class='form-control' name='id_user' id='inputid_user'>
                             <?php
-                           $user = QueryManyData('SELECT * FROM user'); 
-                           foreach($user as  $row) {
+                                $user_query = 'SELECT * FROM user';
+                            if($_SESSION['level'] == 'Orang Tua'){
+                                $user_query = 'SELECT * FROM user WHERE id_user = '.$_SESSION['id_user'].'';
+
+                            }
+                            $user = QueryManyData($user_query); 
+                            foreach($user as  $row) {
                             ?>
                                 <option value='<?= $row['id_user'] ?>'> [<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option><?php
                             }

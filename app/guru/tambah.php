@@ -91,7 +91,7 @@
               <div class='form-group'>
                 <label for='inputfoto_guru' class='col-sm-2 col-form-label'>Foto Guru</label>
                 <div class='col-sm-10'>
-                  <input type='file' class='form-control' id='inputfoto_guru' name='foto_guru' required>
+                  <input type='file' class='form-control' id='inputfoto_guru' name='foto_guru' accept=".jpg, .png, .jpeg" required>
                 </div>
               </div>
             </div>

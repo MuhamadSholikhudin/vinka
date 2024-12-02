@@ -13,7 +13,7 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
         if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
                 if ($ukuran < 2088140) {
                         $nama_file = $YMDhis . $_FILES['foto_siswa']['name'];
-                        $upload_foto_siswa = move_uploaded_file($file_tmp, $lokasi_foto . "/foto_siswa/" . $nama_file);
+                        $upload_foto_siswa = move_uploaded_file($file_tmp, $lokasi_foto . "/siswa/" . $nama_file);
                         if ($upload_foto_siswa) {                              
                                 $data = [
                                         'id_periode' => $_POST['id_periode'],

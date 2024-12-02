@@ -68,8 +68,8 @@
                         <td><?= $row['alamat_guru'] ?></td>
                         <td><img src="<?= $url . "/foto/guru/" . $row['foto_guru'] ?> ?>" alt="" width="50" height="50"></td>
                         <td>
-                          <a href='<?= $url ?>/app/guru/edit.php?id_guru=<?= $row['id_guru'] ?>' class='btn bg-olive btn-flat btn-xs'><i class='fa fa-edit'></i> edit</a>
-                          <button onclick="ConfirmDelete(<?= $row['id_guru'] ?>)" class='btn bg-maroon btn-flat btn-xs'>
+                          <a href='<?= $url ?>/app/guru/edit.php?id_guru=<?= $row['id_guru'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                          <button onclick="ConfirmDelete(<?= $row['id_guru'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
                             <i class='fas fa-trash'></i>
                             hapus
                             </button>

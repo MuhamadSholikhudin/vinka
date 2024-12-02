@@ -6,9 +6,9 @@ function Url_web(){
 $defaul_uri = "/".Url_web();
 $url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$defaul_uri;
 $lokasi_foto = $_SERVER['DOCUMENT_ROOT'].$defaul_uri.'/foto';
-$YMDhis = date('YMDhis');
+$YMDhis = date('Ymdhis');
 function DB(){
-    return ["localhost", "root", "password_baru", "vinka"];
+    return ["localhost", "root", "", "vinka"];
 }
 
 function runQuery($sql) {

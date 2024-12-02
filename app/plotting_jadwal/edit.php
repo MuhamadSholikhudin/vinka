@@ -35,9 +35,9 @@ $plotting_jadwal = QueryOnedata('SELECT * FROM plotting_jadwal WHERE id_plotting
                            $siswas = QueryManyData('SELECT * FROM siswa'); 
                              foreach($siswas  as  $row) {
                              if($plotting_jadwal['id_siswa'] ==  $row['id_siswa']       ){ ?>
-                              <option value='<?= $row['id_siswa'] ?>' selected><?= $row['id_siswa'] ?></option>
+                              <option value='<?= $row['id_siswa'] ?>' selected><?= $row['nis'] ?> | <?= $row['nm_siswa'] ?></option>
                             <?php }else{ ?>
-                              <option value='<?= $row['id_siswa'] ?>'><?= $row['id_siswa'] ?></option>
+                              <option value='<?= $row['id_siswa'] ?>' ><?= $row['nis'] ?> | <?= $row['nm_siswa'] ?></option>
                            <?php
                                }
                             }
@@ -53,9 +53,9 @@ $plotting_jadwal = QueryOnedata('SELECT * FROM plotting_jadwal WHERE id_plotting
                            $kelass = QueryManyData('SELECT * FROM kelas'); 
                              foreach($kelass  as  $row) {
                              if($plotting_jadwal['id_kelas'] ==  $row['id_kelas']       ){ ?>
-                              <option value='<?= $row['id_kelas'] ?>' selected><?= $row['id_kelas'] ?></option>
+                              <option value='<?= $row['id_kelas'] ?>' required>Kelas <?= $row['nm_kelas'] ?> | Tingkatan <?= $row['tingkatan'] ?></option>
                             <?php }else{ ?>
-                              <option value='<?= $row['id_kelas'] ?>'><?= $row['id_kelas'] ?></option>
+                              <option value='<?= $row['id_kelas'] ?>'>Kelas <?= $row['nm_kelas'] ?> | Tingkatan <?= $row['tingkatan'] ?></option>
                            <?php
                                }
                             }
@@ -64,16 +64,16 @@ $plotting_jadwal = QueryOnedata('SELECT * FROM plotting_jadwal WHERE id_plotting
                     </div>
                 </div>
                 <div class='form-group'>
-                    <label for='inputid_mapel' class='col-sm-2 col-form-label'>Id Mapel</label>
+                    <label for='inputid_mapel' class='col-sm-2 col-form-label'>Mapel</label>
                     <div class='col-sm-10'>                         
                         <select class='form-control' name='id_mapel' id='inputid_mapel'>
                        <?php
                            $mapels = QueryManyData('SELECT * FROM mapel'); 
                              foreach($mapels  as  $row) {
                              if($plotting_jadwal['id_mapel'] ==  $row['id_mapel']       ){ ?>
-                              <option value='<?= $row['id_mapel'] ?>' selected><?= $row['id_mapel'] ?></option>
+                              <option value='<?= $row['id_mapel'] ?>' selected><?= $row['nm_mapel'] ?> | <?= $row['nm_guru'] ?></option>
                             <?php }else{ ?>
-                              <option value='<?= $row['id_mapel'] ?>'><?= $row['id_mapel'] ?></option>
+                                <option value='<?= $row['id_mapel'] ?>' ><?= $row['nm_mapel'] ?> | <?= $row['nm_guru'] ?></option>
                            <?php
                                }
                             }
@@ -82,16 +82,16 @@ $plotting_jadwal = QueryOnedata('SELECT * FROM plotting_jadwal WHERE id_plotting
                     </div>
                 </div>
                 <div class='form-group'>
-                    <label for='inputid_periode' class='col-sm-2 col-form-label'>Id Periode</label>
+                    <label for='inputid_periode' class='col-sm-2 col-form-label'>Periode</label>
                     <div class='col-sm-10'>                         
                         <select class='form-control' name='id_periode' id='inputid_periode'>
                        <?php
                            $periodes = QueryManyData('SELECT * FROM periode'); 
                              foreach($periodes  as  $row) {
                              if($plotting_jadwal['id_periode'] ==  $row['id_periode']       ){ ?>
-                              <option value='<?= $row['id_periode'] ?>' selected><?= $row['id_periode'] ?></option>
+                              <option value='<?= $row['id_periode'] ?>' selected><?= $row['nm_periode'] ?></option>
                             <?php }else{ ?>
-                              <option value='<?= $row['id_periode'] ?>'><?= $row['id_periode'] ?></option>
+                              <option value='<?= $row['id_periode'] ?>'><?= $row['nm_periode'] ?></option>
                            <?php
                                }
                             }

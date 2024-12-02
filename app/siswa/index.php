@@ -61,12 +61,19 @@
                     ?>
                         <tr>
                        <td><?= $row['nis'] ?></td>
-                       <td><?= $row['id_user'] ?></td>
+                       <td>
+                        <?php 
+                        $user = QueryOnedata('SELECT * FROM user WHERE id_user = '.$row['id_user'].'')->fetch_assoc();
+                        ?> 
+                       <?= $user['username']." | ".$user['nm_pengguna'] ?>
+                        </td>
                        <td><?= $row['nm_siswa'] ?></td>
                        <td><?= $row['jk_siswa'] ?></td>
                        <td><?= $row['alamat_siswa'] ?></td>
                        <td><?= $row['nm_orang_tua'] ?></td>
-                       <td><?= $row['foto_siswa'] ?></td>
+                       <td>
+                        <img src="<?= $url.'/foto/siswa/'.$row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;">
+                      </td>
                        <td>
                               <a href='<?= $url ?>/app/siswa/edit.php?id_siswa=<?= $row['id_siswa'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
                               <button onclick='ConfirmDelete(<?= $row['id_siswa'] ?>)' class='btn bg-maroon btn-flat btn-sm'>

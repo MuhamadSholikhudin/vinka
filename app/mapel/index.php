@@ -45,43 +45,49 @@
             <table id='example1' class='table table-bordered table-striped'>
               <thead>
                 <tr>
-                       <th>ID GURU</th>
-                       <th>NM MAPE</th>
-                       <th>AKSI</th>
+                  <th>ID GURU</th>
+                  <th>NAMA MAPEL</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach (QueryManyData('SELECT * FROM mapel') as $row) {
+                ?>
+                  <tr>
+                    <td> 
+                      <?php
+                          $guru = QueryOnedata('SELECT * FROM guru WHERE guru.id_guru = ' . $row['id_guru'] . ' ')->fetch_assoc();
+                          ?>
+                      <?= $guru['nip'] . " | " . $guru['nm_guru'] ?>
+                    </td>
+                    </td>
+                    <td><?= $row['nm_mapel'] ?></td>
+                    <td>
+                      <a href='<?= $url ?>/app/mapel/edit.php?id_mapel=<?= $row['id_mapel'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                      <button onclick='ConfirmDelete(<?= $row['id_mapel'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
+                        <i class='fas fa-trash'></i>
+                        hapus
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach (QueryManyData('SELECT * FROM mapel') as $row) {
-                    ?>
-                        <tr>
-                       <td><?= $row['id_guru'] ?></td>
-                       <td><?= $row['nm_mape'] ?></td>
-                       <td>
-                              <a href='<?= $url ?>/app/mapel/edit.php?id_mapel=<?= $row['id_mapel'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                              <button onclick='ConfirmDelete(<?= $row['id_mapel'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
-                                <i class='fas fa-trash'></i>
-                                hapus
-                              </button>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
+                <?php
+                }
+                ?>
+              </tbody>
             </table>
+          </div>
         </div>
-    </div>
-    <script>
-        function ConfirmDelete(id) {
+        <script>
+          function ConfirmDelete(id) {
             let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
             if (confirm(text) == true) {
-                text = 'You pressed OK!';
-                window.location.href = '<?= $url ?>/aksi/mapel.php?id_mapel='+id+'&action=delete'
-           } 
-        }
-    </script>
-     </div>
-    </div>    
+              text = 'You pressed OK!';
+              window.location.href = '<?= $url ?>/aksi/mapel.php?id_mapel=' + id + '&action=delete'
+            }
+          }
+        </script>
+      </div>
+    </div>
 </div>
 <?php include_once '../template/footer.php'; ?>

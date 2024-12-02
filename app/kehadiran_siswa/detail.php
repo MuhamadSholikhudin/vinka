@@ -8,7 +8,7 @@ $kehadiran_siswa = QueryOnedata('SELECT * FROM kehadiran_siswa WHERE id_kehadira
   <section class='content-header'>
     <h1>Kehadiran Siswa page</h1>
     <ol class='breadcrumb'>
-      <li><a href='#'><i class='fa fa-dashboard'></i> Edit</a></li>
+      <li><a href='#'><i class='fa fa-dashboard'></i> Detail</a></li>
       <li class='active'>Kehadiran Siswa page</li>
     </ol>
   </section>
@@ -17,7 +17,7 @@ $kehadiran_siswa = QueryOnedata('SELECT * FROM kehadiran_siswa WHERE id_kehadira
       <div class='col-xs-12'>
         <div class='box box-info'>
           <div class='box-header with-border text-center'>
-            <h3 class='box-title'>Form Edit Kehadiran Siswa</h3>
+            <h3 class='box-title'>Form Detail Kehadiran Siswa</h3>
           </div>
           <form action='<?= $url ?>/aksi/kehadiran_siswa.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
             <div class='box-body'>
@@ -85,9 +85,7 @@ $kehadiran_siswa = QueryOnedata('SELECT * FROM kehadiran_siswa WHERE id_kehadira
               <a href='<?= $url ?>/app/kehadiran_siswa/index.php' class='btn btn-default btn-sm '>
                 <i class='fa fa-reply'></i> kembali
               </a>
-              <button type='submit' name='updatekehadiran_siswa' value='updatekehadiran_siswa' class='btn btn-info pull-right'>
-                <i class='fa fa-save'></i> UPDATE
-              </button>
+             
             </div>
           </form>
         </div>

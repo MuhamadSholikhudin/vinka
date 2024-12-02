@@ -29,7 +29,8 @@
               <div class='col-sm-10'>
                 <select class='form-control' name='id_user' id='inputid_user' required>
                     <?php
-                    $user = QueryManyData('SELECT * FROM user WHERE level = "Orang Tua" ');
+                    $query_user = 'SELECT user.* FROM user LEFT JOIN siswa ON user.id_user = siswa.id_user WHERE user.level = "Orang Tua" AND siswa.id_user IS NULL';
+                    $user = QueryManyData($query_user);
                     foreach ($user as  $row) {
                     ?>
                       <option value='<?= $row['id_user'] ?>'><?= $row['nm_pengguna'] ?></option>
@@ -74,7 +75,7 @@
             <div class='form-group'>
               <label for='inputfoto_siswa' class='col-sm-2 col-form-label'>Foto Siswa</label>
               <div class='col-sm-10'>
-                <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa' required>
+                <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa' accept=".jpg, .jpeg, .png" required>
               </div>
             </div>
           </div>

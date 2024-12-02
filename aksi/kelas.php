@@ -11,7 +11,7 @@ if (isset($_POST['simpankelas'])) {
         $process = InsertOnedata('kelas', $data);
         $_SESSION['message'] = 'Data Kelas ' . $process['message'];
         $_SESSION['message_code'] =  $process['code'];
-        header('Location: ' . $url . '/app/kelsas/index.php');
+        header('Location: ' . $url . '/app/kelas/index.php');
         exit();
 } elseif (isset($_POST['updatekelas'])) {
         // Data yang ingin Execution

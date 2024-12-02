@@ -28,54 +28,83 @@
 
       		<?php
 				// Data sub menu pada menu 
-					$dashboard = ["dashboard"];
-					$access = ["user"];
-					$data_menu = [
-						'informasi_sekolah', 
-						'periode', 
-						'pendaftaran_siswa', 
-						'berkas_pendaftaran', 
-						'jenis_guru',
-						'guru', 
-						'siswa',
-						'kelas', 
-						'mapel', 
-						'plotting_jadwal', 
-						'kehadiran_siswa', 
-					];
+				$dashboard = ["dashboard"];
+				$access = ["user"];
+				$data_menu = [
+					'informasi_sekolah',
+					'periode',
+					'pendaftaran_siswa',
+					// 'berkas_pendaftaran',
+					'jenis_guru',
+					'guru',
+					'siswa',
+					'kelas',
+					'mapel',
+					'plotting_jadwal',
+					'kehadiran_siswa',
+					'penilaian',
+					'rapot',
+				];
 
-					$result = [
-						"laporan_pengaduan", 
-						"laporan_pemasangan", 
-						"laporan_pencatatan_penggunaan"
-					];
+				$result = [
+					"laporan_pengaduan",
+					"laporan_pemasangan",
+					"laporan_pencatatan_penggunaan"
+				];
 				// Data sub menu pada menu 
 
 				// Hak Akses pada user menggunakan sub menu
-					$level = [
-						'Kepala Sekolah' => [
-							'dashboard',
-							'berkas_pendaftaran',
-							'guru',
-							'informasi_sekolah',
-							'jenis_guru',
-							'kehadiran_siswa',
-							'kelas',
-							'mapel',
-							'pendaftaran_siswa',
-							'periode',
-							'plotting_jadwal',
-							'siswa',
-							'user'
-						],
-					];
+				$level = [
+					'Kepala Sekolah' => [
+						'dashboard',
+						'berkas_pendaftaran',
+						'guru',
+						'informasi_sekolah',
+						'jenis_guru',
+						'kehadiran_siswa',
+						'kelas',
+						'mapel',
+						'pendaftaran_siswa',
+						'periode',
+						'plotting_jadwal',
+						'siswa',
+						'user'
+					],
+					'Orang Tua' => [
+						'pendaftaran_siswa',
+						'plotting_jadwal',
+						'kehadiran_siswa',
+						'penilaian',
+						'raport',
+					],
+					'Seksi Kurrikulum' => [
+						'periode',
+						'jenis_guru',
+						'guru',
+						'siswa',
+						'kelas',
+						'mapel',
+						'plotting_jadwal',
+						'rapot'
+					],
+					'Guru' => [
+						'kehadiran_siswa',
+						'penilaian',
+						'raport',						
+					],
+					'Seksi Tata Usaha' => [
+						'user',
+						'penilaian',
+						'informasi_sekolah',
+						'pendaftaran_siswa',
+					],
+
+				];
 				// Hak Akses pada user menggunakan sub menu
 				?>
       		<!-- sidebar menu: : style can be found in sidebar.less -->
       		<ul class="sidebar-menu">
-
       			<li class="header">MAIN NAVIGATION</li>
-
       			<li class="treeview <?php if (Menu_active($dashboard) == "show") {
 											echo "active";
 										} ?>">

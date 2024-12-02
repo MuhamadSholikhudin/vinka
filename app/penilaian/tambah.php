@@ -3,20 +3,20 @@
 <?php include_once '../template/sidebar.php'; ?>
 <div class='content-wrapper'>
   <section class='content-header'>
-    <h1>Kehadiran_Siswa page</h1>
+    <h1>Penilaian page</h1>
     <ol class='breadcrumb'>
       <li><a href='#'><i class='fa fa-dashboard'></i> Edit</a></li>
-      <li class='active'>Kehadiran Siswa page</li>
+      <li class='active'>Penilaian page</li>
     </ol>
   </section>
   <section class='content'>
     <div class='row'>
-      <div class='col-xs-6'>
+      <div class='col-xs-12'>
         <div class='box box-info'>
           <div class='box-header with-border text-center'>
-            <h3 class='box-title'>Form Tambah Kehadiran Siswa</h3>
+            <h3 class='box-title'>Form Tambah Penilaian</h3>
           </div>
-          <form action='<?= $url ?>/aksi/kehadiran_siswa.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
+          <form action='<?= $url ?>/aksi/penilaian.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
             <div class='box-body'>
               <div class='form-group'>
                 <label for='inputid_plotting' class='col-sm-3 col-form-label'>Plotting Jadwal</label>
@@ -29,11 +29,6 @@
                                       LEFT JOIN periode ON plotting_jadwal.id_periode = periode.id_periode
                                       WHERE periode.status_periode = "Aktif"
                                       ';
-                  if($_SESSION['level'] == 'Guru'){
-                    $guru = QueryOnedata('SELECT * FROM guru WHERE id_user = '.$_SESSION['id_user'].'')->fetch_assoc();
-                    $query_plotting = $query_plotting.' AND mapel.id_guru = '.$guru['id_guru'].'
-                                      ';
-                  }
                   ?>
                   <select class='form-control' name='id_plotting' id='inputid_plotting'>
                     <?php
@@ -47,31 +42,29 @@
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputtgl_kehadiran' class='col-sm-3 col-form-label'>Tanggal Kehadiran</label>
+                <label for='inputjenis_penilaian' class='col-sm-3 col-form-label'>Jenis Penilaian</label>
                 <div class='col-sm-9'>
-                  <input type='date' class='form-control' id='inputtgl_kehadiran' name='tgl_kehadiran' value="<?= date("Y-m-d") ?>" required>
+                  <input type='text' class='form-control' id='inputjenis_penilaian' name='jenis_penilaian' value="" required>
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputjenis_kehadiran" class="col-sm-3 col-form-label">Jenis Kehadiran</label>
+                <label for="inputnilai" class="col-sm-3 col-form-label">Nilai</label>
                 <div class="col-sm-9">
-                  <select class="form-control" name="jenis_kehadiran" id="inputjenis_kehadiran">
-                    <?php
-                    $jenis_kehadiran = ['Masuk', 'Alfa', 'Izin'];
-                    foreach ($jenis_kehadiran    as $val) { ?>
-                      <option value="<?= $val ?>"><?= $val ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
+                  <input type='number' class='form-control' id='inputnilai' name='nilai' value="" required>                  
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputnilai_praktek" class="col-sm-3 col-form-label">Nilai Praktek</label>
+                <div class="col-sm-9">
+                  <input type='number' class='form-control' id='inputnilai_praktek' name='nilai_praktek' value="" required>                  
                 </div>
               </div>
             </div>
             <div class='box-footer'>
-              <a href='<?= $url ?>/app/kehadiran_siswa/index.php' class='btn btn-default btn-sm '>
+              <a href='<?= $url ?>/app/penilaian/index.php' class='btn btn-default btn-sm '>
                 <i class='fa fa-reply'></i> kembali
               </a>
-              <button type='submit' name='simpankehadiran_siswa' value='simpankehadiran_siswa' class='btn btn-info pull-right'>
+              <button type='submit' name='simpanpenilaian' value='simpanpenilaian' class='btn btn-info pull-right'>
                 <i class='fa fa-save'></i> SIMPAN
               </button>
             </div>

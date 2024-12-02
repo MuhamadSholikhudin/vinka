@@ -34,4 +34,17 @@ if (isset($_POST['simpanuser'])) {
     $_SESSION['message_code'] =  $process['code'];
     header('Location: ' . $url . '/app/user/index.php');
     exit();
+}elseif (isset($_POST['daftaruser'])) {
+    $data = [
+        'username' => $_POST['username'],
+        'password' => $_POST['password'],
+        'nm_pengguna' => $_POST['nm_pengguna'],
+        'level' => 'Orang Tua',
+    ];
+    // Insert satu data
+    $process = InsertOnedata('user', $data);
+    $_SESSION['message'] = 'Data User ' . $process['message'];
+    $_SESSION['message_code'] =  $process['code'];
+    header('Location: ' . $url . '/app/home/index.php#pendaftaran');
+    exit();
 }

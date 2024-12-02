@@ -56,15 +56,32 @@
                 foreach (QueryManyData('SELECT * FROM kehadiran_siswa') as $row) {
                 ?>
                   <tr>
-                    <td><?= $row['id_plotting'] ?></td>
+                    <td>
+                      <?php
+                      $query_plotting = 'SELECT plotting_jadwal.*, mapel.nm_mapel, kelas.nm_kelas, siswa.nm_siswa FROM plotting_jadwal
+                    LEFT JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel
+                    LEFT JOIN siswa ON plotting_jadwal.id_siswa = siswa.id_siswa
+                    LEFT JOIN kelas ON plotting_jadwal.id_kelas = kelas.id_kelas
+                    LEFT JOIN periode ON plotting_jadwal.id_periode = periode.id_periode
+                    WHERE plotting_jadwal.id_plotting = ' . $row['id_plotting'] . '
+                    ';
+                      $plotting = QueryOnedata($query_plotting)->fetch_assoc();
+                      ?>
+                      <?= $plotting['hari'] . " | " . $plotting['jam_awal'] . " | " . $plotting['jam_akhir'] . " | " . $plotting['nm_mapel'] . " | " . $plotting['nm_kelas'] . " | " . $plotting['nm_siswa'] ?>
+                    </td>
                     <td><?= $row['tgl_kehadiran'] ?></td>
                     <td><?= $row['jenis_kehadiran'] ?></td>
                     <td>
-                      <a href='<?= $url ?>/app/kehadiran_siswa/edit.php?id_kehadiran_siswa=<?= $row['id_kehadiran_siswa'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                      <button onclick='ConfirmDelete(<?= $row['id_kehadiran_siswa'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
-                        <i class='fas fa-trash'></i>
-                        hapus
-                      </button>
+                      <?php if ($_SESSION['level'] == 'Orang Tua') { ?>
+                        <a href='<?= $url ?>/app/kehadiran_siswa/detail.php?id_kehadiran=<?= $row['id_kehadiran'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
+                      <?php } else { ?>
+                        <a href='<?= $url ?>/app/kehadiran_siswa/edit.php?id_kehadiran=<?= $row['id_kehadiran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                        <button onclick='ConfirmDelete(<?= $row['id_kehadiran'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
+                          <i class='fas fa-trash'></i>
+                          hapus
+                        </button>
+                      <?php } ?>
+
                     </td>
                   </tr>
                 <?php

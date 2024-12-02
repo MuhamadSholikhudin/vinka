@@ -36,7 +36,6 @@ session_start(); //Memulai session
       <div class="login-box-body">
         <p class="login-box-msg">Silahkan Login</p>
         <form class="user" action="<?= $url . "/aksi/login.php" ?>" enctype="multipart/form-data" method="POST">
-
           <div class="form-group has-feedback">
             <input type="text" name="username" class="form-control" placeholder="Username">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -57,20 +56,20 @@ session_start(); //Memulai session
               <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-arrow-right"></i>Sign In</button>
             </div><!-- /.col -->
 
-            <?php
+           
+          </div>
+          <?php
             if (isset($_SESSION['unvalid_username'])) {
             ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="alert alert-warning alert-dismissible  show" role="alert">
                     <strong>Error!</strong> Username Atau Password Salah !.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
             <?php
             }
             ?>
-          </div>
 
         </form>
 

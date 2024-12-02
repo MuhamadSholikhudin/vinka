@@ -4,7 +4,7 @@ session_start();
 if (isset($_POST['simpanmapel'])) {
         $data = [
                 'id_guru' => $_POST['id_guru'],
-                'nm_mape' => $_POST['nm_mape'],
+                'nm_mapel' => $_POST['nm_mapel'],
         ];
         // Insert satu data
         $process = InsertOnedata('mapel', $data);
@@ -16,7 +16,7 @@ if (isset($_POST['simpanmapel'])) {
         // Data yang ingin Execution
         $data = [
                 'id_guru' => $_POST['id_guru'],
-                'nm_mape' => $_POST['nm_mape'],
+                'nm_mapel' => $_POST['nm_mapel'],
         ];
         // Update data berdasarkan
         $process = UpdateOneData('mapel', $data, ' WHERE id_mapel =' . $_POST['id_mapel'] . '');

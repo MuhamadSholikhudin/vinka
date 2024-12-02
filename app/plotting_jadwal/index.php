@@ -3,11 +3,11 @@
 <?php include_once '../template/sidebar.php'; ?>
 <div class='content-wrapper'>
   <section class='content-header'>
-    <h1>Plotting_Jadwal page
+    <h1>Plotting Jadwal page
     </h1>
     <ol class='breadcrumb'>
       <li><a href='#'><i class='fa fa-dashboard'></i> Index</a></li>
-      <li class='active'>Plotting_Jadwal page</li>
+      <li class='active'>Plotting Jadwal page</li>
     </ol>
   </section>
   <section class='content'>
@@ -39,59 +39,77 @@
       <div class='col-xs-12'>
         <div class='box'>
           <div class='box-header'>
-            <h3 class='box-title'>Data Plotting_Jadwal</h3>
+            <h3 class='box-title'>Data Plotting Jadwal</h3>
           </div>
           <div class='box-body'>
             <table id='example1' class='table table-bordered table-striped'>
               <thead>
                 <tr>
-                       <th>ID SISWA</th>
-                       <th>ID KELAS</th>
-                       <th>ID MAPEL</th>
-                       <th>ID PERIODE</th>
-                       <th>HARI</th>
-                       <th>JAM AWAL</th>
-                       <th>JAM AKHIR</th>
-                       <th>AKSI</th>
+                  <th>SISWA</th>
+                  <th>KELAS</th>
+                  <th>MAPEL</th>
+                  <th>PERIODE</th>
+                  <th>HARI</th>
+                  <th>JAM AWAL</th>
+                  <th>JAM AKHIR</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $query_plotting = 'SELECT * FROM plotting_jadwal ORDER BY id_plotting DESC';
+                if($_SESSION['level'] == 'Orang Tua' ){
+                  $siswa = QueryOnedata('SELECT * FROM siswa WHERE id_user = '.$_SESSION['id_user'].'')->fetch_assoc();
+                  $query_plotting = 'SELECT * FROM plotting_jadwal  WHERE id_siswa = '.$siswa['id_siswa'].' ORDER BY id_plotting DESC';
+                }
+                foreach (QueryManyData($query_plotting) as $row) {
+                ?>
+                  <tr>
+                    <td>
+                      <?php $siswa = QueryOnedata('SELECT * FROM siswa WHERE id_siswa = ' . $row['id_siswa'] . '')->fetch_assoc(); ?>
+                      <?= $siswa['nis'] . " | " . $siswa['nm_siswa'] ?>
+                    </td>
+                    <td>
+                      <?php $kelas = QueryOnedata('SELECT * FROM kelas WHERE id_kelas = ' . $row['id_kelas'] . '')->fetch_assoc(); ?>
+                      <?= $kelas['nm_kelas'] ?></td>
+                    <td>
+                      <?php $mapel = QueryOnedata('SELECT * FROM mapel JOIN guru ON mapel.id_guru = guru.id_guru WHERE mapel.id_mapel = ' . $row['id_mapel'] . '')->fetch_assoc(); ?>
+                      <?= $mapel['nm_mapel'] . " | " . $mapel['nm_guru']  ?></td>
+                    <td>
+                      <?php $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $row['id_periode'] . '')->fetch_assoc(); ?>
+                      <?= $periode['nm_periode'] ?></td>
+                    <td><?= $row['hari'] ?></td>
+                    <td><?= $row['jam_awal'] ?></td>
+                    <td><?= $row['jam_akhir'] ?></td>
+                    <td>
+                      <?php if($_SESSION['level'] == 'Orang Tua' ){ ?>
+                        <a href='<?= $url ?>/app/plotting_jadwal/detail.php?id_plotting=<?= $row['id_plotting'] ?>' class='btn bg-nfo btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
+                      <?php }else{ ?>
+                        <a href='<?= $url ?>/app/plotting_jadwal/edit.php?id_plotting=<?= $row['id_plotting'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                        <button onclick="ConfirmDelete(<?= $row['id_plotting'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
+                          <i class='fas fa-trash'></i>
+                          hapus
+                        </button>
+                      <?php } ?>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach (QueryManyData('SELECT * FROM plotting_jadwal') as $row) {
-                    ?>
-                        <tr>
-                       <td><?= $row['id_siswa'] ?></td>
-                       <td><?= $row['id_kelas'] ?></td>
-                       <td><?= $row['id_mapel'] ?></td>
-                       <td><?= $row['id_periode'] ?></td>
-                       <td><?= $row['hari'] ?></td>
-                       <td><?= $row['jam_awal'] ?></td>
-                       <td><?= $row['jam_akhir'] ?></td>
-                       <td>
-                              <a href='<?= $url ?>/app/plotting_jadwal/edit.php?id_plotting_jadwal=<?= $row['id_plotting_jadwal'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                              <button onclick='ConfirmDelete(<?= $row['id_plotting_jadwal'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
-                                <i class='fas fa-trash'></i>
-                                hapus
-                              </button>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
+                <?php
+                }
+                ?>
+              </tbody>
             </table>
+          </div>
         </div>
-    </div>
-    <script>
-        function ConfirmDelete(id) {
+        <script>
+          function ConfirmDelete(id) {
             let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
             if (confirm(text) == true) {
-                text = 'You pressed OK!';
-                window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?id_plotting_jadwal='+id+'&action=delete'
-           } 
-        }
-    </script>
-     </div>
-    </div>    
+              text = 'You pressed OK!';
+              window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?id_plotting_jadwal=' + id + '&action=delete'
+            }
+          }
+        </script>
+      </div>
+    </div>
 </div>
 <?php include_once '../template/footer.php'; ?>
