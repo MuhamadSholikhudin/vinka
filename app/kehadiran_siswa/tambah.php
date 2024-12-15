@@ -3,7 +3,7 @@
 <?php include_once '../template/sidebar.php'; ?>
 <div class='content-wrapper'>
   <section class='content-header'>
-    <h1>Kehadiran_Siswa page</h1>
+    <h1>Kehadiran Siswa page</h1>
     <ol class='breadcrumb'>
       <li><a href='#'><i class='fa fa-dashboard'></i> Edit</a></li>
       <li class='active'>Kehadiran Siswa page</li>

@@ -36,7 +36,7 @@
     } ?>
     <?php if ($_SESSION['level'] == 'Orang Tua') {
       $chek_pendaftaran = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_user = ' . $_SESSION['id_user'] . '');
-      if ($chek_pendaftaran->num_rows < 1) {
+      if ($chek_pendaftaran->num_rows <= 1) {
     ?>
         <a class='btn btn-social-icon btn-info' data-toggle='tooltip' data-placement='top' title='Tambah data pendaftaran_siswa' href='<?= $url ?>/app/pendaftaran_siswa/tambah.php'><i class='fa fa-plus'></i></a>
       <?php }
@@ -97,7 +97,7 @@
                     </td>
                     <td>
                       <a href='<?= $url ?>/app/pendaftaran_siswa/detail.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
-                      <?php if ($_SESSION['level'] == 'Orang Tua') {
+                      <?php /* if ($_SESSION['level'] == 'Orang Tua') {
                         if ($row['status_pendaftaran'] == 'kembali' || $row['status_pendaftaran'] == '' || $row['status_pendaftaran'] == NULL) {
                           ?>
                           <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=ajukan' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-right'></i> ajukan</a>
@@ -117,8 +117,13 @@
 
                       <?php
                         }
-                      } ?>
-
+                        
+                      } */ ?>
+                      <a href='<?= $url ?>/app/pendaftaran_siswa/edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                          <button onclick="ConfirmDelete(<?= $row['id_pendaftaran'] ?>, '<?= $row['foto_siswa'] ?>')" class='btn bg-maroon btn-flat btn-sm'>
+                            <i class='fas fa-trash'></i>
+                            hapus
+                          </button>
                     </td>
                   </tr>
                 <?php

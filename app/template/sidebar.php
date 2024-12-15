@@ -4,6 +4,11 @@
       	<section class="sidebar">
       		<!-- Sidebar user panel -->
       		<div class="user-panel">
+      				<img src="<?= $url ?>/assets/dist/img/logo-alhidayah.jpeg" class="img" width="100%" alt="User Image">
+			</div>
+				<?php /* ?>
+
+      		<div class="user-panel">
       			<div class="pull-left image">
       				<img src="<?= $url ?>/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       			</div>
@@ -12,7 +17,6 @@
       				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       			</div>
       		</div>
-      		<?php /* ?>
 
 			<!-- search form -->
 			<form action="#" method="get" class="sidebar-form">
@@ -34,7 +38,7 @@
 					'informasi_sekolah',
 					'periode',
 					'pendaftaran_siswa',
-					// 'berkas_pendaftaran',
+					'validasi_siswa_baru',
 					'jenis_guru',
 					'guru',
 					'siswa',
@@ -71,13 +75,16 @@
 						'user'
 					],
 					'Orang Tua' => [
+						'dashboard',
 						'pendaftaran_siswa',
+						'validasi_siswa_baru',	
 						'plotting_jadwal',
 						'kehadiran_siswa',
 						'penilaian',
 						'raport',
 					],
 					'Seksi Kurrikulum' => [
+						'dashboard',
 						'periode',
 						'jenis_guru',
 						'guru',
@@ -87,69 +94,63 @@
 						'plotting_jadwal',
 						'rapot'
 					],
-					'Guru' => [
+					'Guru Kelas' => [
+						'dashboard',
 						'kehadiran_siswa',
 						'penilaian',
-						'raport',						
-					],
+						'raport',
+					],					
 					'Seksi Tata Usaha' => [
+						'dashboard',
 						'user',
-						'penilaian',
 						'informasi_sekolah',
 						'pendaftaran_siswa',
+						'validasi_siswa_baru',
 					],
-
 				];
 				// Hak Akses pada user menggunakan sub menu
 				?>
       		<!-- sidebar menu: : style can be found in sidebar.less -->
       		<ul class="sidebar-menu">
       			<li class="header">MAIN NAVIGATION</li>
-      			<li class="treeview <?php if (Menu_active($dashboard) == "show") {
-											echo "active";
-										} ?>">
+      			
+				<li class="treeview <?php if (Menu_active($dashboard) == "show") { echo "active";} ?>">
       				<a href="#">
       					<i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
       				</a>
-      				<ul class="treeview-menu <?php if (Menu_active($dashboard) == "show") {
-													echo "menu-open style='display:block;'";
-												} ?>">
+      				<ul class="treeview-menu <?php if (Menu_active($dashboard) == "show") { echo "menu-open style='display:block;'"; } ?>">
       					<?php for ($sub = 0; $sub < count($dashboard); $sub++) {
 								$check_role = array_search($dashboard[$sub], $level[$_SESSION['level']]);
 								if ($check_role !== false) {            ?>
       							<li class="<?= Sub_menu_active($dashboard[$sub]) ?>"><a href="<?= $url ?>/app/<?= $dashboard[$sub] ?>/index.php" class="text-white"> <i class='fa fa-circle <?php if (Sub_menu_active($dashboard[$sub])  == "active") { ?>  text-aqua <?php } ?>'></i> <?= ucfirst(str_replace("_", " ", $dashboard[$sub])); ?></a></li>
       					<?php  }
-							}   ?>
+							}   
+						?>
       				</ul>
       			</li>
 
-      			<li class="treeview <?php if (Menu_active($access) == "show") {
-											echo "active";
-										} ?>">
+				<?php if($_SESSION['level'] == "Kepala Sekolah" || $_SESSION['level'] == 'Seksi Tata Usaha'){ ?>
+      			<li class="treeview <?php if (Menu_active($access) == "show") { echo "active"; } ?>">
       				<a href="#">
       					<i class="fa fa-user-md"></i> <span>Akses</span> <i class="fa fa-angle-left pull-right"></i>
       				</a>
-      				<ul class="treeview-menu <?php if (Menu_active($access) == "show") {
-													echo "menu-open style='display:block;'";
-												} ?>">
+      				<ul class="treeview-menu <?php if (Menu_active($access) == "show") { echo "menu-open style='display:block;'"; } ?>">
       					<?php for ($sub = 0; $sub < count($access); $sub++) {
 								$check_role = array_search($access[$sub], $level[$_SESSION['level']]);
 								if ($check_role !== false) {            ?>
       							<li class="<?= Sub_menu_active($access[$sub]) ?>"><a href="<?= $url ?>/app/<?= $access[$sub] ?>/index.php" class="text-white"> <i class='fa fa-circle <?php if (Sub_menu_active($access[$sub])  == "active") { ?>  text-aqua <?php } ?>'></i> <?= ucfirst(str_replace("_", " ", $access[$sub])); ?></a></li>
       					<?php  }
-							}   ?>
+							}   
+						?>
       				</ul>
       			</li>
+				<?php } ?>
 
-      			<li class="treeview <?php if (Menu_active($data_menu) == "show") {
-											echo "active";
-										} ?>">
+      			<li class="treeview <?php if (Menu_active($data_menu) == "show") { echo "active"; } ?>">
       				<a href="#">
       					<i class="fa fa-folder-open-o"></i> <span>Menu</span> <i class="fa fa-angle-left pull-right"></i>
       				</a>
-      				<ul class="treeview-menu <?php if (Menu_active($data_menu) == "show") {
-													echo "menu-open style='display:block;'";
-												} ?>">
+      				<ul class="treeview-menu <?php if (Menu_active($data_menu) == "show") { echo "menu-open style='display:block;'"; } ?>">
       					<?php for ($sub = 0; $sub < count($data_menu); $sub++) {
 								$check_role = array_search($data_menu[$sub], $level[$_SESSION['level']]);
 								if ($check_role !== false) {            ?>
@@ -159,19 +160,17 @@
       								</a>
       							</li>
       					<?php  }
-							}   ?>
+							}   
+						?>
       				</ul>
       			</li>
-
-      			<li class="treeview <?php if (Menu_active($result) == "show") {
-											echo "active";
-										} ?>">
+				
+				<?php if($_SESSION['level'] == "Kepala Sekolah"){ ?>
+      			<li class="treeview <?php if (Menu_active($result) == "show") { echo "active"; } ?>">
       				<a href="#">
       					<i class="fa fa-files-o"></i> <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i>
       				</a>
-      				<ul class="treeview-menu <?php if (Menu_active($result) == "show") {
-													echo "menu-open style='display:block;'";
-												} ?>">
+      				<ul class="treeview-menu <?php if (Menu_active($result) == "show") { echo "menu-open style='display:block;'"; } ?>">
       					<?php for ($sub = 0; $sub < count($result); $sub++) {
 								$check_role = array_search($result[$sub], $level[$_SESSION['level']]);
 								if ($check_role !== false) {            ?>
@@ -181,9 +180,12 @@
       								</a>
       							</li>
       					<?php  }
-							}   ?>
+							}   
+						?>
       				</ul>
       			</li>
+				<?php } ?>
+
       			<?php /* ?>
 				<li class="header">LABELS</li>
 				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>

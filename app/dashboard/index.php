@@ -13,6 +13,5 @@
   <section class='content'>
 
   </section>
-
 </div>
 <?php include_once '../template/footer.php'; ?>

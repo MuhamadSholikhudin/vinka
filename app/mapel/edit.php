@@ -28,7 +28,7 @@ $mapel = QueryOnedata('SELECT * FROM mapel WHERE id_mapel = ' . $_GET['id_mapel'
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputid_guru' class='col-sm-2 col-form-label'>Id Guru</label>
+                <label for='inputid_guru' class='col-sm-2 col-form-label'>ID Guru</label>
                 <div class='col-sm-10'>
                   <select class='form-control' name='id_guru' id='inputid_guru'>
                     <?php
@@ -46,9 +46,9 @@ $mapel = QueryOnedata('SELECT * FROM mapel WHERE id_mapel = ' . $_GET['id_mapel'
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputnm_mape' class='col-sm-2 col-form-label'>Nm Mape</label>
+                <label for='inputnm_mape' class='col-sm-2 col-form-label'>Nama Mapel</label>
                 <div class='col-sm-10'>
-                  <input type='text' class='form-control' id='inputnm_mape' name='nm_mapel' value='<?= $mapel['nm_mapel']; ?>' required>
+                  <input type='text' class='form-control' id='inputnm_mapel' name='nm_mapel' value='<?= $mapel['nm_mapel']; ?>' required>
                 </div>
               </div>
             </div>

@@ -110,7 +110,7 @@ session_start(); //Memulai session
                                 <div>
                                     <h3><?= $row['judul_informasi'] ?></h3>
                                     <p><?= $row['ket_informasi'] ?>.</p>
-                                    <a href="<?= $url ?>/app/informasi/deatil.php?id_informasi=<?= $row['id_informasi'] ?>" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+                                    <a href="<?= $url ?>/app/informasi/detail.php?id_informasi=<?= $row['id_informasi'] ?>" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div><!-- End Service Card -->

@@ -53,7 +53,7 @@ session_start(); //Memulai session
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      <a class="btn-getstarted" href="<?= $url . "/aksi/login.php" ?>">LOGIN</a>
+      <a class="btn-getstarted" href="<?= $url . "/app/auth/login.php" ?>">LOGIN</a>
     </div>
   </header>
 

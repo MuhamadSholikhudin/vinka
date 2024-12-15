@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2024 at 11:12 PM
+-- Generation Time: Dec 15, 2024 at 10:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `skripsi-vinka`
+-- Database: `vinka`
 --
 
 -- --------------------------------------------------------
@@ -33,6 +33,13 @@ CREATE TABLE `berkas_pendaftaran` (
   `nm_berkas` text DEFAULT NULL,
   `file_berkas` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `berkas_pendaftaran`
+--
+
+INSERT INTO `berkas_pendaftaran` (`id_berkas`, `id_pendaftaran`, `nm_berkas`, `file_berkas`) VALUES
+(1, 2, 'berkas pendaftaran', 0x323032344e6f765361743034343534304c61796f7574204b616d61722e64726177696f2e706466);
 
 -- --------------------------------------------------------
 
@@ -50,6 +57,13 @@ CREATE TABLE `guru` (
   `alamat_guru` text DEFAULT NULL,
   `foto_guru` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`id_guru`, `nip`, `id_user`, `nm_guru`, `no_guru`, `jk_guru`, `alamat_guru`, `foto_guru`) VALUES
+(1, '10001', 5, 'AGUS', '089790797070', 'Laki-Laki', '-', 0x323032344e6f765361743131303733393663373537642e6a7067);
 
 -- --------------------------------------------------------
 
@@ -70,7 +84,7 @@ CREATE TABLE `informasi_sekolah` (
 --
 
 INSERT INTO `informasi_sekolah` (`id_informasi`, `judul_informasi`, `ket_informasi`, `gambar_informasi`, `tgl_post_informasi`) VALUES
-(2, 'PENDAFTARAN SISWA', 'PENDAFTARAN SISWA', 0x323032344e6f7653756e303232333536757365636173652e706e67, '2024-11-17');
+(2, 'PENDAFTARAN SISWA', 'PENDAFTARAN SISWA', 0x323032344e6f765361743130353631393663373537642e6a7067, '2024-11-17');
 
 -- --------------------------------------------------------
 
@@ -82,6 +96,13 @@ CREATE TABLE `jenis_guru` (
   `id_jenis_guru` int(11) NOT NULL,
   `nm_jenis_guru` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jenis_guru`
+--
+
+INSERT INTO `jenis_guru` (`id_jenis_guru`, `nm_jenis_guru`) VALUES
+(1, 'HONORER');
 
 -- --------------------------------------------------------
 
@@ -96,6 +117,13 @@ CREATE TABLE `kehadiran_siswa` (
   `jenis_kehadiran` enum('Masuk','Alfa','Izin') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `kehadiran_siswa`
+--
+
+INSERT INTO `kehadiran_siswa` (`id_kehadiran`, `id_plotting`, `tgl_kehadiran`, `jenis_kehadiran`) VALUES
+(1, 1, '2024-12-01', 'Masuk');
+
 -- --------------------------------------------------------
 
 --
@@ -109,6 +137,13 @@ CREATE TABLE `kelas` (
   `tingkatan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`id_kelas`, `id_guru`, `nm_kelas`, `tingkatan`) VALUES
+(1, 1, '1', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -118,8 +153,16 @@ CREATE TABLE `kelas` (
 CREATE TABLE `mapel` (
   `id_mapel` int(11) NOT NULL,
   `id_guru` int(11) DEFAULT NULL,
-  `nm_mape` varchar(50) DEFAULT NULL
+  `nm_mapel` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mapel`
+--
+
+INSERT INTO `mapel` (`id_mapel`, `id_guru`, `nm_mapel`) VALUES
+(1, 1, 'BAHASA INDONESIA'),
+(2, 1, 'MATEMATIKA');
 
 -- --------------------------------------------------------
 
@@ -136,15 +179,38 @@ CREATE TABLE `pendaftaran_siswa` (
   `jk_siswa` enum('Laki-Laki','Perempuan') DEFAULT NULL,
   `alamat_siswa` text DEFAULT NULL,
   `nm_orang_tua` varchar(50) DEFAULT NULL,
-  `foto_siswa` blob DEFAULT NULL
+  `foto_siswa` blob DEFAULT NULL,
+  `status_pendaftaran` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pendaftaran_siswa`
 --
 
-INSERT INTO `pendaftaran_siswa` (`id_pendaftaran`, `id_periode`, `id_user`, `tgl_daftar`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`) VALUES
-(1, 1, 1, '2024-11-17', 'Saifudin', 'Laki-Laki', 'Gondang Manis', 'Saiful', 0x323032344e6f7653756e30333434353750542e2050757261204261727574616d61202d20303030312e6a7067);
+INSERT INTO `pendaftaran_siswa` (`id_pendaftaran`, `id_periode`, `id_user`, `tgl_daftar`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`, `status_pendaftaran`) VALUES
+(1, 1, 1, '2024-11-17', 'Saifudin', 'Laki-Laki', 'Gondang Manis', 'Saiful', 0x323032344e6f7653756e30333434353750542e2050757261204261727574616d61202d20303030312e6a7067, NULL),
+(2, 1, 4, '2024-11-30', 'John', 'Laki-Laki', '-', 'Andro', 0x323032344e6f765361743032323630353663373537642e6a7067, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penilaian`
+--
+
+CREATE TABLE `penilaian` (
+  `id_penilaian` int(11) NOT NULL,
+  `id_plotting` int(11) DEFAULT NULL,
+  `jenis_penilaian` varchar(100) DEFAULT NULL,
+  `nilai` int(11) DEFAULT NULL,
+  `nilai_praktek` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `penilaian`
+--
+
+INSERT INTO `penilaian` (`id_penilaian`, `id_plotting`, `jenis_penilaian`, `nilai`, `nilai_praktek`) VALUES
+(1, 1, 'UAS', 80, 80);
 
 -- --------------------------------------------------------
 
@@ -182,6 +248,13 @@ CREATE TABLE `plotting_jadwal` (
   `jam_akhir` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `plotting_jadwal`
+--
+
+INSERT INTO `plotting_jadwal` (`id_plotting`, `id_siswa`, `id_kelas`, `id_mapel`, `id_periode`, `hari`, `jam_awal`, `jam_akhir`) VALUES
+(1, 1, 1, 1, 1, 'Senin', '07:00:00', '08:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -198,6 +271,13 @@ CREATE TABLE `siswa` (
   `nm_orang_tua` varchar(50) DEFAULT NULL,
   `foto_siswa` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`id_siswa`, `nis`, `id_user`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`) VALUES
+(1, '0001', 4, 'ANDRI', 'Laki-Laki', '-', 'Andro', 0x32303234313133303131343532303663373537642e6a7067);
 
 -- --------------------------------------------------------
 
@@ -219,7 +299,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nm_pengguna`, `level`) VALUES
 (1, 'vinka', 'vinka', 'vinka', 'Kepala Sekolah'),
-(2, 'bagas', 'bagas', 'bagas', 'Seksi Tata Usaha');
+(2, 'bagas', 'bagas', 'bagas', 'Seksi Kurrikulum'),
+(4, 'andro', 'andro', 'andro', 'Orang Tua'),
+(5, 'agus', 'agus', 'AGUS', 'Guru'),
+(6, 'umar', 'umar', 'Umar', 'Seksi Tata Usaha');
 
 --
 -- Indexes for dumped tables
@@ -274,6 +357,12 @@ ALTER TABLE `pendaftaran_siswa`
   ADD PRIMARY KEY (`id_pendaftaran`);
 
 --
+-- Indexes for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  ADD PRIMARY KEY (`id_penilaian`);
+
+--
 -- Indexes for table `periode`
 --
 ALTER TABLE `periode`
@@ -305,13 +394,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `berkas_pendaftaran`
 --
 ALTER TABLE `berkas_pendaftaran`
-  MODIFY `id_berkas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_berkas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `informasi_sekolah`
@@ -323,31 +412,37 @@ ALTER TABLE `informasi_sekolah`
 -- AUTO_INCREMENT for table `jenis_guru`
 --
 ALTER TABLE `jenis_guru`
-  MODIFY `id_jenis_guru` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jenis_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kehadiran_siswa`
 --
 ALTER TABLE `kehadiran_siswa`
-  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_siswa`
 --
 ALTER TABLE `pendaftaran_siswa`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `periode`
@@ -359,19 +454,19 @@ ALTER TABLE `periode`
 -- AUTO_INCREMENT for table `plotting_jadwal`
 --
 ALTER TABLE `plotting_jadwal`
-  MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

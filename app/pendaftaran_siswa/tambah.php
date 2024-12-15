@@ -14,7 +14,7 @@
       <div class='col-xs-12'>
       <div class='box box-info'>
         <div class='box-header with-border text-center'>
-          <h3 class='box-title'>Form Tambah Pendaftaran Siswa</h3>
+          <h3 class='box-title'>Form Pendaftaran Siswa Baru </br> Tahun Pelajaran <?= date('Y') ?> / <?= (date('Y')+1) ?></h3>
         </div>
         <form action='<?= $url ?>/aksi/pendaftaran_siswa.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
           <div class='box-body'>

@@ -37,7 +37,7 @@
               <div class='form-group'>
                 <label for='inputnm_mapel' class='col-sm-2 col-form-label'>Nama Mapel</label>
                 <div class='col-sm-10'>
-                  <input type='text' class='form-control' id='inputnm_mape' name='nm_mapel' required>
+                  <input type='text' class='form-control' id='inputnm_mapel' name='nm_mapel' required>
                 </div>
               </div>
             </div>
