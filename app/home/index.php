@@ -4,7 +4,6 @@ session_start(); //Memulai session
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -33,16 +32,13 @@ session_start(); //Memulai session
 </head>
 
 <body class="index-page">
-
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
       <a href="<?= $url ?>/" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="<?= $url ?>/assets/ilanding/img/logo.png" alt=""> -->
+        <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.jpeg" alt="">
         <h1 class="sitename">MI AL HIDAYAH PATI</h1>
       </a>
-
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#home" class="active">Home</a></li>
@@ -58,7 +54,6 @@ session_start(); //Memulai session
   </header>
 
   <main class="main">
-
     <!-- Hero Section -->
     <section id="home" class="hero section">
 
@@ -291,8 +286,8 @@ session_start(); //Memulai session
 
           <div class="col-lg-7">
             <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
-              <h3 class="text-center">Form Pendaftaran</h3>
-              <p class="text-center">Silahkan isi From pendaftaran ini sesuai dengan data pribadi dengan benar.</p>
+              <h3 class="text-center">Form Pendaftaran Akun Orang Tua</h3>
+              <p class="text-center">Silahkan daftar akun terlebih dahulu isi sesuai dengan data pribadi dengan benar.</p>
               <form action="<?= $url . "/aksi/registrasi.php" ?>" method="POST" enctype="multipart/form-data" class="php-email-form">
                 <?php if (isset($_SESSION['message'])) {
                   if ($_SESSION['message_code'] == 200) {
@@ -325,7 +320,7 @@ session_start(); //Memulai session
                                                                                   if ($_SESSION['message_code'] != 200) {
                                                                                     echo 'value="' . $_SESSION['data'][1] . '"';
                                                                                   }
-                                                                                } ?> placeholder="Nama pengguna" required>
+                                                                                } ?> placeholder="Nama pengguna Wali Murid" required>
                   </div>
                   <div class="col-md-6 ">
                     <input type="password" class="form-control" name="password1" placeholder="Password" required>

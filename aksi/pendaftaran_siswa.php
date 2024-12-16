@@ -84,6 +84,29 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
         $_SESSION['message_code'] =  $process['code'];
         header('Location: ' . $url . '/app/pendaftaran_siswa/index.php');
         exit();
+} elseif ($_GET['action'] == 'belum lengkap') {
+        // Data yang ingin Execution
+        $data = [
+                'status_pendaftaran' => $_GET['action'],
+        ];
+        // Update data berdasarkan
+        $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
+        $_SESSION['message'] = 'Data Pendaftaran Siswa belum lengkap. Isi data sesuai dengan data diri yang benar';
+        $_SESSION['message_code'] =  $process['code'];
+        header('Location: ' . $url . '/app/pendaftaran_siswa/index.php');
+        exit();
+
+} elseif ($_GET['action'] == 'kirim') {
+        // Data yang ingin Execution
+        $data = [
+                'status_pendaftaran' => $_GET['action'],
+        ];
+        // Update data berdasarkan
+        $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
+        $_SESSION['message'] = 'Data Pendaftaran Siswa dikirim Menunggu Validasi dari Tata Usaha Sekolah';
+        $_SESSION['message_code'] =  $process['code'];
+        header('Location: ' . $url . '/app/pendaftaran_siswa/index.php');
+        exit();
 } elseif ($_GET['action'] == 'delete') {
         unlink($lokasi_foto . "/foto_siswa/" .  $_GET['foto_siswa']);
         $process = DeleteOneData('pendaftaran_siswa', 'WHERE id_pendaftaran = ' . $_GET['id_pendaftaran'] . '');

@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class='form-group'>
-                    <label for='inputid_user' class='col-sm-2 col-form-label'>ID User</label>
+                    <label for='inputid_user' class='col-sm-2 col-form-label'>ID user / Orang Tua / Wali Murid</label>
                     <div class='col-sm-10'>
                         <?php ?>
                         <select class='form-control' name='id_user' id='inputid_user'>
@@ -42,7 +42,6 @@
                                 $user_query = 'SELECT * FROM user';
                             if($_SESSION['level'] == 'Orang Tua'){
                                 $user_query = 'SELECT * FROM user WHERE id_user = '.$_SESSION['id_user'].'';
-
                             }
                             $user = QueryManyData($user_query); 
                             foreach($user as  $row) {
@@ -88,7 +87,7 @@
              <div class='form-group'>
                     <label for='inputnm_orang_tua' class='col-sm-2 col-form-label'>Nama Orang Tua</label>
                     <div class='col-sm-10'>
-                        <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' required>
+                        <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' value='<?php if($_SESSION['level'] == 'Orang Tua'){ echo $_SESSION['username']; }?>' required>
                     </div>
                 </div>
              <div class='form-group'>

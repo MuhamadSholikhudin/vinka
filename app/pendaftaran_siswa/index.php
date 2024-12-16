@@ -61,6 +61,7 @@
                   <th>ALAMAT SISWA</th>
                   <th>NAMA ORANG TUA</th>
                   <th>FOTO SISWA</th>
+                  <th>STATUS</th>
                   <th>BERKAS</th>
                   <th>AKSI</th>
                 </tr>
@@ -70,6 +71,9 @@
                 $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa';
                 if ($_SESSION['level'] == 'Orang Tua') {
                   $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa WHERE id_user = ' . $_SESSION['id_user'] . ' ';
+                } else if($_SESSION['level'] == 'Seksi Tata Usaha') {
+                  $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa WHERE status_pendaftaran = "kirim" OR status_pendaftaran = "data di terima" ';
+
                 }
                 foreach (QueryManyData($pendaftaran_siswa) as $row) {
                   $periode = QueryOnedata("SELECT * FROM periode WHERE id_periode = " . $row['id_periode'] . "")->fetch_assoc();
@@ -85,45 +89,55 @@
                     <td><?= $row['nm_orang_tua'] ?></td>
                     <td> <img src="<?= $url . '/foto/siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;"> </td>
                     <td>
+                      <?= $row['status_pendaftaran'] ?>
+                    </td>
+                    <td>
                       <?php
                       $check_berkas = QueryOnedata('SELECT * FROM berkas_pendaftaran WHERE id_pendaftaran = ' . $row['id_pendaftaran'] . '');
                       if ($check_berkas->num_rows > 0) { // Jika Sudah Upload Berkas 
                       ?>
-                        <a href='<?= $url ?>/app/pendaftaran_siswa/upload_berkas_edit.php?id_berkas=<?= $check_berkas->fetch_assoc()['id_berkas'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                        <a href='<?= $url ?>/app/pendaftaran_siswa/upload_berkas_edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
                       <?php } else {  //Jika belum upload berkas 
                       ?>
                         <a href='<?= $url ?>/app/pendaftaran_siswa/upload_berkas.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-plus'></i> upload</a>
                       <?php } ?>
                     </td>
                     <td>
-                      <a href='<?= $url ?>/app/pendaftaran_siswa/detail.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
-                      <?php /* if ($_SESSION['level'] == 'Orang Tua') {
-                        if ($row['status_pendaftaran'] == 'kembali' || $row['status_pendaftaran'] == '' || $row['status_pendaftaran'] == NULL) {
+                      <?php 
+                        if ($_SESSION['level'] == 'Orang Tua') {
+                            if ($row['status_pendaftaran'] == 'belum lengkap' || $row['status_pendaftaran'] == '' || $row['status_pendaftaran'] == NULL) {
+                              ?>
+                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=kirim' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-right'></i> Kirim</a>
+                              <a href='<?= $url ?>/app/pendaftaran_siswa/edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                              <button onclick="ConfirmDelete(<?= $row['id_pendaftaran'] ?>, '<?= $row['foto_siswa'] ?>')" class='btn bg-maroon btn-flat btn-sm'>
+                                <i class='fas fa-trash'></i>
+                                hapus
+                              </button>
+                          <?php
+                            } else if ($row['status_pendaftaran'] == 'kirim') {
                           ?>
-                          <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=ajukan' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-right'></i> ajukan</a>
-                          <a href='<?= $url ?>/app/pendaftaran_siswa/edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                          <button onclick="ConfirmDelete(<?= $row['id_pendaftaran'] ?>, '<?= $row['foto_siswa'] ?>')" class='btn bg-maroon btn-flat btn-sm'>
-                            <i class='fas fa-trash'></i>
-                            hapus
-                          </button>
-                      <?php
-                        } else if ($row['status_pendaftaran'] == 'ajukan') {
-                      ?>
-                          <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=tarik' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> edit</a>
-                      <?php
-                        } else if ($row['status_pendaftaran'] == 'tervalidasi') {
+                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=belum lengkap' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> Tarik dan lengkapi data</a>
+                          <?php
+                            } else if ($row['status_pendaftaran'] == 'data diterima') {
+                              ?>
+                              <a href='£' class='btn bg-success btn-flat btn-sm'><i class='fa fa-check'></i> VALID</a>
+                          <?php
+                            }                        
+                        } else if ($_SESSION['level'] == 'Seksi Tata Usaha'){
                           ?>
-                          <a href='£' class='btn bg-success btn-flat btn-sm'><i class='fa fa-check'></i> VALID</a>
-
-                      <?php
+                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=data di terima' class='btn bg-primary btn-flat btn-sm'><i class='fa fa-check'></i> Terima Data Pendaftaran</a>
+                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=belum lengkap' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> Lengkapi data</a>
+                          <?php
                         }
-                        
-                      } */ ?>
+                      ?>
+
+                      <!-- <a href='<?= $url ?>/app/pendaftaran_siswa/detail.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
+    
                       <a href='<?= $url ?>/app/pendaftaran_siswa/edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
                           <button onclick="ConfirmDelete(<?= $row['id_pendaftaran'] ?>, '<?= $row['foto_siswa'] ?>')" class='btn bg-maroon btn-flat btn-sm'>
                             <i class='fas fa-trash'></i>
                             hapus
-                          </button>
+                          </button> -->
                     </td>
                   </tr>
                 <?php

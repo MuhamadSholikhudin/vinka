@@ -24,16 +24,29 @@
                   <input type="text" name="id_pendaftaran" class="form-control" value="<?= $_GET['id_pendaftaran'] ?>" required>
                 </div>
               </div>
-              <div class='form-group'>
-                <label for='inputnm_berkas' class='col-sm-2 col-form-label'>Nama Berkas</label>
-                <div class='col-sm-10'>
-                  <textarea class='form-control' id='inputnm_berkas' name='nm_berkas' required></textarea>
+              <div class='form-group' style="display: none;">
+                <label for='inputnm_berkas' class='col-sm-4 col-form-label'>Nama Berkas</label>
+                <div class='col-sm-8'>
+                  <input type='text' class='form-control' id='inputnm_berkas' name='nm_berkas[]' value="Akte Kelahiran" required>
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputfile_berkas' class='col-sm-2 col-form-label'>File Berkas</label>
+                <label for='inputfile_berkas' class='col-sm-4 col-form-label'>File Berkas Akte Kelahiran (.pdf)</label>
+                <div class='col-sm-8'>
+                  <input type='file' class='form-control' id='inputfile_berkas' name='file_berkas[]' accept=".pdf" required>
+                </div>
+              </div>
+              <hr>
+              <div class='form-group' style="display: none;">
+                <label for='inputnm_berkas' class='col-sm-2 col-form-label'>Nama Berkas</label>
                 <div class='col-sm-10'>
-                  <input type='file' class='form-control' id='inputfile_berkas' name='file_berkas' accept=".pdf" required>
+                  <input type='text' class='form-control' id='inputnm_berkas' name='nm_berkas[]' value="Kartu Keluarga" required>
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputfile_berkas' class='col-sm-4 col-form-label'>File Berkas Kartu Keluarga (.pdf)</label>
+                <div class='col-sm-8'>
+                  <input type='file' class='form-control' id='inputfile_berkas' name='file_berkas[]' accept=".pdf" required>
                 </div>
               </div>
             </div>

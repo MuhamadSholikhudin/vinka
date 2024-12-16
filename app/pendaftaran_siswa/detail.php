@@ -46,7 +46,7 @@ $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pend
                     </div>
                 </div>
                 <div class='form-group'>
-                    <label for='inputid_user' class='col-sm-2 col-form-label'>User</label>
+                    <label for='inputid_user' class='col-sm-2 col-form-label'>User / Orang Tua / Wali Murid</label>
                     <div class='col-sm-10'>                         
                         <select class='form-control' name='id_user' id='inputid_user'>
                        <?php
@@ -115,25 +115,20 @@ $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pend
                     <img src="<?= $url.'/foto/siswa/'.$pendaftaran_siswa['foto_siswa']; ?>" alt="" srcset="" style="width: 100px; height:100px;">
                   </div>
                 </div>
-                <?php
-                $check_berkas = QueryOnedata('SELECT * FROM berkas_pendaftaran WHERE id_pendaftaran = '.$pendaftaran_siswa['id_pendaftaran'].'');
-                if($check_berkas->num_rows > 0){ // Jika Sudah Upload Berkas 
-                  $berkas_pendaftaran = $check_berkas->fetch_assoc(); 
-                ?>                         
-              <div class='form-group'>
-                    <label for='inputnm_berkas' class='col-sm-2 col-form-label'>Nama Berkas</label>
+              <?php 
+              $query_berkas = "SELECT * FROM berkas_pendaftaran where id_pendaftaran = '". $pendaftaran_siswa['id_pendaftaran'] ."' "; 
+              foreach(QueryManyData($query_berkas)as $row){
+              ?>
+              <div class='form-group' >
+                    <label for='inputfile_berkas' class='col-sm-2 col-form-label'>File <?= $row['nm_berkas']; ?></label>
                     <div class='col-sm-10'>
-                        <textarea  class='form-control' id='inputnm_berkas' name='nm_berkas' required><?= $berkas_pendaftaran['nm_berkas'] ?></textarea>
-                    </div>
-                </div>
-                <div class='form-group' >
-                    <label for='inputfile_berkas' class='col-sm-2 col-form-label'>File Berkas</label>
-                    <div class='col-sm-10'>
-                        <iframe src="<?= $url.'/foto/berkas_pendaftaran/'.$berkas_pendaftaran['file_berkas']; ?>" frameborder="0" style="width:100%; height:600px;"></iframe>
+                        <iframe src="<?= $url.'/foto/berkas_pendaftaran/'.$row['file_berkas']; ?>" frameborder="0" style="width:100%; height:600px;"></iframe>
                     </div>
                 </div> 
-                <?php }
-                ?>
+              <hr>
+              <?php 
+              }
+              ?>
            </div>
           <div class='box-footer'>
             <a href='<?= $url ?>/app/pendaftaran_siswa/index.php' class='btn btn-default btn-sm '>
