@@ -41,7 +41,7 @@
                 <div class="col-sm-10">
                   <select class="form-control" name="level" id="inputlevel">
                     <?php
-                    $level = ['Kepala Sekolah', 'Seksi Tata Usaha', 'Seksi Kurrikulum', 'Guru', 'Orang Tua'];
+                    $level = ['Kepala Sekolah', 'Seksi Tata Usaha', 'Seksi Kurikulum', 'Guru', 'Orang Tua'];
                     foreach ($level    as $val) { ?>
                       <option value="<?= $val ?>"><?= $val ?></option>
                     <?php

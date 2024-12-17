@@ -106,6 +106,15 @@ $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pend
                 </div>
               </div>
               <div class='form-group'>
+                <label for='inputno_hp_orang_tua' class='col-sm-2 col-form-label'>No HP Orang Tua</label>
+                <div class='col-sm-10'>
+                  <div class="input-group">
+                    <span class="input-group-addon">+62</span>
+                    <input type="text" class='form-control' id='inputno_hp_orang_tua' name='no_hp_orang_tua' placeholder="897558xxxx" value='<?= $pendaftaran_siswa['no_hp_orang_tua']; ?>' required>
+                  </div>
+                </div>
+              </div>
+              <div class='form-group'>
                 <label for='inputfoto_siswa' class='col-sm-2 col-form-label'>Foto Siswa</label>
                 <div class='col-sm-10'>
                   <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa' value='<?= $pendaftaran_siswa['foto_siswa']; ?>' required>

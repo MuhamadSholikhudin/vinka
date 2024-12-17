@@ -25,11 +25,12 @@
               </div>
             </div>
             <div class='form-group'>
-              <label for='inputid_user' class='col-sm-2 col-form-label'>ID User</label>
+              <label for='inputid_user' class='col-sm-2 col-form-label'>ID User (Orang Tua / Wali Murid)</label>
               <div class='col-sm-10'>
                 <select class='form-control' name='id_user' id='inputid_user' required>
+                        <option >PILIH</option>
                     <?php
-                    $query_user = 'SELECT user.* FROM user LEFT JOIN siswa ON user.id_user = siswa.id_user WHERE user.level = "Orang Tua" AND siswa.id_user IS NULL';
+                    $query_user = 'SELECT user.* FROM user  WHERE user.level = "Orang Tua" ';
                     $user = QueryManyData($query_user);
                     foreach ($user as  $row) {
                     ?>
@@ -67,7 +68,7 @@
               </div>
             </div>
             <div class='form-group'>
-              <label for='inputnm_orang_tua' class='col-sm-2 col-form-label'>Nm Orang Tua</label>
+              <label for='inputnm_orang_tua' class='col-sm-2 col-form-label'>Nama Orang Tua</label>
               <div class='col-sm-10'>
                 <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' required>
               </div>
@@ -92,4 +93,33 @@
     </div>
   </div>    
 </div>
+<script>
+  $('#inputid_user').on('change', function(){
+    // alert("OKE");
+    let inputValue = $(this).val(); // Ambil nilai input
+      // alert("OKE, Nilai: " + inputValue);
+
+      // AJAX Request
+      $.ajax({
+        url: '<?= $url ?>/aksi/ajax.php', // Ganti dengan URL file server Anda
+        method: 'POST',
+        data: { id_user: inputValue },
+        success: function(response) {
+          // alert("Data berhasil dikirim ke server! Response: " + response);
+          // console.log(response.id_user);
+
+         document.getElementById("inputid_user").value = response.id_user;
+         document.getElementById("inputnm_siswa").value = response.nm_siswa;
+         document.getElementById("inputjk_siswa").value = response.jk_siswa;
+         document.getElementById("inputalamat_siswa").value = response.alamat_siswa;
+         document.getElementById("inputnm_orang_tua").value = response.nm_orang_tua;
+         document.getElementById("inputfoto_siswa").value = response.foto_siswa;
+
+        },
+        error: function(xhr, status, error) {
+          alert("Terjadi kesalahan: " + error);
+        }
+      });
+  });
+</script>
 <?php include_once '../template/footer.php'; ?>

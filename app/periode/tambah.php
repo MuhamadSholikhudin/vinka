@@ -19,13 +19,13 @@
         <form action='<?= $url ?>/aksi/periode.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
           <div class='box-body'>
              <div class='form-group'>
-                    <label for='inputnm_periode' class='col-sm-2 col-form-label'>Nm Periode</label>
+                    <label for='inputnm_periode' class='col-sm-2 col-form-label'>Nama Periode</label>
                     <div class='col-sm-10'>
                         <input type='text' class='form-control' id='inputnm_periode' name='nm_periode' required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputstatus_periode" class="col-sm-2 col-form-label">Status_Periode</label>
+                    <label for="inputstatus_periode" class="col-sm-2 col-form-label">Status Periode</label>
                     <div class="col-sm-10">
                         <select class="form-control" name="status_periode" id="inputstatus_periode">
                             <?php

@@ -375,7 +375,7 @@ session_start(); //Memulai session
                   </div>
                   <div>
                     <h3><?= $row['judul_informasi'] ?></h3>
-                    <p><?= $row['ket_informasi'] ?>.</p>
+                    <p><?= $potongan_teks = substr($row['ket_informasi'], 0, 200);  ?>.</p>
                     <a href="<?= $url ?>/app/informasi/detail.php?id_informasi=<?= $row['id_informasi'] ?>" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
                   </div>
                 </div>

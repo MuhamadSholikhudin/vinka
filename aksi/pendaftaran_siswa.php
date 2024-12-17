@@ -23,6 +23,7 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                                         'jk_siswa' => $_POST['jk_siswa'],
                                         'alamat_siswa' => $_POST['alamat_siswa'],
                                         'nm_orang_tua' => $_POST['nm_orang_tua'],
+                                        'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                                         'foto_siswa' => $nama_file,
                                 ];
                                 // Insert satu data
@@ -76,6 +77,7 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                 'jk_siswa' => $_POST['jk_siswa'],
                 'alamat_siswa' => $_POST['alamat_siswa'],
                 'nm_orang_tua' => $_POST['nm_orang_tua'],
+                'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                 'foto_siswa' => $nama_file,
         ];
         // Update data berdasarkan
@@ -95,6 +97,17 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
         $_SESSION['message_code'] =  $process['code'];
         header('Location: ' . $url . '/app/pendaftaran_siswa/index.php');
         exit();
+
+} elseif ($_GET['action'] == 'data di terima') {
+        // Data yang ingin Execution
+        $data = [
+                'status_pendaftaran' => $_GET['action'],
+        ];
+        // Update data berdasarkan
+        $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
+        $_SESSION['message'] = 'Data Pendaftaran Siswa sudah valid data siswa dapat ditambahkan !';
+        $_SESSION['message_code'] =  $process['code'];
+        header('Location: ' . $url . '/app/pendaftaran_siswa/index.php');
 
 } elseif ($_GET['action'] == 'kirim') {
         // Data yang ingin Execution

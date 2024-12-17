@@ -28,7 +28,7 @@ $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_
                     </div>
                   </div>
                 <div class='form-group' >
-                    <label for='inputnm_periode' class='col-sm-2 col-form-label'>Nm Periode</label>
+                    <label for='inputnm_periode' class='col-sm-2 col-form-label'>Nama Periode</label>
                     <div class='col-sm-10'>
                         <input type='text' class='form-control' id='inputnm_periode' name='nm_periode' value='<?= $periode['nm_periode']; ?>'  required>
                     </div>

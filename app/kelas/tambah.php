@@ -19,7 +19,7 @@
           <form action='<?= $url ?>/aksi/kelas.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
             <div class='box-body'>
               <div class='form-group'>
-                <label for='inputid_guru' class='col-sm-2 col-form-label'>Guru</label>
+                <label for='inputid_guru' class='col-sm-2 col-form-label'>Guru (Wali kelas)</label>
                 <div class='col-sm-10'>
                   <?php ?>
                   <select class='form-control' name='id_guru' id='inputid_guru'>

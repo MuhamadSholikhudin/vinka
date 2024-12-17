@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2024 at 10:21 PM
+-- Generation Time: Dec 17, 2024 at 10:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -39,7 +39,8 @@ CREATE TABLE `berkas_pendaftaran` (
 --
 
 INSERT INTO `berkas_pendaftaran` (`id_berkas`, `id_pendaftaran`, `nm_berkas`, `file_berkas`) VALUES
-(1, 2, 'berkas pendaftaran', 0x323032344e6f765361743034343534304c61796f7574204b616d61722e64726177696f2e706466);
+(1, 1, 'Akte Kelahiran', 0x32303234313231373130303632364c61796f7574204b616d61722e64726177696f2e706466),
+(2, 1, 'Kartu Keluarga', 0x32303234313231373130303632363236312d41727469636c6520546578742d313134312d312d31302d32303139303332322e706466);
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id_guru`, `nip`, `id_user`, `nm_guru`, `no_guru`, `jk_guru`, `alamat_guru`, `foto_guru`) VALUES
-(1, '10001', 5, 'AGUS', '089790797070', 'Laki-Laki', '-', 0x323032344e6f765361743131303733393663373537642e6a7067);
+(1, '10001', 5, 'AGUS SETYA', '895413553543', 'Laki-Laki', 'Gondang Manis', 0x3230323431323137303934343330617661746172352e706e67);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `informasi_sekolah` (
 --
 
 INSERT INTO `informasi_sekolah` (`id_informasi`, `judul_informasi`, `ket_informasi`, `gambar_informasi`, `tgl_post_informasi`) VALUES
-(2, 'PENDAFTARAN SISWA', 'PENDAFTARAN SISWA', 0x323032344e6f765361743130353631393663373537642e6a7067, '2024-11-17');
+(1, 'Sosialisasi Pendaftaran Siswa Baru MI Al-Hidayah Tahun Pelajaran 2024/2025', 'Dalam rangka penerimaan siswa baru di MI Al-Hidayah untuk Tahun Pelajaran 2024/2025, kami mengundang para calon wali murid untuk mengikuti sosialisasi pendaftaran siswa baru.\r\n\r\nKegiatan sosialisasi ini akan membahas:\r\n\r\nPersyaratan pendaftaran siswa baru.\r\nAlur pendaftaran dan tahapan seleksi.\r\nJadwal pendaftaran dan pengumuman hasil.\r\nProsedur registrasi ulang bagi siswa yang dinyatakan diterima.\r\nInformasi terkait kegiatan belajar mengajar di MI Al-Hidayah.\r\nWaktu dan Tempat Sosialisasi:\r\n\r\nHari/Tanggal: [Isi sesuai jadwal]\r\nWaktu: [Isi sesuai waktu acara]\r\nTempat: [Lokasi sosialisasi, misalnya Aula MI Al-Hidayah]\r\nDiharapkan kepada seluruh calon wali murid untuk hadir tepat waktu guna mendapatkan informasi yang lengkap dan jelas.\r\n\r\nInformasi lebih lanjut dapat menghubungi:\r\nSeksi Tata Usaha MI Al-Hidayah\r\nKontak: [Nomor Telepon/WhatsApp]', 0x32303234313231373039303230327777772e706e67, '2024-12-18');
 
 -- --------------------------------------------------------
 
@@ -102,7 +103,8 @@ CREATE TABLE `jenis_guru` (
 --
 
 INSERT INTO `jenis_guru` (`id_jenis_guru`, `nm_jenis_guru`) VALUES
-(1, 'HONORER');
+(1, 'PNS'),
+(2, 'HONORER');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,7 @@ CREATE TABLE `kehadiran_siswa` (
 --
 
 INSERT INTO `kehadiran_siswa` (`id_kehadiran`, `id_plotting`, `tgl_kehadiran`, `jenis_kehadiran`) VALUES
-(1, 1, '2024-12-01', 'Masuk');
+(1, 1, '2024-12-17', 'Masuk');
 
 -- --------------------------------------------------------
 
@@ -142,7 +144,7 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `id_guru`, `nm_kelas`, `tingkatan`) VALUES
-(1, 1, '1', 1);
+(2, 1, '1', 1);
 
 -- --------------------------------------------------------
 
@@ -161,8 +163,7 @@ CREATE TABLE `mapel` (
 --
 
 INSERT INTO `mapel` (`id_mapel`, `id_guru`, `nm_mapel`) VALUES
-(1, 1, 'BAHASA INDONESIA'),
-(2, 1, 'MATEMATIKA');
+(1, 1, 'BAHASA INDONESIA');
 
 -- --------------------------------------------------------
 
@@ -179,6 +180,7 @@ CREATE TABLE `pendaftaran_siswa` (
   `jk_siswa` enum('Laki-Laki','Perempuan') DEFAULT NULL,
   `alamat_siswa` text DEFAULT NULL,
   `nm_orang_tua` varchar(50) DEFAULT NULL,
+  `no_hp_orang_tua` varchar(15) DEFAULT NULL,
   `foto_siswa` blob DEFAULT NULL,
   `status_pendaftaran` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -187,9 +189,8 @@ CREATE TABLE `pendaftaran_siswa` (
 -- Dumping data for table `pendaftaran_siswa`
 --
 
-INSERT INTO `pendaftaran_siswa` (`id_pendaftaran`, `id_periode`, `id_user`, `tgl_daftar`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`, `status_pendaftaran`) VALUES
-(1, 1, 1, '2024-11-17', 'Saifudin', 'Laki-Laki', 'Gondang Manis', 'Saiful', 0x323032344e6f7653756e30333434353750542e2050757261204261727574616d61202d20303030312e6a7067, NULL),
-(2, 1, 4, '2024-11-30', 'John', 'Laki-Laki', '-', 'Andro', 0x323032344e6f765361743032323630353663373537642e6a7067, NULL);
+INSERT INTO `pendaftaran_siswa` (`id_pendaftaran`, `id_periode`, `id_user`, `tgl_daftar`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `no_hp_orang_tua`, `foto_siswa`, `status_pendaftaran`) VALUES
+(1, 1, 4, '2024-12-17', 'Saifudin Andro', 'Laki-Laki', 'Pati puri', 'andro', '895413553643', 0x32303234313231373130303630356176617461722e706e67, 'kirim');
 
 -- --------------------------------------------------------
 
@@ -210,7 +211,7 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id_penilaian`, `id_plotting`, `jenis_penilaian`, `nilai`, `nilai_praktek`) VALUES
-(1, 1, 'UAS', 80, 80);
+(1, 1, 'UTS', 90, 90);
 
 -- --------------------------------------------------------
 
@@ -229,7 +230,7 @@ CREATE TABLE `periode` (
 --
 
 INSERT INTO `periode` (`id_periode`, `nm_periode`, `status_periode`) VALUES
-(1, 'SEMESTER GENAP 2024', 'Aktif');
+(1, 'SEMESTER GASAL 2024', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -253,7 +254,7 @@ CREATE TABLE `plotting_jadwal` (
 --
 
 INSERT INTO `plotting_jadwal` (`id_plotting`, `id_siswa`, `id_kelas`, `id_mapel`, `id_periode`, `hari`, `jam_awal`, `jam_akhir`) VALUES
-(1, 1, 1, 1, 1, 'Senin', '07:00:00', '08:00:00');
+(1, 1, 2, 1, 1, 'SENIN', '08:00:00', '09:00:00');
 
 -- --------------------------------------------------------
 
@@ -277,7 +278,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `id_user`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`) VALUES
-(1, '0001', 4, 'ANDRI', 'Laki-Laki', '-', 'Andro', 0x32303234313133303131343532303663373537642e6a7067);
+(1, '101', 4, 'Saifudin Andro', 'Laki-Laki', 'Pati puri', 'andro', 0x3230323431323137313031363130617661746172332e706e67);
 
 -- --------------------------------------------------------
 
@@ -290,7 +291,7 @@ CREATE TABLE `user` (
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `nm_pengguna` varchar(50) DEFAULT NULL,
-  `level` enum('Kepala Sekolah','Seksi Tata Usaha','Seksi Kurrikulum','Guru','Orang Tua') DEFAULT NULL
+  `level` enum('Kepala Sekolah','Seksi Tata Usaha','Seksi Kurikulum','Guru','Orang Tua') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -299,7 +300,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nm_pengguna`, `level`) VALUES
 (1, 'vinka', 'vinka', 'vinka', 'Kepala Sekolah'),
-(2, 'bagas', 'bagas', 'bagas', 'Seksi Kurrikulum'),
+(2, 'bagas', 'bagas', 'bagas', 'Seksi Kurikulum'),
 (4, 'andro', 'andro', 'andro', 'Orang Tua'),
 (5, 'agus', 'agus', 'AGUS', 'Guru'),
 (6, 'umar', 'umar', 'Umar', 'Seksi Tata Usaha');
@@ -394,7 +395,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `berkas_pendaftaran`
 --
 ALTER TABLE `berkas_pendaftaran`
-  MODIFY `id_berkas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_berkas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `guru`
@@ -406,13 +407,13 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `informasi_sekolah`
 --
 ALTER TABLE `informasi_sekolah`
-  MODIFY `id_informasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_informasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `jenis_guru`
 --
 ALTER TABLE `jenis_guru`
-  MODIFY `id_jenis_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_jenis_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kehadiran_siswa`
@@ -424,19 +425,19 @@ ALTER TABLE `kehadiran_siswa`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_siswa`
 --
 ALTER TABLE `pendaftaran_siswa`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `penilaian`

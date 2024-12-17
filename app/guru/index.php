@@ -57,11 +57,11 @@
                 </thead>
                 <tbody>
                     <?php
-                    foreach (QueryManyData('SELECT * FROM guru') as $row) {
+                    foreach (QueryManyData('SELECT * FROM guru JOIN user ON guru.id_user = user.id_user') as $row) {
                     ?>
                       <tr>
                         <td><?= $row['nip'] ?></td>
-                        <td><?= $row['id_user'] ?></td>
+                        <td><?= $row['username'] ?></td>
                         <td><?= $row['nm_guru'] ?></td>
                         <td><?= $row['no_guru'] ?></td>
                         <td><?= $row['jk_guru'] ?></td>
