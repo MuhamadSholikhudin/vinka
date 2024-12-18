@@ -23,7 +23,7 @@
 					'plotting_jadwal',
 					'kehadiran_siswa',
 					'penilaian',
-					'rapot',
+					'raport',
 				];
 
 				$result = [
@@ -68,7 +68,7 @@
 						'kelas',
 						'mapel',
 						'plotting_jadwal',
-						'rapot'
+						'raport'
 					],
 					'Guru' => [
 						'dashboard',
