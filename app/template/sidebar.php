@@ -27,9 +27,9 @@
 				];
 
 				$result = [
-					"laporan_pengaduan",
-					"laporan_pemasangan",
-					"laporan_pencatatan_penggunaan"
+					"laporan_pendaftaran_siswa",
+					"laporan_guru",
+					"laporan_siswa"
 				];
 				// Data sub menu pada menu 
 
