@@ -28,8 +28,7 @@
 
 				$result = [
 					"laporan_pendaftaran_siswa",
-					"laporan_guru",
-					"laporan_siswa"
+					"laporan_kehadiran_siswa",
 				];
 				// Data sub menu pada menu 
 
@@ -48,7 +47,9 @@
 						'periode',
 						'plotting_jadwal',
 						'siswa',
-						'user'
+						'user',
+						"laporan_pendaftaran_siswa",
+						"laporan_kehadiran_siswa",
 					],
 					'Orang Tua' => [
 						'dashboard',
@@ -142,16 +143,16 @@
       			</li>
 				
 				<?php if($_SESSION['level'] == "Kepala Sekolah"){ ?>
-      			<li class="treeview <?php if (Menu_active($result) == "show") { echo "active"; } ?>">
+      			<li class="treeview <?php if (Sub_menu_active("laporan") == "active") { echo "active"; } ?>">
       				<a href="#">
       					<i class="fa fa-files-o"></i> <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i>
       				</a>
-      				<ul class="treeview-menu <?php if (Menu_active($result) == "show") { echo "menu-open style='display:block;'"; } ?>">
+      				<ul class="treeview-menu <?php if (Sub_menu_active("laporan") == "active") { echo "menu-open style='display:block;'"; } ?>">
       					<?php for ($sub = 0; $sub < count($result); $sub++) {
 								$check_role = array_search($result[$sub], $level[$_SESSION['level']]);
 								if ($check_role !== false) {            ?>
       							<li class="<?= Sub_menu_active($result[$sub]) ?>">
-      								<a href="<?= $url ?>/app/<?= $result[$sub] ?>/index.php" class="text-white">
+      								<a href="<?= $url ?>/app/laporan/<?= $result[$sub] ?>.php" class="text-white">
       									<i class='fa fa-circle <?php if (Sub_menu_active($result[$sub])  == "active") { ?>  text-aqua <?php } ?>'></i> <?= ucfirst(str_replace("_", " ", $result[$sub])); ?>
       								</a>
       							</li>
@@ -161,14 +162,6 @@
       				</ul>
       			</li>
 				<?php } ?>
-
-      			<?php /* ?>
-				<li class="header">LABELS</li>
-				<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-				<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-				<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-				<?php */ ?>
-
       		</ul>
       	</section>
       	<!-- /.sidebar -->
