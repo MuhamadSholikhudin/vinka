@@ -31,10 +31,22 @@ session_start(); //Memulai session
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="<?= $url ?>/"><b>CRM</b> MI AL HIDAYAH PATI</a>
+
+        <a href="<?= $url ?>/"><b style="font-family:Georgia">Selamat Datang !</b>
+        <br>
+        Sistem Monitoring Akademik Siswa 
+        <br>
+        <b style="font-family:Georgia, 'Times New Roman', Times, serif;"> MI AL HIDAYAH PATI</b></a>
+
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Silahkan Login</p>
+<div style="text-align: center">
+      <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" alt="" style="width:55%;">
+</div>
+        <br>
+        <br>
+
+        <p class="login-box-msg">Masukkkan Usernme dan Password anda !</p>
         <form class="user" action="<?= $url . "/aksi/login.php" ?>" enctype="multipart/form-data" method="POST">
           <div class="form-group has-feedback">
             <input type="text" name="username" class="form-control" placeholder="Username">
@@ -53,10 +65,8 @@ session_start(); //Memulai session
               </div>
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-arrow-right"></i>Sign In</button>
-            </div><!-- /.col -->
-
-           
+              <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-arrow-right"></i>Masuk</button>
+            </div><!-- /.col -->           
           </div>
           <?php
             if (isset($_SESSION['unvalid_username'])) {

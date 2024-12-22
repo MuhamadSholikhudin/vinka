@@ -3,8 +3,11 @@
       	<!-- sidebar: style can be found in sidebar.less -->
       	<section class="sidebar">
       		<!-- Sidebar user panel -->
-      		<div class="user-panel">
-      				<img src="<?= $url ?>/assets/dist/img/logo-alhidayah.jpeg" class="img" width="100%" alt="User Image">
+      		<div class="user-panel" style="text-align: center;">
+				<img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" class="img" width="60%" alt="User Image"> 
+				<!-- <p style="color: white;">
+					MI AL-HIDAYAH
+				</p> -->
 			</div>
       		<?php
 				// Data sub menu pada menu 

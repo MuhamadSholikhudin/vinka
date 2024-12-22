@@ -96,7 +96,7 @@
             let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
             if (confirm(text) == true) {
               text = 'You pressed OK!';
-              window.location.href = '<?= $url ?>/aksi/kehadiran_siswa.php?id_kehadiran_siswa=' + id + '&action=delete'
+              window.location.href = '<?= $url ?>/aksi/kehadiran_siswa.php?id_kehadiran =' + id + '&action=delete'
             }
           }
         </script>

@@ -1,16 +1,24 @@
 <header class="main-header">
   <!-- Logo -->
-  <a href="<?= $url ?>/app/dashboard/index.php" class="logo">
+  <a href="<?= $url ?>/app/dashboard/index.php" class="logo" >
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>A</b>L</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>MI</b> AL-HIDAYAH</span>
-    <!-- <span class="logo-lg"><img src="<?= $url ?>/assets/dist/img/logo-alhidayah.jpeg" alt="" style="height:100%; "></span>      -->
+<!--       
+<span class="logo-lg" style="height: 140px;">SI AKADEMIK</span> 
+-->
+     <span class="logo-lg" >      
+      <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" alt="" style="width:130px;">
+<br>
+SI AKADEMIK 
+MI AL-HIDAYAH
+    </span>      
+
   </a>
 
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" role="navigation">
-    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">&nbsp;&nbsp;&nbsp;&nbsp; SISTEM INFORMASI AKADEMIK</a>
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">&nbsp;&nbsp;&nbsp;&nbsp; </a>
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
         <li class="dropdown notifications-menu">

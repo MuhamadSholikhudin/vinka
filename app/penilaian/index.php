@@ -81,7 +81,7 @@
                       <?php }else{ ?>
 
                       <a href='<?= $url ?>/app/penilaian/edit.php?id_penilaian=<?= $row['id_penilaian'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                      <button onclick='ConfirmDelete(<?= $row['id_kehadiran_siswa'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
+                      <button onclick="ConfirmDelete(<?= $row['id_penilaian'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
                         <i class='fas fa-trash'></i>
                         hapus
                       </button>
@@ -101,7 +101,7 @@
             let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
             if (confirm(text) == true) {
               text = 'You pressed OK!';
-              window.location.href = '<?= $url ?>/aksi/kelas.php?id_kelas=' + id + '&action=delete'
+              window.location.href = '<?= $url ?>/aksi/penilaian.php?id_penilaian=' + id + '&action=delete'
             }
           }
         </script>
