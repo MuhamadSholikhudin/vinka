@@ -4,14 +4,12 @@
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>A</b>L</span>
     <!-- logo for regular state and mobile devices -->
-<!--       
-<span class="logo-lg" style="height: 140px;">SI AKADEMIK</span> 
--->
+      <!--       
+        <span class="logo-lg" style="height: 140px;">SI AKADEMIK</span> 
+      -->
      <span class="logo-lg" >      
-      <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" alt="" style="width:130px;">
-<br>
-SI AKADEMIK 
-MI AL-HIDAYAH
+      <!-- <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" alt="" style="width:130px;"><br> -->
+      SI AKADEMIK 
     </span>      
 
   </a>

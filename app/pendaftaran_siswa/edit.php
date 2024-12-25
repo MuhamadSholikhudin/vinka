@@ -45,24 +45,7 @@ $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pend
                   </select>
                 </div>
               </div>
-              <div class='form-group'>
-                <label for='inputid_user' class='col-sm-2 col-form-label'>User</label>
-                <div class='col-sm-10'>
-                  <select class='form-control' name='id_user' id='inputid_user'>
-                    <?php
-                    $users = QueryManyData('SELECT * FROM user');
-                    foreach ($users  as  $row) {
-                      if ($pendaftaran_siswa['id_user'] ==  $row['id_user']) { ?>
-                        <option value='<?= $row['id_user'] ?>' selected>[<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option>
-                      <?php } else { ?>
-                        <option value='<?= $row['id_user'] ?>'>[<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option>
-                    <?php
-                      }
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
+
               <div class='form-group'>
                 <label for='inputtgl_daftar' class='col-sm-2 col-form-label'>Tanggal Daftar</label>
                 <div class='col-sm-10'>
@@ -100,13 +83,32 @@ $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pend
                 </div>
               </div>
               <div class='form-group'>
+                <label for='inputfoto_siswa' class='col-sm-2 col-form-label'>Foto Siswa</label>
+                <div class='col-sm-10'>
+                  <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa'  >
+                  <input type='text' class='form-control' id='inputfoto_siswa_old' name='foto_siswa_old' value='<?= $pendaftaran_siswa['foto_siswa']; ?>' >
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputasal_sekolah' class='col-sm-2 col-form-label'>Asal Sekolah</label>
+                <div class='col-sm-10'>
+                  <input type='text' class='form-control' id='inputasal_sekolah' name='asal_sekolah' placeholder="Contoh : TK Kemala Siwi" value='<?= $pendaftaran_siswa['asal_sekolah']; ?>' required>
+                </div>
+              </div>
+              <div class='form-group'>
                 <label for='inputnm_orang_tua' class='col-sm-2 col-form-label'>Nama Orang Tua</label>
                 <div class='col-sm-10'>
                   <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' value='<?= $pendaftaran_siswa['nm_orang_tua']; ?>' required>
                 </div>
               </div>
               <div class='form-group'>
-                <label for='inputno_hp_orang_tua' class='col-sm-2 col-form-label'>No HP Orang Tua</label>
+                <label for='inputnm_wali_murid' class='col-sm-2 col-form-label'>Nama Wali Murid</label>
+                <div class='col-sm-10'>
+                  <input type='text' class='form-control' id='inputnm_wali_murid' name='nm_wali_murid' value='<?= $pendaftaran_siswa['nm_wali_murid']; ?>' required>
+                </div>
+              </div>
+              <div class='form-group'>
+                <label for='inputno_hp_orang_tua' class='col-sm-2 col-form-label'>No HP Wali Murid</label>
                 <div class='col-sm-10'>
                   <div class="input-group">
                     <span class="input-group-addon">+62</span>
@@ -114,10 +116,23 @@ $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pend
                   </div>
                 </div>
               </div>
+
               <div class='form-group'>
-                <label for='inputfoto_siswa' class='col-sm-2 col-form-label'>Foto Siswa</label>
+                <label for='inputid_user' class='col-sm-2 col-form-label'>User Wali Murid</label>
                 <div class='col-sm-10'>
-                  <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa' value='<?= $pendaftaran_siswa['foto_siswa']; ?>' required>
+                  <select class='form-control' name='id_user' id='inputid_user'>
+                    <?php
+                    $users = QueryManyData('SELECT * FROM user');
+                    foreach ($users  as  $row) {
+                      if ($pendaftaran_siswa['id_user'] ==  $row['id_user']) { ?>
+                        <option value='<?= $row['id_user'] ?>' selected>[<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option>
+                      <?php } else { ?>
+                        <option value='<?= $row['id_user'] ?>'>[<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option>
+                    <?php
+                      }
+                    }
+                    ?>
+                  </select>
                 </div>
               </div>
             </div>

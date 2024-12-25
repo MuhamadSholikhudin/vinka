@@ -1,6 +1,9 @@
 <?php
 include '../config/config.php';
 session_start();
+$url_wa = 'https://console.zenziva.net/wareguler/api/sendWA/';
+$userkey = '9b85e05d0de7';
+$passkey = '83f0dd70ecb6c588f2ab2cc3';
 if (isset($_POST['simpanpendaftaran_siswa'])) {
 
         $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
@@ -22,7 +25,9 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                                         'nm_siswa' => $_POST['nm_siswa'],
                                         'jk_siswa' => $_POST['jk_siswa'],
                                         'alamat_siswa' => $_POST['alamat_siswa'],
+                                        'asal_sekolah' => $_POST['asal_sekolah'],
                                         'nm_orang_tua' => $_POST['nm_orang_tua'],
+                                        'nm_wali_murid' => $_POST['nm_wali_murid'],
                                         'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                                         'foto_siswa' => $nama_file,
                                 ];
@@ -76,7 +81,9 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                 'nm_siswa' => $_POST['nm_siswa'],
                 'jk_siswa' => $_POST['jk_siswa'],
                 'alamat_siswa' => $_POST['alamat_siswa'],
+                'asal_sekolah' => $_POST['asal_sekolah'],
                 'nm_orang_tua' => $_POST['nm_orang_tua'],
+                'nm_wali_murid' => $_POST['nm_wali_murid'],
                 'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                 'foto_siswa' => $nama_file,
         ];
@@ -91,6 +98,7 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
         $data = [
                 'status_pendaftaran' => $_GET['action'],
         ];
+        die();
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
         $_SESSION['message'] = 'Data Pendaftaran Siswa belum lengkap. Isi data sesuai dengan data diri yang benar';
