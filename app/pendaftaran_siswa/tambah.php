@@ -27,28 +27,10 @@
                                         $periode = QueryManyData('SELECT * FROM periode');
                                         foreach ($periode as  $row) {
                                         ?>
-                                            <option value='<?= $row['id_periode'] ?>'>[<?= $row['nm_periode'] ?> - <?= $row['status_periode'] ?>]</option><?php
-                                                                                                                                                        }
-                                                                                                                                                            ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class='form-group'>
-                                <label for='inputid_user' class='col-sm-2 col-form-label'>ID user / Orang Tua / Wali Murid</label>
-                                <div class='col-sm-10'>
-                                    <?php ?>
-                                    <select class='form-control' name='id_user' id='inputid_user'>
+                                            <option value='<?= $row['id_periode'] ?>'>[<?= $row['nm_periode'] ?> - <?= $row['status_periode'] ?>]</option>
                                         <?php
-                                        $user_query = 'SELECT * FROM user';
-                                        if ($_SESSION['level'] == 'Orang Tua') {
-                                            $user_query = 'SELECT * FROM user WHERE id_user = ' . $_SESSION['id_user'] . '';
                                         }
-                                        $user = QueryManyData($user_query);
-                                        foreach ($user as  $row) {
                                         ?>
-                                            <option value='<?= $row['id_user'] ?>'> [<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option><?php
-                                                                                                                                            }
-                                                                                                                                                ?>
                                     </select>
                                 </div>
                             </div>
@@ -85,15 +67,36 @@
                                 </div>
                             </div>
                             <div class='form-group'>
+                                <label for='inputfoto_siswa' class='col-sm-2 col-form-label'>Foto Siswa</label>
+                                <div class='col-sm-10'>
+                                    <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa' required>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label for='inputasal_sekolah' class='col-sm-2 col-form-label'>Asal Sekolah</label>
+                                <div class='col-sm-10'>
+                                    <input type='text' class='form-control' id='inputasal_sekolah' name='asal_sekolah' placeholder="Contoh : TK Kemala Siwi" required>
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <br>
+                            <div class='form-group'>
                                 <label for='inputnm_orang_tua' class='col-sm-2 col-form-label'>Nama Orang Tua</label>
                                 <div class='col-sm-10'>
-                                    <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' value='<?php if ($_SESSION['level'] == 'Orang Tua') {
+                                    <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' value='' required>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label for='inputnm_wali_murid' class='col-sm-2 col-form-label'>Nama Wali Murid</label>
+                                <div class='col-sm-10'>
+                                    <input type='text' class='form-control' id='inputnm_wali_murid' name='nm_wali_murid' value='<?php if ($_SESSION['level'] == 'Orang Tua') {
                                                                                                                                     echo $_SESSION['username'];
                                                                                                                                 } ?>' required>
                                 </div>
                             </div>
                             <div class='form-group'>
-                                <label for='inputno_hp_orang_tua' class='col-sm-2 col-form-label'>No HP Orang Tua</label>
+                                <label for='inputno_hp_orang_tua' class='col-sm-2 col-form-label'>No HP Wali Murid</label>
                                 <div class='col-sm-10'>
                                     <div class="input-group">
                                         <span class="input-group-addon">+62</span>
@@ -102,12 +105,27 @@
                                 </div>
                             </div>
                             <div class='form-group'>
-                                <label for='inputfoto_siswa' class='col-sm-2 col-form-label'>Foto Siswa</label>
+                                <label for='inputid_user' class='col-sm-2 col-form-label'>User Wali</label>
                                 <div class='col-sm-10'>
-                                    <input type='file' class='form-control' id='inputfoto_siswa' name='foto_siswa' required>
+                                    <?php ?>
+                                    <select class='form-control' name='id_user' id='inputid_user'>
+                                        <?php
+                                        $user_query = 'SELECT * FROM user';
+                                        if ($_SESSION['level'] == 'Orang Tua') {
+                                            $user_query = 'SELECT * FROM user WHERE id_user = ' . $_SESSION['id_user'] . '';
+                                        }
+                                        $user = QueryManyData($user_query);
+                                        foreach ($user as  $row) {
+                                        ?>
+                                            <option value='<?= $row['id_user'] ?>'> [<?= $row['nm_pengguna'] ?> - <?= $row['level'] ?>]</option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+
                         <div class='box-footer'>
                             <a href='<?= $url ?>/app/pendaftaran_siswa/index.php' class='btn btn-default btn-sm '>
                                 <i class='fa fa-reply'></i> kembali

@@ -3,18 +3,15 @@
   <a href="<?= $url ?>/app/dashboard/index.php" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>A</b>L</span>
-    <!-- logo for regular state and mobile devices -->
-          
-<span class="logo-lg" style="height: 140px;">SI AKADEMIK</span> 
-
+    <!-- logo for regular state and mobile devices -->          
+    <span class="logo-lg" style="height: 140px;">SI AKADEMIK</span> 
     <!-- <span class="logo-lg">
       <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" alt="" style="width:100px;">
       <br>
       SI AKADEMIK
       MI AL-HIDAYAH
     </span> -->
-
-  </a>
+   </a>
 
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top" role="navigation">

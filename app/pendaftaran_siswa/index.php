@@ -71,9 +71,8 @@
                 $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa';
                 if ($_SESSION['level'] == 'Orang Tua') {
                   $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa WHERE id_user = ' . $_SESSION['id_user'] . ' ';
-                } else if($_SESSION['level'] == 'Seksi Tata Usaha') {
+                } else if ($_SESSION['level'] == 'Seksi Tata Usaha') {
                   $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa WHERE status_pendaftaran = "kirim" OR status_pendaftaran = "data di terima" ';
-
                 }
                 foreach (QueryManyData($pendaftaran_siswa) as $row) {
                   $periode = QueryOnedata("SELECT * FROM periode WHERE id_periode = " . $row['id_periode'] . "")->fetch_assoc();
@@ -87,7 +86,7 @@
                     <td><?= $row['jk_siswa'] ?></td>
                     <td><?= $row['alamat_siswa'] ?></td>
                     <td><?= $row['nm_orang_tua'] ?></td>
-                    <td> <img src="<?= $url . '/foto/siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;"> </td>
+                    <td> <img src="<?= $url . '/foto/foto_siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;"> </td>
                     <td>
                       <?= $row['status_pendaftaran'] ?>
                     </td>
@@ -103,34 +102,36 @@
                       <?php } ?>
                     </td>
                     <td>
-                      <?php 
-                        if ($_SESSION['level'] == 'Orang Tua') {
-                            if ($row['status_pendaftaran'] == 'belum lengkap' || $row['status_pendaftaran'] == '' || $row['status_pendaftaran'] == NULL) {
-                              ?>
-                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=kirim' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-right'></i> Kirim</a>
-                              <a href='<?= $url ?>/app/pendaftaran_siswa/edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                              <button onclick="ConfirmDelete(<?= $row['id_pendaftaran'] ?>, '<?= $row['foto_siswa'] ?>')" class='btn bg-maroon btn-flat btn-sm'>
-                                <i class='fas fa-trash'></i>
-                                hapus
-                              </button>
-                          <?php
-                            } else if ($row['status_pendaftaran'] == 'kirim') {
-                          ?>
-                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=belum lengkap' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> Tarik dan lengkapi data</a>
-                          <?php
-                            } else if ($row['status_pendaftaran'] == 'data diterima') {
-                              ?>
-                              <a href='£' class='btn bg-success btn-flat btn-sm'><i class='fa fa-check'></i> VALID</a>
-                          <?php
-                            }                        
-                        } else if ($_SESSION['level'] == 'Seksi Tata Usaha'){
-                          ?>
-                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=data di terima' class='btn bg-primary btn-flat btn-sm'><i class='fa fa-check'></i> Terima Data Pendaftaran</a>
-                              <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=belum lengkap' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> Lengkapi data</a>
-                          <?php
-                        }
+                      <?php
+                      if ($_SESSION['level'] == 'Orang Tua') {
+                        if ($row['status_pendaftaran'] == 'belum lengkap' || $row['status_pendaftaran'] == '' || $row['status_pendaftaran'] == NULL) {
                       ?>
-
+                          <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=kirim' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-right'></i> Kirim</a>
+                          <a href='<?= $url ?>/app/pendaftaran_siswa/edit.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                          <button onclick="ConfirmDelete(<?= $row['id_pendaftaran'] ?>, '<?= $row['foto_siswa'] ?>')" class='btn bg-maroon btn-flat btn-sm'>
+                            <i class='fas fa-trash'></i>
+                            hapus
+                          </button>
+                        <?php
+                        } else if ($row['status_pendaftaran'] == 'kirim') {
+                        ?>
+                          <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=belum lengkap' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> Tarik dan lengkapi data</a>
+                        <?php
+                        } else if ($row['status_pendaftaran'] == 'data diterima') {
+                        ?>
+                          <a href='£' class='btn bg-success btn-flat btn-sm'><i class='fa fa-check'></i> VALID</a>
+                        <?php
+                        }
+                      } else if ($_SESSION['level'] == 'Seksi Tata Usaha') {
+                        ?>
+                        <button type="button" class="btn bg-grey btn-flat btn-sm" data-toggle="modal" onClick="Siswa(<?= $row['id_pendaftaran'] ?>, '<?= $row['nm_siswa'] ?>');" data-target="#modal-tidak-terima">
+                          Validasi
+                        </button>
+                        <!-- <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=data di terima' class='btn bg-primary btn-flat btn-sm'><i class='fa fa-check'></i> Terima Data Pendaftaran</a> -->
+                        <!-- <a href='<?= $url ?>/aksi/pendaftaran_siswa.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>&action=belum lengkap' class='btn bg-success btn-flat btn-sm'><i class='fa fa-arrow-circle-o-left'></i> Lengkapi data</a> -->
+                      <?php
+                      }
+                      ?>
                       <a href='<?= $url ?>/app/pendaftaran_siswa/detail.php?id_pendaftaran=<?= $row['id_pendaftaran'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
                     </td>
                   </tr>
@@ -139,6 +140,53 @@
                 ?>
               </tbody>
             </table>
+            <script>
+              function Siswa(id, nm_pendaftar){
+                document.getElementById('nm_pendaftar').textContent = nm_pendaftar;
+                document.getElementById('id_pendaftaran').value = id;
+              }
+            </script>
+            <div class="modal fade in" id="modal-tidak-terima">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Form Validasi  Pendaftaran <span id="nm_pendaftar"></span></h4>
+                  </div>
+                  <form action="<?= $url ?>/aksi/pendaftaran_siswa.php" method="get">
+                  <div class="modal-body">
+                    <div class='box-body'>
+                      <div class='form-group row'>
+
+                        <label for='inputaction' class='col-sm-3 col-form-label'>Status Pendaftaran</label>
+                        <div class='col-sm-9'>
+                          <select class="form-control" name="action" id="action">
+                            <option value="belum lengkap">Belum Lengkap</option>
+                            <option value="tidak menerima">Tidak Menerima</option>
+                            <option value="data di terima">Data di Terima</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class='form-group row'>
+                        <label for='inputalasan' class='col-sm-3 col-form-label'>Alasan</label>
+                        <div class='col-sm-9'>
+                          <textarea class="form-control" name="alasan" id="alasan"></textarea>
+                          <input type="number" name="id_pendaftaran" id="id_pendaftaran" style="display : none;" >
+                        </div>
+                      </div>
+                    </div>  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-grey"> <i class="fas fa-save"></i> Proses</button>
+                  </div>
+                  </form>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
           </div>
         </div>
         <script>

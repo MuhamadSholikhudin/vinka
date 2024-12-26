@@ -1,6 +1,9 @@
 <?php
 include '../config/config.php';
 session_start();
+$url_wa = 'https://console.zenziva.net/wareguler/api/sendWA/';
+$userkey = '9b85e05d0de7';
+$passkey = '83f0dd70ecb6c588f2ab2cc3';
 if (isset($_POST['simpanpendaftaran_siswa'])) {
 
         $ekstensi_diperbolehkan = array('png', 'jpg', 'jpeg');
@@ -22,7 +25,9 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                                         'nm_siswa' => $_POST['nm_siswa'],
                                         'jk_siswa' => $_POST['jk_siswa'],
                                         'alamat_siswa' => $_POST['alamat_siswa'],
+                                        'asal_sekolah' => $_POST['asal_sekolah'],
                                         'nm_orang_tua' => $_POST['nm_orang_tua'],
+                                        'nm_wali_murid' => $_POST['nm_wali_murid'],
                                         'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                                         'foto_siswa' => $nama_file,
                                 ];
@@ -76,7 +81,9 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                 'nm_siswa' => $_POST['nm_siswa'],
                 'jk_siswa' => $_POST['jk_siswa'],
                 'alamat_siswa' => $_POST['alamat_siswa'],
+                'asal_sekolah' => $_POST['asal_sekolah'],
                 'nm_orang_tua' => $_POST['nm_orang_tua'],
+                'nm_wali_murid' => $_POST['nm_wali_murid'],
                 'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                 'foto_siswa' => $nama_file,
         ];
@@ -91,6 +98,39 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
         $data = [
                 'status_pendaftaran' => $_GET['action'],
         ];
+
+        $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pendaftaran = ' . $_GET['id_pendaftaran'] . '')->fetch_assoc();
+        $dataX = [];        
+        array_push($dataX, $pendaftaran_siswa);
+        $message = "Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri \n
+Pendaftaran siswa baru atas Nama ".$dataX[0]['nm_siswa']." di MI Al-Hidayah telah Belum Lengkap.\n
+Silakan melakukan lengkapi data anda : .\n
+".$_GET['alasan']."
+Terima kasih atas partisipasinya. Segera lengkapi data anda sebelum pendaftaran di tutup.\n
+
+Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_hp_orang_tua'], $message);
+
+        // Update data berdasarkan
+        $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
+        $_SESSION['message'] = 'Data Pendaftaran Siswa belum lengkap. Isi data sesuai dengan data diri yang benar';
+        $_SESSION['message_code'] =  $process['code'];
+        header('Location: ' . $url . '/app/pendaftaran_siswa/index.php');
+        exit();
+} elseif ($_GET['action'] == 'tidak menerima') {
+        // Data yang ingin Execution
+        $data = [
+                'status_pendaftaran' => $_GET['action'],
+        ];
+        $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pendaftaran = ' . $_GET['id_pendaftaran'] . '')->fetch_assoc();
+        $data = [];        
+        array_push($data, $pendaftaran_siswa);
+        $message = "Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri \n
+Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hidayah telah Tidak Menerima.\n
+Karena ".$_GET['alasan']." \n
+Terima kasih atas partisipasinya anda.";
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $data[0]['no_hp_orang_tua'], $message);
+
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
         $_SESSION['message'] = 'Data Pendaftaran Siswa belum lengkap. Isi data sesuai dengan data diri yang benar';
@@ -103,6 +143,19 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
         $data = [
                 'status_pendaftaran' => $_GET['action'],
         ];
+
+        $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pendaftaran = ' . $_GET['id_pendaftaran'] . '')->fetch_assoc();
+        $data = [];        
+        array_push($data, $pendaftaran_siswa);
+        $message = "Pengumuman Penerimaan Siswa Baru \n
+Selamat! Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hidayah telah DITERIMA.\n
+Silakan melakukan registrasi ulang di sekolah dengan menemui Seksi Tata Usaha.\n
+
+Terima kasih dan kami tunggu kehadirannya.\n
+
+Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $data[0]['no_hp_orang_tua'], $message);
+
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
         $_SESSION['message'] = 'Data Pendaftaran Siswa sudah valid data siswa dapat ditambahkan !';
