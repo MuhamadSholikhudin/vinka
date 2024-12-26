@@ -5,9 +5,9 @@
       		<!-- Sidebar user panel -->
       		<div class="user-panel" style="text-align: center;">
 				<img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" class="img" width="60%" alt="User Image"> 
-				<!-- <p style="color: white;">
+				<p style="color: white;">
 					MI AL-HIDAYAH
-				</p> -->
+				</p>
 			</div>
       		<?php
 				// Data sub menu pada menu 
