@@ -21,24 +21,36 @@
             <div class='form-group'>
               <label for='inputnis' class='col-sm-2 col-form-label'>NIS</label>
               <div class='col-sm-10'>
-                <input type='text' class='form-control' id='inputnis' name='nis' required>
+                <?php 
+                $sql_search_no = "SELECT siswa.id_siswa FROM `siswa` JOIN user ON siswa.id_user =  user.id_user
+                                  JOIN pendaftaran_siswa ON pendaftaran_siswa.id_user =  user.id_user
+                                  WHERE YEAR(pendaftaran_siswa.tgl_daftar) = ".date('Y')." ORDER BY siswa.id_siswa DESC";
+                $no_sql = QueryOnedata($sql_search_no);
+                $no = $no_sql->num_rows +1;
+                if($no > 9){
+                  $no = "0".$no_sql->num_rows +1;
+                }else if($no < 10){
+                  $no = "00".$no_sql->num_rows +1;
+                }
+                ?>
+                <input type='text' class='form-control' id='inputnis' name='nis' value="<?= date('Y').($no) ?>" required>
               </div>
             </div>
             <div class='form-group'>
               <label for='inputid_user' class='col-sm-2 col-form-label'>ID User (Orang Tua / Wali Murid)</label>
               <div class='col-sm-10'>
                 <select class='form-control' name='id_user' id='inputid_user' required>
-                        <option >PILIH</option>
-                    <?php
-                    $query_user = 'SELECT user.* FROM user  WHERE user.level = "Orang Tua" ';
-                    $user = QueryManyData($query_user);
-                    foreach ($user as  $row) {
-                    ?>
-                      <option value='<?= $row['id_user'] ?>'><?= $row['nm_pengguna'] ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
+                  <option >PILIH</option>
+                  <?php
+                  $query_user = 'SELECT user.* FROM user  WHERE user.level = "Orang Tua"';
+                  $user = QueryManyData($query_user);
+                  foreach ($user as  $row) {
+                  ?>
+                    <option value='<?= $row['id_user'] ?>'><?= $row['nm_pengguna'] ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
               </div>
             </div>
             <div class='form-group'>
@@ -95,26 +107,19 @@
 </div>
 <script>
   $('#inputid_user').on('change', function(){
-    // alert("OKE");
     let inputValue = $(this).val(); // Ambil nilai input
-      // alert("OKE, Nilai: " + inputValue);
-
       // AJAX Request
       $.ajax({
         url: '<?= $url ?>/aksi/ajax.php', // Ganti dengan URL file server Anda
         method: 'POST',
         data: { id_user: inputValue },
         success: function(response) {
-          // alert("Data berhasil dikirim ke server! Response: " + response);
-          // console.log(response.id_user);
-
          document.getElementById("inputid_user").value = response.id_user;
          document.getElementById("inputnm_siswa").value = response.nm_siswa;
          document.getElementById("inputjk_siswa").value = response.jk_siswa;
          document.getElementById("inputalamat_siswa").value = response.alamat_siswa;
          document.getElementById("inputnm_orang_tua").value = response.nm_orang_tua;
          document.getElementById("inputfoto_siswa").value = response.foto_siswa;
-
         },
         error: function(xhr, status, error) {
           alert("Terjadi kesalahan: " + error);

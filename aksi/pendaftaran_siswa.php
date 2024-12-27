@@ -126,8 +126,8 @@ Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
         $data = [];        
         array_push($data, $pendaftaran_siswa);
         $message = "Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri \n
-Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hidayah telah Tidak Menerima.\n
-Karena ".$_GET['alasan']." \n
+Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hidayah tidak dapat menerima pendafataran.\n
+dengan alasan ".$_GET['alasan']." \n
 Terima kasih atas partisipasinya anda.";
         $satu = zen($url_wa, $userkey, $passkey, '0' . $data[0]['no_hp_orang_tua'], $message);
 
@@ -152,8 +152,7 @@ Selamat! Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hida
 Silakan melakukan registrasi ulang di sekolah dengan menemui Seksi Tata Usaha.\n
 
 Terima kasih dan kami tunggu kehadirannya.\n
-
-Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
+";
         $satu = zen($url_wa, $userkey, $passkey, '0' . $data[0]['no_hp_orang_tua'], $message);
 
         // Update data berdasarkan

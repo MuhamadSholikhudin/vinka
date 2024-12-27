@@ -143,8 +143,43 @@
             <script>
               function Siswa(id, nm_pendaftar){
                 document.getElementById('nm_pendaftar').textContent = nm_pendaftar;
+                document.getElementById('calon_siswa_1').textContent = nm_pendaftar;
+                document.getElementById('calon_siswa_2').textContent = nm_pendaftar;
+                document.getElementById('calon_siswa_3').textContent = nm_pendaftar;
+
                 document.getElementById('id_pendaftaran').value = id;
               }
+              
+            function myFunction(val) {
+              // alert("The input value has changed. The new value is: " + val);
+                var alasan =  document.getElementById('alasan').value;
+                document.getElementById('output_alasan_1').textContent = alasan;
+                document.getElementById('output_alasan_2').textContent = alasan;
+                document.getElementById('output_alasan_3').textContent = alasan;
+
+                if(val == "belum lengkap"){
+                  document.getElementById('belum_lengkap').style.display = "";
+                  document.getElementById('tidak_menerima').style.display = "none";
+                  document.getElementById('data_di_terima').style.display = "none";
+
+                }else if(val == "tidak menerima"){
+                  document.getElementById('belum_lengkap').style.display = "none";
+                  document.getElementById('tidak_menerima').style.display = "";
+                  document.getElementById('data_di_terima').style.display = "none";
+                }else if(val == "data di terima"){
+                  document.getElementById('belum_lengkap').style.display = "none";
+                  document.getElementById('tidak_menerima').style.display = "none";
+                  document.getElementById('data_di_terima').style.display = "";
+                }
+            }
+            function textchange(val) {
+              // alert("The input value has changed. The new value is: " + val);
+                var alasan =  document.getElementById('alasan').value;
+                document.getElementById('output_alasan_1').textContent = alasan;
+                document.getElementById('output_alasan_2').textContent = alasan;
+                document.getElementById('output_alasan_3').textContent = alasan;                
+            }
+
             </script>
             <div class="modal fade in" id="modal-tidak-terima">
               <div class="modal-dialog">
@@ -158,10 +193,9 @@
                   <div class="modal-body">
                     <div class='box-body'>
                       <div class='form-group row'>
-
                         <label for='inputaction' class='col-sm-3 col-form-label'>Status Pendaftaran</label>
                         <div class='col-sm-9'>
-                          <select class="form-control" name="action" id="action">
+                          <select class="form-control" name="action" id="action" onclick="myFunction(this.value)">
                             <option value="belum lengkap">Belum Lengkap</option>
                             <option value="tidak menerima">Tidak Menerima</option>
                             <option value="data di terima">Data di Terima</option>
@@ -169,9 +203,36 @@
                         </div>
                       </div>
                       <div class='form-group row'>
+                      <label for='inputaction' class='col-sm-3 col-form-label'>Pesan Notifikasi WA</label>
+                      <div class='col-sm-9'>
+                        <p id="belum_lengkap" style="display: none;">
+                          Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri <br>
+                          Pendaftaran siswa baru atas Nama <b><span id="calon_siswa_1">CALON SISWA</span></b> di MI Al-Hidayah telah Belum Lengkap.<br>
+                          Silakan melakukan lengkapi data anda : <br>
+                          <b><span id="output_alasan_1">alasan</span></b> <br>
+                          Terima kasih atas partisipasinya. Segera lengkapi data anda sebelum pendaftaran di tutup.<br>
+                        </p>
+
+                        <p id="tidak_menerima" style="display: none;">
+                          Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri <br>
+                          Pendaftaran siswa baru atas Nama <b><span id="calon_siswa_2">CALON SISWA</span></b> di MI Al-Hidayah tidak dapat menerima pendafataran.<br>
+                          dengan alasan : <br>
+                          <b><span id="output_alasan_2">alasan</span></b> <br>
+                          Terima kasih atas partisipasinya anda.<br>
+                        </p>
+                        <p id="data_di_terima" style="display: none;">
+                            Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri <br>
+                            Selamat! Pendaftaran siswa baru atas Nama <b><span id="calon_siswa_3">CALON SISWA</span></b> di MI Al-Hidayah telah DITERIMA.<br>
+                            Silakan melakukan registrasi ulang di sekolah dengan menemui Seksi Tata Usaha <br>
+                            <b><span id="output_alasan_3">alasan</span></b> <br>
+                            Terima kasih dan kami tunggu kehadirannyaa.<br>
+                        </p>
+                      </div>
+                      </div>
+                      <div class='form-group row'>
                         <label for='inputalasan' class='col-sm-3 col-form-label'>Alasan</label>
                         <div class='col-sm-9'>
-                          <textarea class="form-control" name="alasan" id="alasan"></textarea>
+                          <textarea class="form-control" name="alasan" id="alasan" onkeydown="textchange(this.value)" onkeyup="textchange(this.value)"></textarea>
                           <input type="number" name="id_pendaftaran" id="id_pendaftaran" style="display : none;" >
                         </div>
                       </div>

@@ -105,7 +105,7 @@
             let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
             if (confirm(text) == true) {
               text = 'You pressed OK!';
-              window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?id_plotting_jadwal=' + id + '&action=delete'
+              window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?id_plotting=' + id + '&action=delete'
             }
           }
         </script>

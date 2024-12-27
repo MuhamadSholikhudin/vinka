@@ -24,7 +24,12 @@
         <script>
       $(function () {
         $("#example1").DataTable();
-        $('#example2').DataTable({
+        $("#example2").DataTable();
+        $("#example3").DataTable();
+        $("#example4").DataTable();
+        $("#example5").DataTable();
+        $("#example6").DataTable();
+        $('#example10').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": false,

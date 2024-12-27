@@ -39,9 +39,9 @@
       <div class='col-xs-12'>
         <div class='box'>
           <div class='box-header'>
-            <h3 class='box-title'>Data User</h3>
+            <h3 class='box-title'>Data User Guru</h3>
           </div>
-         <div class='box-body'>
+          <div class='box-body'>
             <table id='example1' class='table table-bordered table-striped'>
               <thead>
                 <tr>
@@ -54,7 +54,7 @@
               </thead>
               <tbody>
                 <?php
-                foreach (QueryManyData('SELECT * FROM user') as $row) {
+                foreach (QueryManyData('SELECT * FROM user WHERE level = "Guru"') as $row) {
                 ?>
                   <tr>
                     <td><?= $row['username'] ?></td>
@@ -76,16 +76,188 @@
             </table>
           </div>
         </div>
-        <script>
-          function ConfirmDelete(id) {
-            let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
-            if (confirm(text) == true) {
-              text = 'You pressed OK!';
-              window.location.href = '<?= $url ?>/aksi/user.php?id_user=' + id + '&action=delete'
-            }
-          }
-        </script>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class='box'>
+          <div class='box-header'>
+            <h3 class='box-title'>Data User Seksi Tata Usaha</h3>
+          </div>
+          <div class='box-body'>
+            <table id='example2' class='table table-bordered table-striped'>
+              <thead>
+                <tr>
+                  <th>USERNAME</th>
+                  <th>PASSWORD</th>
+                  <th>NM PENGGUNA</th>
+                  <th>LEVEL</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach (QueryManyData('SELECT * FROM user WHERE level = "Seksi Tata Usaha"') as $row) {
+                ?>
+                  <tr>
+                    <td><?= $row['username'] ?></td>
+                    <td><?= $row['password'] ?></td>
+                    <td><?= $row['nm_pengguna'] ?></td>
+                    <td><?= $row['level'] ?></td>
+                    <td>
+                      <a href='<?= $url ?>/app/user/edit.php?id_user=<?= $row['id_user'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                      <button onclick="ConfirmDelete(<?= $row['id_user'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
+                        <i class='fas fa-trash'></i>
+                        hapus
+                      </button>
+                    </td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class='box'>
+          <div class='box-header'>
+            <h3 class='box-title'>Data User Kepala Sekolah</h3>
+          </div>
+          <div class='box-body'>
+            <table id='example3' class='table table-bordered table-striped'>
+              <thead>
+                <tr>
+                  <th>USERNAME</th>
+                  <th>PASSWORD</th>
+                  <th>NM PENGGUNA</th>
+                  <th>LEVEL</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach (QueryManyData('SELECT * FROM user WHERE level = "Kepala Sekolah"') as $row) {
+                ?>
+                  <tr>
+                    <td><?= $row['username'] ?></td>
+                    <td><?= $row['password'] ?></td>
+                    <td><?= $row['nm_pengguna'] ?></td>
+                    <td><?= $row['level'] ?></td>
+                    <td>
+                      <a href='<?= $url ?>/app/user/edit.php?id_user=<?= $row['id_user'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                      <button onclick="ConfirmDelete(<?= $row['id_user'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
+                        <i class='fas fa-trash'></i>
+                        hapus
+                      </button>
+                    </td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class='box'>
+          <div class='box-header'>
+            <h3 class='box-title'>Data User Seksi Kurikulum</h3>
+          </div>
+          <div class='box-body'>
+            <table id='example4' class='table table-bordered table-striped'>
+              <thead>
+                <tr>
+                  <th>USERNAME</th>
+                  <th>PASSWORD</th>
+                  <th>NM PENGGUNA</th>
+                  <th>LEVEL</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach (QueryManyData('SELECT * FROM user WHERE level = "Seksi Kurikulum"') as $row) {
+                ?>
+                  <tr>
+                    <td><?= $row['username'] ?></td>
+                    <td><?= $row['password'] ?></td>
+                    <td><?= $row['nm_pengguna'] ?></td>
+                    <td><?= $row['level'] ?></td>
+                    <td>
+                      <a href='<?= $url ?>/app/user/edit.php?id_user=<?= $row['id_user'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                      <button onclick="ConfirmDelete(<?= $row['id_user'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
+                        <i class='fas fa-trash'></i>
+                        hapus
+                      </button>
+                    </td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class='box'>
+          <div class='box-header'>
+            <h3 class='box-title'>Data User Orang Tua</h3>
+          </div>
+          <div class='box-body'>
+            <table id='example5' class='table table-bordered table-striped'>
+              <thead>
+                <tr>
+                  <th>USERNAME</th>
+                  <th>PASSWORD</th>
+                  <th>NM PENGGUNA</th>
+                  <th>LEVEL</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach (QueryManyData('SELECT * FROM user WHERE level = "Orang Tua"') as $row) {
+                ?>
+                  <tr>
+                    <td><?= $row['username'] ?></td>
+                    <td><?= $row['password'] ?></td>
+                    <td><?= $row['nm_pengguna'] ?></td>
+                    <td><?= $row['level'] ?></td>
+                    <td>
+                      <a href='<?= $url ?>/app/user/edit.php?id_user=<?= $row['id_user'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                      <button onclick="ConfirmDelete(<?= $row['id_user'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
+                        <i class='fas fa-trash'></i>
+                        hapus
+                      </button>
+                    </td>
+                  </tr>
+                <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 </div>
+<script>
+  function ConfirmDelete(id) {
+    let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
+    if (confirm(text) == true) {
+      text = 'You pressed OK!';
+      window.location.href = '<?= $url ?>/aksi/user.php?id_user=' + id + '&action=delete'
+    }
+  }
+</script>
 <?php include_once '../template/footer.php'; ?>
