@@ -42,12 +42,15 @@
                 <select class='form-control' name='id_user' id='inputid_user' required>
                   <option >PILIH</option>
                   <?php
-                  $query_user = 'SELECT user.* FROM user  WHERE user.level = "Orang Tua"';
-                  $user = QueryManyData($query_user);
-                  foreach ($user as  $row) {
-                  ?>
-                    <option value='<?= $row['id_user'] ?>'><?= $row['nm_pengguna'] ?></option>
-                  <?php
+                  $query_pendaftar = 'SELECT * FROM pendaftaran_siswa  WHERE status_pendaftaran = "data di terima" ';
+                  $pendaftar = QueryManyData($query_pendaftar);
+                  foreach ($pendaftar as  $row) {
+                    $check_siswa = QueryOnedata("SELECT * FROM siswa WHERE nm_siswa = '".$row['nm_siswa']."' AND id_user = ".$row['id_user']."")->num_rows;
+                    if($check_siswa < 1){
+                      ?>
+                      <option value='<?= $row['id_user'] ?>'><?= $row['nm_siswa'] ?></option>
+                    <?php
+                    }
                   }
                   ?>
                 </select>

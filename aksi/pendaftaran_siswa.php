@@ -123,13 +123,13 @@ Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
                 'status_pendaftaran' => $_GET['action'],
         ];
         $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pendaftaran = ' . $_GET['id_pendaftaran'] . '')->fetch_assoc();
-        $data = [];        
-        array_push($data, $pendaftaran_siswa);
+        $dataX = [];        
+        array_push($dataX, $pendaftaran_siswa);
         $message = "Pengumuman Penerimaan Siswa Baru MI AL-Hidayah Pati Puri \n
-Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hidayah tidak dapat menerima pendafataran.\n
+Pendaftaran siswa baru atas Nama ".$dataX[0]['nm_siswa']." di MI Al-Hidayah tidak dapat menerima pendafataran.\n
 dengan alasan ".$_GET['alasan']." \n
 Terima kasih atas partisipasinya anda.";
-        $satu = zen($url_wa, $userkey, $passkey, '0' . $data[0]['no_hp_orang_tua'], $message);
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_hp_orang_tua'], $message);
 
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
@@ -143,17 +143,16 @@ Terima kasih atas partisipasinya anda.";
         $data = [
                 'status_pendaftaran' => $_GET['action'],
         ];
-
         $pendaftaran_siswa = QueryOnedata('SELECT * FROM pendaftaran_siswa WHERE id_pendaftaran = ' . $_GET['id_pendaftaran'] . '')->fetch_assoc();
-        $data = [];        
-        array_push($data, $pendaftaran_siswa);
+        $dataX = [];        
+        array_push($dataX, $pendaftaran_siswa);
         $message = "Pengumuman Penerimaan Siswa Baru \n
-Selamat! Pendaftaran siswa baru atas Nama ".$data[0]['nm_siswa']." di MI Al-Hidayah telah DITERIMA.\n
+Selamat! Pendaftaran siswa baru atas Nama ".$dataX[0]['nm_siswa']." di MI Al-Hidayah telah DITERIMA.\n
 Silakan melakukan registrasi ulang di sekolah dengan menemui Seksi Tata Usaha.\n
-
+".$_GET['alasan']." \n
 Terima kasih dan kami tunggu kehadirannya.\n
 ";
-        $satu = zen($url_wa, $userkey, $passkey, '0' . $data[0]['no_hp_orang_tua'], $message);
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_hp_orang_tua'], $message);
 
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');

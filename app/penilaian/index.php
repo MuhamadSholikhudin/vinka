@@ -34,6 +34,26 @@
       unset($_SESSION['message']);
       unset($_SESSION['message_code']);
     } ?>
+
+    <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">Periode Semester</h3>
+      </div>
+      <div class="box-body">
+        <?php foreach (QueryManyData("SELECT * FROM  periode ORDER BY id_periode DESC") as $row) { ?>
+          <div class="row">
+            <div class="col-xs-6">
+              <a href="<?= $url ?>/app/penilaian/periode.php?id_periode=<?= $row['id_periode'] ?>" class="btn btn-block btn-social btn-bitbucket">
+                <i class="fa fa-flickr"></i> <?= $row['nm_periode'] ?>
+              </a>
+            </div>
+          <?php } ?>
+
+          </div>
+      </div><!-- /.box-body -->
+    </div>
+    <?php
+    /*
     <a class='btn btn-social-icon btn-info' data-toggle='tooltip' data-placement='top' title='Tambah data penilaian' href='<?= $url ?>/app/penilaian/tambah.php'><i class='fa fa-plus'></i></a>
     <div class='row'>
       <div class='col-xs-12'>
@@ -76,15 +96,15 @@
                     <td><?= $row['nilai'] ?></td>
                     <td><?= $row['nilai_praktek'] ?></td>
                     <td>
-                    <?php if ($_SESSION['level'] == 'Orang Tua') { ?>
-                      <a href='<?= $url ?>/app/penilaian/detail.php?id_penilaian=<?= $row['id_penilaian'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
-                      <?php }else{ ?>
+                      <?php if ($_SESSION['level'] == 'Orang Tua') { ?>
+                        <a href='<?= $url ?>/app/penilaian/detail.php?id_penilaian=<?= $row['id_penilaian'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> detail</a>
+                      <?php } else { ?>
 
-                      <a href='<?= $url ?>/app/penilaian/edit.php?id_penilaian=<?= $row['id_penilaian'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                      <button onclick="ConfirmDelete(<?= $row['id_penilaian'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
-                        <i class='fas fa-trash'></i>
-                        hapus
-                      </button>
+                        <a href='<?= $url ?>/app/penilaian/edit.php?id_penilaian=<?= $row['id_penilaian'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                        <button onclick="ConfirmDelete(<?= $row['id_penilaian'] ?>)" class='btn bg-maroon btn-flat btn-sm'>
+                          <i class='fas fa-trash'></i>
+                          hapus
+                        </button>
                       <?php } ?>
 
                     </td>
@@ -107,5 +127,6 @@
         </script>
       </div>
     </div>
+    */ ?>
 </div>
 <?php include_once '../template/footer.php'; ?>

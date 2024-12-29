@@ -57,7 +57,7 @@
                   <tr>
                     <td> 
                       <?php
-                          $guru = QueryOnedata('SELECT * FROM guru WHERE guru.id_guru = ' . $row['id_guru'] . ' ')->fetch_assoc();
+                          $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $row['id_guru'] . ' ')->fetch_assoc();
                           ?>
                       <?= $guru['nip'] . " | " . $guru['nm_guru'] ?>
                     </td>

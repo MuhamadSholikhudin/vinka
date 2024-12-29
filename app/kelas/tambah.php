@@ -27,7 +27,7 @@
                     $guru = QueryManyData('SELECT * FROM guru');
                     foreach ($guru as  $row) {
                     ?>
-                      <option value='<?= $row['id_guru'] ?>'> <?= $row['nip'] ?> | <?= $row['nm_guru'] ?></option>
+                      <option value='<?= $row['id_guru'] ?>'> NIP : <?= $row['nip'] ?> | <?= $row['nm_guru'] ?></option>
                     <?php
                     }
                     ?>
