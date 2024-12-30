@@ -3,6 +3,7 @@
 <?php include_once '../template/sidebar.php';
 $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_periode'] . '')->fetch_assoc();
 $kelas = QueryOnedata('SELECT * FROM kelas WHERE id_kelas = ' . $_GET['id_kelas'] . '')->fetch_assoc();
+$mapel = QueryOnedata('SELECT * FROM mapel WHERE id_mapel = ' . $_GET['id_mapel'] . '')->fetch_assoc();
 $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] . '')->fetch_assoc();
 ?>
 <div class='content-wrapper'>
@@ -41,13 +42,9 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
 
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> </h3>
+                <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> Mata Pelajaran <?= $mapel['nm_mapel'] ?></h3>
             </div>
             <div class="box-body">
-                <?php
-                $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-                $jams = ['07:00', '08:00', '09:00',  '10:00', '11:00', '12:00'];
-                ?>
                 <style>
                     table,
                     thead,
@@ -62,53 +59,91 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 </style>
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>MAPEL</th>
-
-                            <th>TUGAS</th>
-                            <th>UH</th>
-                            <th>UTS</th>
-                            <th>UAS</th>
-                            <th>RATA - RATA</th>
-
-                            <th>ACTION</th>
+                        <tr class="text-center">
+                            <th class="text-center">NO</th>
+                            <th class="text-center">MAPEL</th>
+                            <th class="text-center">TUGAS</th>
+                            <th class="text-center">UH</th>
+                            <th class="text-center">UTS</th>
+                            <th class="text-center">UAS</th>
+                            <th class="text-center">RATA - RATA</th>
+                            <th class="text-center">ACTION</th>
                         </tr>
                     </thead>
-                    <body>
-                        <?php 
+                    <tbody>
+                        <?php
                         $query_mapel = "SELECT * FROM mapel";
-                        if($_SESSION['level'] == 'Guru'){
-                            $gurux = QueryOnedata("SELECT * FROM guru WHERE id_user = ".$_SESSION['id_user']." ")->fetch_assoc();
-                            $query_mapel = "SELECT plotting_jadwal.id_siswa, mapel.nm_mapel FROM plotting_jadwal
+                        if ($_SESSION['level'] == 'Guru') {
+                            $gurux = QueryOnedata("SELECT * FROM guru WHERE id_user = " . $_SESSION['id_user'] . " ")->fetch_assoc();
+                            $query_mapel = "SELECT plotting_jadwal.id_plotting, plotting_jadwal.id_siswa, mapel.nm_mapel, mapel.id_mapel FROM plotting_jadwal
                             JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
-                            WHERE plotting_jadwal.id_periode = ".$_GET['id_periode']." 
-                            AND plotting_jadwal.id_kelas = ".$kelas['id_kelas']." 
-                            AND mapel.id_guru = ".$gurux['id_guru']."  
-                            GROUP BY plotting_jadwal.id_siswa";
-                        }else{
-
+                            WHERE plotting_jadwal.id_periode = " . $_GET['id_periode'] . " 
+                            AND plotting_jadwal.id_kelas = " . $kelas['id_kelas'] . " 
+                            AND mapel.id_guru = " . $gurux['id_guru'] . "  
+                            GROUP BY plotting_jadwal.id_siswa 
+                            ";
+                        } else {
                         }
                         $no = 1;
-                        foreach(QueryManyData($query_mapel) as $row){
-                            $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = ".$row['id_siswa']." ")->fetch_assoc();
+                        foreach (QueryManyData($query_mapel) as $row) {
+                            $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = " . $row['id_siswa'] . " ")->fetch_assoc();
                         ?>
-                        <tr>
-                            <td><?= $no++ ?></td>
-                            <td><?= $siswa['nm_siswa'] ?></td>
+                        
+                            <tr>
+                                <td>
+                                <form action="<?= $url ?>/aksi/penilaian.php" method="POST" enctype="multipart/form-data">
+                                    <?= $no++ ?>
+                                    <?php 
+                                    $id_penilaian = 0;
+                                    ?>
+                                    <input class="form-control" type="number" name="id_penilaian[]" value="<?= $id_penilaian ?>" min="0" max="100" id="">
+                                    <input class="form-control" type="number" name="id_periode[]" value="<?= $_GET['id_periode'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" type="number" name="id_kelas[]" value="<?= $_GET['id_kelas'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" type="number" name="id_mapel[]" value="<?= $_GET['id_mapel'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
+                                </td>
+                                <td><?= $siswa['nm_siswa'] ?></td>
+                                <td>
+                                    <?php
+                                     $tugas = 0;  
+                                     $query_tugas = "SELECT penilaian.id_penilaian, penilaian.nilai, penilaian.nilai_praktek, penilaian.id_plotting FROM penilaian 
+                                     LEFT JOIN plotting_jadwal ON penilaian.id_plotting = plotting_jadwal.id_plotting
+                                     WHERE plotting_jadwal.id_periode = " . $_GET['id_periode'] . " 
+                                        AND plotting_jadwal.id_kelas = " . $kelas['id_kelas'] . " 
+                                        AND plotting_jadwal.id_mapel = " . $row['id_mapel'] . " 
+                                        AND plotting_jadwal.id_siswa = " . $row['id_siswa'] . " 
+                                        AND penilaian.jenis_penilaian = 'tugas' 
+                                        ";
+                                        echo $check_tugas = QueryOnedata($query_tugas)->num_rows;
+                                     ?>
+                                    <input class="form-control" type="number" name="tugas[]" value="<?= $tugas ?>" min="0" max="100" id="">
+                                </td>
+                                <td>
+                                    <?php $uh = 0;  ?>
+                                    <input class="form-control" type="number" name="uh[]" value="<?= $uh ?>" min="0" max="100" id="">
+                                </td>
+                                <td>
+                                    <?php $uts = 0;  ?>
+                                    <input class="form-control" type="number" name="uts[]" value="<?= $uts ?>" min="0" max="100" id="">
+                                </td>
+                                <td>
+                                    <?php $uas = 0;  ?>
+                                    <input class="form-control" type="number" name="uas[]" value="<?= $uas ?>" min="0" max="100" id="">
+                                </td>
+                                <td></td>
+                                <td>
+                                    <button type="submit" name="UPDATE_PENILAIAN_DATA" value="UPDATE_PENILAIAN_DATA" class="btn btn-sm btn-success">
+                                        <i class='fa fa-edit'></i> Update
+                                    </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        
 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-
-                        </tr>
-                        <?php 
+                        <?php
                         }
                         ?>
-                    </body>
+                    </tbody>
                 </table>
 
                 <br>
@@ -198,7 +233,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                 <div class="col-sm-9">
                                     <select class="form-control" name="id_mapel" id="inputmapel">
                                         <?php
-                                       
+
                                         ?>
                                     </select>
                                 </div>
@@ -213,7 +248,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                         <th>delete</th>
                                     </tr>
                                 </thead>
-                                <tbody id="bodydetailjadwal">                                  
+                                <tbody id="bodydetailjadwal">
                                 </tbody>
                             </table>
                             <div style="display: none;">
@@ -257,26 +292,26 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                     data: dataX,
                     success: function(response) {
                         var trBody = "";
-                        if(response.code == 200 ){         
-                            for(let yt = 0; yt < response.data.length; yt ++){
-                                trBody += `<tr><td>`+response.data[yt].nis+`</td><td>`+response.data[yt].nm_siswa+`</td> <td> <button class="btn btn-danger" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</button> </td> </tr>`;
+                        if (response.code == 200) {
+                            for (let yt = 0; yt < response.data.length; yt++) {
+                                trBody += `<tr><td>` + response.data[yt].nis + `</td><td>` + response.data[yt].nm_siswa + `</td> <td> <button class="btn btn-danger" onClick="HapusPlot(` + response.data[yt].id_plotting + `);" >Hapus</button> </td> </tr>`;
                             }
                         }
                         document.getElementById("bodydetailjadwal").innerHTML = trBody;
-                     },
+                    },
                     error: function(xhr, status, error) {
                         alert("Terjadi kesalahan: " + error);
                     }
                 });
             }
 
-          function HapusPlot(id) {
-            let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
-            if (confirm(text) == true) {
-              text = 'You pressed OK!';
-            //   window.location.href = '<?= $url ?>/aksi/penilaian.php?action=delete&id_plotting=' + id + '';
+            function HapusPlot(id) {
+                let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
+                if (confirm(text) == true) {
+                    text = 'You pressed OK!';
+                    //   window.location.href = '<?= $url ?>/aksi/penilaian.php?action=delete&id_plotting=' + id + '';
+                }
             }
-          }
         </script>
 
     </section>
