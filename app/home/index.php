@@ -106,7 +106,40 @@ session_start(); //Memulai session
             </div>
           </div>
         </div>
+        <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
+          <h3 class="text-center">VISI DAN MISI</h3>
+          <div class="col-md-6">
+          Visi: </br>
+          “Terwujudnya lulusan yang beriman dan bertaqwa terhadap Allah SWT, Cerdas, Terampil, Berkarakter dan Berakhlakul Karimah”.
+          </div>
+          <div class="col-md-6">
+          Misi : </br>
 
+          <table>
+            <tr>
+              <td valign="top">1.</td>
+              <td>Menyelenggarakan pendidikan yang bermutu dalam pencapaian prestasi akademik dan non akademik. </td>
+            </tr>
+            <tr>
+              <td valign="top">2.</td>
+              <td>Mewujudkan pembelajaran dan pembiasaan dalam mempelajari Al-Qur’an dan menjalankan ajaran agama islam.</td>
+            </tr>
+            <tr>
+              <td valign="top">3.</td>
+              <td>Menyelenggarakan pendidikan dengan Manajemen Berbasis Sekolah (MBS) secara Komprehensif yang didukung oleh semua Stake Holder.</td>
+            </tr>
+            <tr>
+              <td valign="top">4.</td>
+              <td>Mewujudkan pembentukan karakter islami yang mampu mengaktualisasikan diri dalam masyarakat.</td>
+            </tr>
+            <tr>
+              <td valign="top">5.</td>
+              <td>Meningkatkan pengetahuan dan profesionalisme tenaga kependidikan sesuai dengan perkembangan dunia pendidikan.</td>
+            </tr>
+          </table>
+          </div>
+        </div>
+        <?php /*/ ?>
         <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
           <div class="col-lg-3 col-md-6">
             <div class="stat-item">
@@ -153,6 +186,7 @@ session_start(); //Memulai session
             </div>
           </div>
         </div>
+        <?php */ ?>
 
       </div>
 

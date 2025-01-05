@@ -34,6 +34,25 @@
       unset($_SESSION['message']);
       unset($_SESSION['message_code']);
     } ?>
+        <div class="box box-danger">
+      <div class="box-header with-border">
+        <h3 class="box-title">Periode Semester</h3>
+      </div>
+      <div class="box-body">
+        <?php foreach (QueryManyData("SELECT * FROM  periode ORDER BY id_periode DESC") as $row) { ?>
+          <div class="row">
+            <div class="col-xs-6">
+              <a href="<?= $url ?>/app/kehadiran_siswa/periode.php?id_periode=<?= $row['id_periode'] ?>" class="btn btn-block btn-social btn-bitbucket">
+                <i class="fa fa-flickr"></i> <?= $row['nm_periode'] ?>
+              </a>
+            </div>
+          <?php } ?>
+
+          </div>
+      </div><!-- /.box-body -->
+    </div>
+    <?php
+    /*
     <a class='btn btn-social-icon btn-info' data-toggle='tooltip' data-placement='top' title='Tambah data kehadiran_siswa' href='<?= $url ?>/app/kehadiran_siswa/tambah.php'><i class='fa fa-plus'></i></a>
     <div class='row'>
       <div class='col-xs-12'>
@@ -102,5 +121,6 @@
         </script>
       </div>
     </div>
+    */ ?>
 </div>
 <?php include_once '../template/footer.php'; ?>

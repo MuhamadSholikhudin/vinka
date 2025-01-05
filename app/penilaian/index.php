@@ -34,7 +34,6 @@
       unset($_SESSION['message']);
       unset($_SESSION['message_code']);
     } ?>
-
     <div class="box box-danger">
       <div class="box-header with-border">
         <h3 class="box-title">Periode Semester</h3>

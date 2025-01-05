@@ -87,8 +87,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         $no = 1;
                         foreach (QueryManyData($query_mapel) as $row) {
                             $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = " . $row['id_siswa'] . " ")->fetch_assoc();
-                        ?>
-                        
+                        ?>                        
                             <tr>
                                 <td>
                                 <form action="<?= $url ?>/aksi/penilaian.php" method="POST" enctype="multipart/form-data">
@@ -96,11 +95,11 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                     <?php 
                                     $id_penilaian = 0;
                                     ?>
-                                    <input class="form-control" type="number" name="id_penilaian[]" value="<?= $id_penilaian ?>" min="0" max="100" id="">
-                                    <input class="form-control" type="number" name="id_periode[]" value="<?= $_GET['id_periode'] ?>" min="0" max="100" id="">
-                                    <input class="form-control" type="number" name="id_kelas[]" value="<?= $_GET['id_kelas'] ?>" min="0" max="100" id="">
-                                    <input class="form-control" type="number" name="id_mapel[]" value="<?= $_GET['id_mapel'] ?>" min="0" max="100" id="">
-                                    <input class="form-control" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" style="display: none;" type="number" name="id_penilaian[]" value="<?= $id_penilaian ?>" min="0" max="100" id="">
+                                    <input class="form-control" style="display: none;" type="number" name="id_periode[]" value="<?= $_GET['id_periode'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" style="display: none;" type="number" name="id_kelas[]" value="<?= $_GET['id_kelas'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" style="display: none;" type="number" name="id_mapel[]" value="<?= $_GET['id_mapel'] ?>" min="0" max="100" id="">
+                                    <input class="form-control" style="display: none;" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
                                 </td>
                                 <td><?= $siswa['nm_siswa'] ?></td>
                                 <td>
@@ -114,38 +113,62 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                         AND plotting_jadwal.id_siswa = " . $row['id_siswa'] . " 
                                         AND penilaian.jenis_penilaian = 'tugas' 
                                         ";
-                                        echo $check_tugas = QueryOnedata($query_tugas)->num_rows;
+                                        $plotting = "SELECT id_plotting FROM plotting_jadwal WHERE id_siswa = " . $row['id_siswa'] . " AND id_kelas = " . $kelas['id_kelas'] . " AND id_periode = " . $_GET['id_periode'] . " ";
+                                        $check_penilaian_tugas = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'tugas' ";
+                                        if(QueryOnedata($check_penilaian_tugas)->num_rows > 0){
+                                            $tugas = QueryOnedata($check_penilaian_tugas)->fetch_assoc()['nilai'];  
+                                        }
                                      ?>
                                     <input class="form-control" type="number" name="tugas[]" value="<?= $tugas ?>" min="0" max="100" id="">
                                 </td>
                                 <td>
-                                    <?php $uh = 0;  ?>
+                                    <?php 
+                                    $uh = 0;
+                                    $check_penilaian_uh = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'uh' ";
+                                    if(QueryOnedata($check_penilaian_uh)->num_rows > 0){
+                                        $uh = QueryOnedata($check_penilaian_uh)->fetch_assoc()['nilai'];  
+                                    }
+                                    ?>
                                     <input class="form-control" type="number" name="uh[]" value="<?= $uh ?>" min="0" max="100" id="">
                                 </td>
                                 <td>
-                                    <?php $uts = 0;  ?>
+                                    <?php 
+                                    $uts = 0;
+                                    $check_penilaian_uts = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'uts' ";
+                                    if(QueryOnedata($check_penilaian_uts)->num_rows > 0){
+                                        $uts = QueryOnedata($check_penilaian_uts)->fetch_assoc()['nilai'];  
+                                    }
+                                    ?>
                                     <input class="form-control" type="number" name="uts[]" value="<?= $uts ?>" min="0" max="100" id="">
                                 </td>
                                 <td>
-                                    <?php $uas = 0;  ?>
+                                    <?php 
+                                    $uas = 0;
+                                    $check_penilaian_uas = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'uas' ";
+                                    if(QueryOnedata($check_penilaian_uas)->num_rows > 0){
+                                        $uas = QueryOnedata($check_penilaian_uas)->fetch_assoc()['nilai'];  
+                                    }
+                                    ?>
                                     <input class="form-control" type="number" name="uas[]" value="<?= $uas ?>" min="0" max="100" id="">
                                 </td>
-                                <td></td>
+                                <td style="text-align:center;">
+                                    <?php 
+                                    // Rata- Rata
+                                    echo round(QueryOnedata("SELECT AVG(nilai) as rata_rata FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']."")->fetch_assoc()['rata_rata']);
+                                    ?>
+                                </td>
                                 <td>
                                     <button type="submit" name="UPDATE_PENILAIAN_DATA" value="UPDATE_PENILAIAN_DATA" class="btn btn-sm btn-success">
                                         <i class='fa fa-edit'></i> Update
                                     </button>
                                     </form>
                                 </td>
-                            </tr>
-                        
-
+                            </tr>                      
                         <?php
                         }
                         ?>
                     </tbody>
                 </table>
-
                 <br>
                 <a href='<?= $url ?>/app/penilaian/periode.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>' class='btn btn-default btn-sm '>
                     <i class='fa fa-reply'></i> kembali

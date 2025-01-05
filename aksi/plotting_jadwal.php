@@ -52,14 +52,10 @@ if (isset($_POST['simpanplotting_jadwal'])) {
         $_SESSION['message_code'] =  $process['code'];
         header('Location: ' . $url . '/app/plotting_jadwal/index.php');
         exit();
-// } elseif ($_GET['action'] == 'delete') {
 } elseif (isset($_GET['action'])) {
-
-        var_dump(1);
-        die();
-        $process = DeleteOneData('plotting_jadwal', 'WHERE = ' . $_GET['id_plotting'] . '');
+        $process = DeleteOneData('plotting_jadwal', 'WHERE id_plotting = ' . $_GET['id_plotting'] . '');
         $_SESSION['message'] = 'Data Plotting Jadwal ' . $process['message'];
         $_SESSION['message_code'] =  $process['code'];
-        header('Location: ' . $url . '/app/plotting_jadwal/index.php');
+        header('Location: ' . $url . '/app/plotting_jadwal/kelas.php?id_periode=' . $_GET['id_periode'] . '&id_kelas=' . $_GET['id_kelas'] . '');
         exit();
 }
