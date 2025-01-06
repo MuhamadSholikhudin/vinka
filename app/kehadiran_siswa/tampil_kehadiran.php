@@ -1,6 +1,7 @@
-<?php include_once '../template/header.php'; ?>
-<?php include_once '../template/navbar.php'; ?>
-<?php include_once '../template/sidebar.php';
+<?php 
+include_once '../template/header.php'; 
+include_once '../template/navbar.php'; 
+include_once '../template/sidebar.php';
 $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_periode'] . '')->fetch_assoc();
 $kelas = QueryOnedata('SELECT * FROM kelas WHERE id_kelas = ' . $_GET['id_kelas'] . '')->fetch_assoc();
 $mapel = QueryOnedata('SELECT * FROM mapel WHERE id_mapel = ' . $_GET['id_mapel'] . '')->fetch_assoc();
@@ -8,7 +9,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
 ?>
 <div class='content-wrapper'>
     <section class='content-header'>
-        <h1>Kehadiran page
+        <h1>Tambah Kehadiran page
         </h1>
         <ol class='breadcrumb'>
             <li><a href='#'><i class='fa fa-dashboard'></i> Index</a></li>
@@ -39,7 +40,6 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
             unset($_SESSION['message']);
             unset($_SESSION['message_code']);
         } ?>
-
         <div class="box box-danger">
             <div class="box-header with-border">
                 <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> Mata Pelajaran <?= $mapel['nm_mapel'] ?></h3>
@@ -53,21 +53,14 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                     th,
                     td {
                         border: 1px solid black;
-                        /* padding: 5px; */
-
                     }
                 </style>
                 <table class="table">
                     <thead>
                         <tr class="text-center">
                             <th class="text-center">NO</th>
-                            <th class="text-center">MAPEL</th>
-                            <th class="text-center">TUGAS</th>
-                            <th class="text-center">UH</th>
-                            <th class="text-center">UTS</th>
-                            <th class="text-center">UAS</th>
-                            <th class="text-center">RATA - RATA</th>
-                            <th class="text-center">ACTION</th>
+                            <th class="text-center">NAMA SISWA</th>
+                            <th class="text-center">KEHADIRAN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,7 +75,6 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             AND mapel.id_guru = " . $gurux['id_guru'] . "  
                             GROUP BY plotting_jadwal.id_siswa 
                             ";
-                        } else {
                         }
                         $no = 1;
                         foreach (QueryManyData($query_mapel) as $row) {
@@ -102,14 +94,37 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                     <input class="form-control" style="display: none;" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
                                 </td>
                                 <td><?= $siswa['nm_siswa'] ?></td>
-                            </tr>                      
+                                <td>   
+                                    <span>
+                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Masuk" id=""> Masuk &nbsp; 
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Izin" id=""> Izin &nbsp;
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Sakit" id=""> Sakit &nbsp;
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Alfa" id=""> Alfa &nbsp;
+                                    </span>
+                                 </td>
+                                </tr>                                    
                         <?php
                         }
                         ?>
+                        <tr style="background-color: blueviolet;">                      
+                            <td style="color:white; text-align:center;">
+                                Tanggal
+                            </td>
+                            <td> <input type="date" name="tanggal" class="form-control" id="" value="<?= date('Y-m-d') ?>"> </td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-sm btn-block btn-success"> <i class="fa fa-save"></i> Simpan</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <br>
-                <a href='<?= $url ?>/app/penilaian/periode.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>' class='btn btn-default btn-sm '>
+                <a href='<?= $url ?>/app/kehadiran_siswa/kelas.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>' class='btn btn-default btn-sm '>
                     <i class='fa fa-reply'></i> kembali
                 </a><!-- /.box-body -->
             </div>
