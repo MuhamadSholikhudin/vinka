@@ -45,6 +45,73 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> Mata Pelajaran <?= $mapel['nm_mapel'] ?></h3>
             </div>
             <div class="box-body">
+                <div class='box box-info'>
+                    <div class='box-header with-border text-center'>
+                        <h3 class='box-title'>TAMPILKAN DATA KEHADIRAN SISWA</h3>
+                    </div>
+                    <form action='<?= $url ?>/app/kehadiran_siswa/tampil_kehadiran.php' method='GET' enctype='multipart/form-data' class='form-horizontal'>
+                        <div class='box-body'>
+                            <div class='form-group'>
+                                <label for='inputdari_tanggal' class='col-sm-2 col-form-label'>Bulan</label>
+                                <div class='col-sm-2'>
+                                    <select name="bulan" id="bulan" class="form-control">
+                                        <?php for ($i = 1; $i <= 12; $i++) {
+                                            if(isset($_GET['bulan'])){
+                                                if($_GET['bulan'] == $i){
+                                                ?><option value="<?= $i ?>" selected><?= $i ?></option><?php
+                                                }else{
+                                                    ?><option value="<?= $i ?>"><?= $i ?></option><?php
+                                                }
+                                            }else{
+                                            ?><option value="<?= $i ?>"><?= $i ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </div>                           
+                                <label for='inputsampai_tanggal' class='col-sm-2 col-form-label'>Tahun</label>
+                                <div class='col-sm-3'>
+                                    <select name="tahun" id="tahun" class="form-control">
+                                        <?php
+                                        $year_now = date('Y');
+                                        $year_start = $year_now - 10;
+                                        for ($i = $year_now; $i >= $year_start; $i--) {
+                                            if(isset($_GET['tahun'])){
+                                                if($_GET['tahun'] == $i){
+                                                    ?>
+                                                    <option value="<?= $i ?>" selected><?= $i ?></option>
+                                                <?php
+                                                }else{
+                                                    ?>
+                                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                                <?php
+                                                }
+                                            }else{
+                                        ?>
+                                            <option value="<?= $i ?>"><?= $i ?></option>
+                                        <?php
+                                        }
+                                     } ?>
+                                    </select>
+                                </div>
+                                <div class='col-sm-3'>
+                                    <button type='submit' class='btn btn-info pull-right'>
+                                        <i class='fa fa-search'></i> TAMPILKAN
+                                    </button>
+                                </div>
+                            </div>
+                            <div class='form-group' style="display: none;">
+                                <label for='inputjenis_filter' class='col-sm-5 col-form-label'>Jenis Filter</label>
+                                <div class='col-sm-7'>
+                                    <input type='text' class='form-control' id='inputjenis_filter' name='tampil' value="tampil" required>
+                                    <input type='text' class='form-control' id='inputjenis_filter' name='id_periode' value="<?=$_GET['id_periode'] ?>" required>
+                                    <input type='text' class='form-control' id='inputjenis_filter' name='id_kelas' value="<?=$_GET['id_kelas'] ?>" required>
+                                    <input type='text' class='form-control' id='inputjenis_filter' name='id_mapel' value="<?=$_GET['id_mapel'] ?>" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
                 <style>
                     table,
                     thead,
@@ -55,12 +122,30 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         border: 1px solid black;
                     }
                 </style>
+                <?php 
+                if(isset($_GET['tampil'])){
+                    // Contoh penggunaan
+                    $tahun = $_GET['tahun'];
+                    $bulan = $_GET['bulan']; // Januari
+                    // Fungsi untuk menampilkan semua tanggal dalam satu bulan
+                        // Tentukan tanggal awal bulan
+                        $tanggalAwal = new DateTime("$tahun-$bulan-01");
+                        // Tentukan tanggal akhir bulan
+                        $tanggalAkhir = new DateTime("$tahun-$bulan-01");
+                        $tanggalAkhir->modify('last day of this month');
+                        // Iterasi dari tanggal awal sampai akhir
+                        $months = new DatePeriod($tanggalAwal, new DateInterval('P1D'), $tanggalAkhir->modify('+1 day'));                       
+                ?>
                 <table class="table">
                     <thead>
                         <tr class="text-center">
                             <th class="text-center">NO</th>
                             <th class="text-center">NAMA SISWA</th>
-                            <th class="text-center">KEHADIRAN</th>
+                            <?php 
+                                foreach ($months as $tanggal) {
+                                    echo "<th class='text-center'>".$tanggal->format('d') . "</th>";
+                                }
+                            ?>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -93,36 +178,25 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                     <input class="form-control" style="display: none;" type="number" name="id_mapel[]" value="<?= $_GET['id_mapel'] ?>" min="0" max="100" id="">
                                     <input class="form-control" style="display: none;" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
                                 </td>
-                                <td><?= $siswa['nm_siswa'] ?></td>
-                                <td>   
-                                    <span>
-                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Masuk" id=""> Masuk &nbsp; 
-                                    </span>
-                                    <span>
-                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Izin" id=""> Izin &nbsp;
-                                    </span>
-                                    <span>
-                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Sakit" id=""> Sakit &nbsp;
-                                    </span>
-                                    <span>
-                                        <input type="radio" name="jenis_kehadiran" class="form-centrol" value="Alfa" id=""> Alfa &nbsp;
-                                    </span>
-                                 </td>
-                                </tr>                                    
+                                <td><?= $siswa['nm_siswa'] ?></td>   
+                                <?php 
+                                foreach ($months as $tanggal) {
+                                    $check_kehadiran = QueryOnedata("SELECT * FROM kehadiran_siswa WHERE id_plotting = ".$row['id_plotting'] ." AND tgl_kehadiran = '".$tanggal->format('Y-m-d') . "' ");
+                                    if( $check_kehadiran->num_rows > 0){
+                                        echo "<td>".$check_kehadiran->fetch_assoc()['jenis_kehadiran']. "</td>";
+                                    }else{
+                                        echo "<td></td>";
+                                    }
+                                }
+                                ?>                              
+                            </tr>                                    
                         <?php
                         }
-                        ?>
-                        <tr style="background-color: blueviolet;">                      
-                            <td style="color:white; text-align:center;">
-                                Tanggal
-                            </td>
-                            <td> <input type="date" name="tanggal" class="form-control" id="" value="<?= date('Y-m-d') ?>"> </td>
-                            <td class="text-center">
-                                <button type="submit" class="btn btn-sm btn-block btn-success"> <i class="fa fa-save"></i> Simpan</button>
-                            </td>
-                        </tr>
+                        ?>                        
                     </tbody>
                 </table>
+                <?php 
+                } ?>
                 <br>
                 <a href='<?= $url ?>/app/kehadiran_siswa/kelas.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>' class='btn btn-default btn-sm '>
                     <i class='fa fa-reply'></i> kembali

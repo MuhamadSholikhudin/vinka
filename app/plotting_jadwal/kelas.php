@@ -41,7 +41,10 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
 
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> </h3>
+                <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> </h3>       &nbsp; &nbsp; &nbsp;          
+                <a target="_blank" href='<?= $url ?>/app/plotting_jadwal/cetak.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>' class='btn btn-warning btn-sm '>
+                    <i class='fa fa-print'></i> cetak
+                </a><!-- /.box-body -->
             </div>
             <div class="box-body">
                 <?php
@@ -63,22 +66,22 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>NO</th>
+                            <th></th>
                             <?php                // Contoh penggunaan
                             foreach ($hari as $h) {
-                                echo "<th>" . $h . "</th>";
+                                echo "<th class='text-center'>" . $h . "</th>";
                             }
                             ?>
                         </tr>
                     <tbody>
                         <?php                // Contoh penggunaan
                         for ($j = 0; $j < count($jams); $j++) {
-                            echo "<tr><td>" . $jams[$j] . "</td>";
+                            echo "<tr><td class='text-center'>" . $jams[$j] . "</td>";
                             foreach ($hari as $h) {
                                 $query_jadwal = "SELECT * FROM plotting_jadwal WHERE hari = '" . $h . "' AND jam_awal = '" . $jams[$j] . ":00' AND id_periode = " . $_GET['id_periode'] . " AND id_kelas = " . $_GET['id_kelas'] . " ";
                                 $check_jadwal = QueryOnedata($query_jadwal);
                                 if ($check_jadwal->num_rows < 1) {
-                                    echo "<td><button class='btn bg-info btn-flat margin'  data-toggle='modal' data-target='#AddJadwal' onClick='AddModal(`" . $h . "`, `" . $jams[$j] . ":00`,`";
+                                    echo "<td class='text-center'><button class='btn bg-info btn-flat margin'  data-toggle='modal' data-target='#AddJadwal' onClick='AddModal(`" . $h . "`, `" . $jams[$j] . ":00`,`";
                                     if (($j + 8) >= 10) {
                                         echo ($j + 8) . ":00:00`)' > Tambah</button></td>";
                                     } else {
@@ -86,7 +89,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                     }
                                 } else {
                                     $mapel = QueryOnedata("SELECT * FROM mapel WHERE id_mapel = " . $check_jadwal->fetch_assoc()['id_mapel'] . "")->fetch_assoc();
-                                    echo "<td><button class='btn bg-purple btn-flat margin' data-toggle='modal' data-target='#DetailJadwal' onClick='DetailModal(`" . $h . "`, `" . $jams[$j] . ":00`, " . $mapel['id_mapel'] . ", " . $_GET['id_periode'] . ", " . $_GET['id_kelas'] . ")'> " . $mapel['nm_mapel'] . "</button></td>";
+                                    echo "<td class='text-center'><button class='btn bg-purple btn-flat margin' data-toggle='modal' data-target='#DetailJadwal' onClick='DetailModal(`" . $h . "`, `" . $jams[$j] . ":00`, " . $mapel['id_mapel'] . ", " . $_GET['id_periode'] . ", " . $_GET['id_kelas'] . ")'> " . $mapel['nm_mapel'] . "</button></td>";
                                 }
                             }
                             echo "</tr>";

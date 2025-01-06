@@ -38,7 +38,7 @@ session_start(); //Memulai session
       
         <div style="text-align: center">
             <img src="<?= $url ?>/assets/dist/img/logo-alhidayah.png" alt="" style="width:15%;">
-          </div>
+          </div>  
           <a href="<?= $url ?>/">
              <h2> Sistem Monitoring 
              <br> Akademik Siswa</h2>
@@ -89,12 +89,17 @@ session_start(); //Memulai session
           <?php
         if (isset($_SESSION['unvalid_username'])) {
         ?>
-          <div class="alert alert-warning alert-dismissible  show" role="alert">
+          <div id="alert-notif" class="alert alert-warning alert-dismissible  show" role="alert">
             <strong>Error!</strong> Username Atau Password Salah !.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="CloseX();">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <script>
+            function CloseX(){
+              document.getElementById("alert-notif").style.display = "none";
+            }
+          </script>
         <?php
         }
         ?>

@@ -59,6 +59,9 @@
               <tbody>
                 <?php
                 $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa WHERE status_pendaftaran = "data di terima"';
+                if($_SESSION['level'] == 'Orang Tua'){
+                  $pendaftaran_siswa = 'SELECT * FROM pendaftaran_siswa WHERE status_pendaftaran = "data di terima" AND id_user = '.$_SESSION['id_user'].' ';
+                }
                 foreach (QueryManyData($pendaftaran_siswa) as $row) {
                   $periode = QueryOnedata("SELECT * FROM periode WHERE id_periode = " . $row['id_periode'] . "")->fetch_assoc();
                   $user = QueryOnedata("SELECT * FROM user WHERE id_user = " . $row['id_user'] . "")->fetch_assoc();

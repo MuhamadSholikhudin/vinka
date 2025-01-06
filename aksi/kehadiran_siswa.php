@@ -31,13 +31,13 @@ if (isset($_POST['simpankehadiran_siswa'])) {
                 $data = [
                         'id_plotting' => $_POST['id_plotting'][$m],
                         'tgl_kehadiran' => $_POST['tanggal'],
-                        'jenis_kehadiran' => $_POST['jenis_kehadiran_'.$_POST["id_plotting"][$m]],
+                        'jenis_kehadiran' => $_POST['jenis_kehadiran_'.$_POST["id_plotting"][$m]][0],
                 ];
                 $process = InsertOnedata('kehadiran_siswa', $data);
         }
         $_SESSION['message'] = 'Data Kehadiran Siswa ' . $process['message'];
         $_SESSION['message_code'] =  $process['code'];
-        header('Location: ' . $url . '/app/kehadiran_siswa/index.php');
+        header('Location: ' . $url . '/app/kehadiran_siswa/kelas.php?id_periode='.$_POST['id_periode'][0].'&id_kelas='.$_POST['id_kelas'][0].'');
         exit();       
 } elseif ($_GET['action'] == 'delete') {
         $process = DeleteOneData('kehadiran_siswa', 'WHERE id_kehadiran = ' . $_GET['id_kehadiran'] . '');

@@ -48,6 +48,7 @@
                   <th>GURU</th>
                   <th>NAMA KELAS</th>
                   <th>TINGKATAN</th>
+                  <th>JUMLAH SISWA</th>
                   <th>AKSI</th>
                 </tr>
               </thead>
@@ -63,6 +64,14 @@
                       <?= $guru['nip'] . " | " . $guru['nm_guru'] ?></td>
                     <td><?= $row['nm_kelas'] ?></td>
                     <td><?= $row['tingkatan'] ?></td>
+                    <td>
+                      <?php 
+                        // Menampilkan jumlah siswa yang aktif pada periode tertentu
+                        $periode_aktif = QueryOnedata("SELECT * FROM periode WHERE status_periode = 'Aktif' ")->fetch_assoc();
+
+                        echo $plotting = QueryOnedata("SELECT * FROM plotting_jadwal WHERE id_periode = ".$periode_aktif['id_periode']." AND id_kelas =".$row['id_kelas']." ")->num_rows;
+                      ?>
+                    </td>
                     <td>
                       <a href='<?= $url ?>/app/kelas/edit.php?id_kelas=<?= $row['id_kelas'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
                       <button onclick='ConfirmDelete(<?= $row['id_kelas'] ?>)' class='btn bg-maroon btn-flat btn-sm'>

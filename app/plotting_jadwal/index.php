@@ -48,13 +48,11 @@
               </a>
             </div>
           <?php } ?>
-
           </div>
       </div><!-- /.box-body -->
     </div>
     <?php 
     /*
-
     <a class='btn btn-social-icon btn-info' data-toggle='tooltip' data-placement='top' title='Tambah data plotting_jadwal' href='<?= $url ?>/app/plotting_jadwal/tambah.php'><i class='fa fa-plus'></i></a>
 
     <div class='row'>
