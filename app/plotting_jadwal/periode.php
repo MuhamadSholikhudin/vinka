@@ -47,9 +47,17 @@ $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_
                 ?>
                     <div class="row">
                         <div class="col-xs-6">
+                        <?php
+                        if($_SESSION['level'] == 'Orang Tua'){
+                        ?>
+                            <a target="_blank" href="<?= $url ?>/app/plotting_jadwal/cetak.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $row['id_kelas'] ?>" class="btn btn-block btn-social btn-bitbucket">
+                                <i class="fa fa-flickr"></i> Kelas <?= $row['nm_kelas'] ?>, Wali kelas <?= $guru['nm_guru'] ?>
+                            </a>                            
+                        <?php }else{ ?>
                             <a href="<?= $url ?>/app/plotting_jadwal/kelas.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $row['id_kelas'] ?>" class="btn btn-block btn-social btn-bitbucket">
                                 <i class="fa fa-flickr"></i> Kelas <?= $row['nm_kelas'] ?>, Wali kelas <?= $guru['nm_guru'] ?>
                             </a>
+                        <?php } ?>
                         </div>
                     </div>
                     <br>

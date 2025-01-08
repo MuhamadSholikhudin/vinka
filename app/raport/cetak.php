@@ -62,7 +62,6 @@ $smt = explode(" ", $periode['nm_periode']);
                         text-align: center;
                     }
                 </style>
-
                 <table style="text-align: left; border:none;">
                     <tbody>
                         <tr>

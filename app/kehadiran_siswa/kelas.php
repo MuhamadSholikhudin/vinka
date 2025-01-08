@@ -72,7 +72,14 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
                             WHERE plotting_jadwal.id_periode = ".$_GET['id_periode']." 
                             AND plotting_jadwal.id_kelas = ".$kelas['id_kelas']." 
-                            AND mapel.id_guru = ".$guru['id_guru']."  GROUP BY mapel.id_mapel";
+                            AND mapel.id_guru = ".$guru['id_guru']."  GROUP BY mapel.id_mapel";                        
+                        }else  if($_SESSION['level'] == 'Orang Tua'){
+                            $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_user = ".$_SESSION['id_user']." ")->fetch_assoc();
+                            $query_mapel = "SELECT mapel.id_mapel, mapel.nm_mapel FROM plotting_jadwal
+                            JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
+                            WHERE plotting_jadwal.id_periode = ".$_GET['id_periode']." 
+                            AND plotting_jadwal.id_kelas = ".$kelas['id_kelas']." 
+                            AND plotting_jadwal.id_siswa = ".$siswa['id_siswa']."  GROUP BY mapel.id_mapel";
                         }
                         $no = 1;
                         foreach(QueryManyData($query_mapel) as $row){
@@ -92,9 +99,11 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             <td><?= $row['nm_mapel'] ?></td>
                             <td><?= QueryOnedata($query_mapel)->num_rows ?></td>
                             <td>
+                                <?php if($_SESSION['level'] == 'Guru'){ ?>
                                 <a href='<?= $url ?>/app/kehadiran_siswa/tambah_kehadiran.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>&id_mapel=<?=  $row['id_mapel'] ?>' class='btn btn-primary btn-sm '>
                                     <i class='fa fa-plus'></i> Tambah
                                 </a>
+                                <?php } ?>
                                 &nbsp;
                                 <a href='<?= $url ?>/app/kehadiran_siswa/tampil_kehadiran.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>&id_mapel=<?=  $row['id_mapel'] ?>' class='btn btn-info btn-sm '>
                                     <i class='fa fa-eye'></i> Tampil

@@ -27,6 +27,7 @@
 					'kehadiran_siswa',
 					'penilaian',
 					'raport',
+					'kelulusan',
 				];
 
 				$result = [
@@ -51,6 +52,7 @@
 						'plotting_jadwal',
 						'siswa',
 						'user',
+						'kelulusan',
 						"laporan_pendaftaran_siswa",
 						"laporan_kehadiran_siswa",
 					],

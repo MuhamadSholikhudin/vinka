@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2024 at 11:12 PM
+-- Generation Time: Jan 08, 2025 at 12:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -143,7 +143,11 @@ CREATE TABLE `kehadiran_siswa` (
 --
 
 INSERT INTO `kehadiran_siswa` (`id_kehadiran`, `id_plotting`, `tgl_kehadiran`, `jenis_kehadiran`) VALUES
-(1, 1, '2024-12-17', 'Masuk');
+(1, 2, '2025-01-06', 'Masuk'),
+(2, 3, '2025-01-06', 'Masuk'),
+(3, 4, '2025-01-06', 'Masuk'),
+(4, 5, '2025-01-06', 'Masuk'),
+(5, 6, '2025-01-06', 'Masuk');
 
 -- --------------------------------------------------------
 
@@ -169,6 +173,18 @@ INSERT INTO `kelas` (`id_kelas`, `id_guru`, `nm_kelas`, `tingkatan`) VALUES
 (6, 4, '4', 4),
 (7, 5, '5', 5),
 (8, 6, '6', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelulusan`
+--
+
+CREATE TABLE `kelulusan` (
+  `id_kelulusan` int(11) NOT NULL,
+  `id_siswa` int(11) DEFAULT NULL,
+  `id_periode` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -246,6 +262,32 @@ CREATE TABLE `penilaian` (
   `nilai_praktek` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `penilaian`
+--
+
+INSERT INTO `penilaian` (`id_penilaian`, `id_plotting`, `jenis_penilaian`, `nilai`, `nilai_praktek`) VALUES
+(2, 2, 'tugas', 90, 0),
+(3, 2, 'uh', 80, 0),
+(4, 2, 'uts', 70, 0),
+(5, 2, 'uas', 100, 0),
+(6, 3, 'tugas', 80, 0),
+(7, 3, 'uh', 87, 0),
+(8, 3, 'uts', 89, 0),
+(9, 3, 'uas', 78, 0),
+(10, 5, 'tugas', 75, 0),
+(11, 5, 'uh', 78, 0),
+(12, 5, 'uts', 79, 0),
+(13, 5, 'uas', 80, 0),
+(14, 6, 'tugas', 85, 0),
+(15, 6, 'uh', 90, 0),
+(16, 6, 'uts', 92, 0),
+(17, 6, 'uas', 85, 0),
+(18, 4, 'tugas', 100, 0),
+(19, 4, 'uh', 95, 0),
+(20, 4, 'uts', 95, 0),
+(21, 4, 'uas', 100, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -291,8 +333,7 @@ INSERT INTO `plotting_jadwal` (`id_plotting`, `id_siswa`, `id_kelas`, `id_mapel`
 (3, 5, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
 (4, 6, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
 (5, 7, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
-(6, 8, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
-(7, 9, 3, 1, 1, 'Senin', '07:00:00', '08:00:00');
+(6, 8, 3, 1, 1, 'Senin', '07:00:00', '08:00:00');
 
 -- --------------------------------------------------------
 
@@ -405,6 +446,12 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
+-- Indexes for table `kelulusan`
+--
+ALTER TABLE `kelulusan`
+  ADD PRIMARY KEY (`id_kelulusan`);
+
+--
 -- Indexes for table `mapel`
 --
 ALTER TABLE `mapel`
@@ -478,13 +525,19 @@ ALTER TABLE `jenis_guru`
 -- AUTO_INCREMENT for table `kehadiran_siswa`
 --
 ALTER TABLE `kehadiran_siswa`
-  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `kelulusan`
+--
+ALTER TABLE `kelulusan`
+  MODIFY `id_kelulusan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mapel`
@@ -502,7 +555,7 @@ ALTER TABLE `pendaftaran_siswa`
 -- AUTO_INCREMENT for table `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `periode`

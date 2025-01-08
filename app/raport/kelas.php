@@ -56,7 +56,12 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $kelas = 'SELECT * FROM kelas';
+                                $kelas = "SELECT * FROM  kelas ORDER BY id_kelas ASC";
+                                if($_SESSION['level'] == 'Orang Tua'){
+                                    $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_user = ".$_SESSION['id_user']."")->fetch_assoc();
+                                    $plot = QueryOnedata("SELECT * FROM plotting_jadwal WHERE id_periode = ".$_GET['id_periode']." AND id_siswa = ".$siswa['id_siswa']." GROUP BY id_kelas")->fetch_assoc();
+                                    $kelas = "SELECT * FROM  kelas WHERE id_kelas = ".$plot['id_kelas']." ORDER BY id_kelas ASC";                        
+                                }
                                 foreach (QueryManyData($kelas) as $row) {
                                     $guru = QueryOnedata("SELECT * FROM guru WHERE id_guru = ".$row['id_guru']."")->fetch_assoc();
                                 ?>

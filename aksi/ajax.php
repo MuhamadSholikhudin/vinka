@@ -22,7 +22,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
 
         echo json_encode($output);
-        // echo json_encode($query_jadwal);
+
+    }else if(isset($_POST['id_siswa'])){
+        // Ambil data dari input AJAX
+        $id_siswa = isset($_POST['id_siswa']) ? $_POST['id_siswa'] : '';
+
+        // Lakukan validasi atau proses data
+        if (!empty($id_siswa)) {
+            // Contoh: Formatkan respons
+            $response = "Data yang diterima: " . htmlspecialchars($id_siswa);
+
+            $pendaftaran_siswa = QueryOnedata('SELECT * FROM siswa WHERE id_siswa = ' . $id_siswa . '')->fetch_assoc();
+            // Kirim respons kembali ke AJAX
+            $response = $pendaftaran_siswa;
+            // echo 1;
+            header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
+            echo json_encode($response);
+        } else {
+            echo "Input tidak boleh kosong!";
+        }
     }else{
         // Ambil data dari input AJAX
         $id_user = isset($_POST['id_user']) ? $_POST['id_user'] : '';

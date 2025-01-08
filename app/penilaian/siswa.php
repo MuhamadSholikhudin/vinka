@@ -67,7 +67,9 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             <th class="text-center">UTS</th>
                             <th class="text-center">UAS</th>
                             <th class="text-center">RATA - RATA</th>
-                            <th class="text-center">ACTION</th>
+                            <?php if($_SESSION['level'] != 'Orang Tua'){ ?>
+                                <th class="text-center">ACTION</th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,7 +84,15 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             AND mapel.id_guru = " . $gurux['id_guru'] . "  
                             GROUP BY plotting_jadwal.id_siswa 
                             ";
-                        } else {
+                        } else if($_SESSION['level'] == 'Orang Tua'){
+                            $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_user = " . $_SESSION['id_user'] . " ")->fetch_assoc();
+                            $query_mapel = "SELECT plotting_jadwal.id_plotting, plotting_jadwal.id_siswa, mapel.nm_mapel, mapel.id_mapel FROM plotting_jadwal
+                            JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
+                            WHERE plotting_jadwal.id_periode = " . $_GET['id_periode'] . " 
+                            AND plotting_jadwal.id_kelas = " . $kelas['id_kelas'] . " 
+                            AND plotting_jadwal.id_siswa = " . $siswa['id_siswa'] . "  
+                            GROUP BY plotting_jadwal.id_siswa 
+                            ";
                         }
                         $no = 1;
                         foreach (QueryManyData($query_mapel) as $row) {
@@ -157,12 +167,15 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                     echo round(QueryOnedata("SELECT AVG(nilai) as rata_rata FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']."")->fetch_assoc()['rata_rata']);
                                     ?>
                                 </td>
-                                <td>
-                                    <button type="submit" name="UPDATE_PENILAIAN_DATA" value="UPDATE_PENILAIAN_DATA" class="btn btn-sm btn-success">
-                                        <i class='fa fa-edit'></i> Update
-                                    </button>
-                                    </form>
-                                </td>
+                                <?php if($_SESSION['level'] != 'Orang Tua'){ ?>
+                                    <td>
+                                        <button type="submit" name="UPDATE_PENILAIAN_DATA" value="UPDATE_PENILAIAN_DATA" class="btn btn-sm btn-success">
+                                            <i class='fa fa-edit'></i> Update
+                                        </button>
+                                        </form>
+                                    </td>
+                                <?php } ?>
+                                
                             </tr>                      
                         <?php
                         }

@@ -78,8 +78,6 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             WHERE plotting_jadwal.id_periode = ".$_GET['id_periode']." 
                             AND plotting_jadwal.id_kelas = ".$kelas['id_kelas']." 
                             AND mapel.id_guru = ".$guru['id_guru']."  GROUP BY mapel.id_mapel";
-                        }else{
-
                         }
                         $no = 1;
                         foreach(QueryManyData($query_mapel) as $row){

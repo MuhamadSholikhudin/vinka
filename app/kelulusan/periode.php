@@ -1,21 +1,15 @@
 <?php include_once '../template/header.php'; ?>
 <?php include_once '../template/navbar.php'; ?>
-<?php include_once '../template/sidebar.php'; ?>
-<?php 
-
-    $periode = QueryOnedata("SELECT * FROM periode WHERE id_periode = ".$_GET['id_periode']."")->fetch_assoc();
-    $kelas = QueryOnedata("SELECT * FROM kelas WHERE id_kelas = ".$_GET['id_kelas']."")->fetch_assoc();
+<?php include_once '../template/sidebar.php';
+$periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_periode'] . '')->fetch_assoc();
 ?>
-
 <div class='content-wrapper'>
     <section class='content-header'>
-        <h1>Raport page
-            <?php 
-            ?>
+        <h1>kelulusan page
         </h1>
         <ol class='breadcrumb'>
             <li><a href='#'><i class='fa fa-dashboard'></i> Index</a></li>
-            <li class='active'>Raport page</li>
+            <li class='active'>kelulusan page</li>
         </ol>
     </section>
     <section class='content'>
@@ -42,40 +36,52 @@
             unset($_SESSION['message']);
             unset($_SESSION['message_code']);
         } ?>
+        <a class='btn btn-social-icon btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Tambah data kelulusan' href='<?= $url ?>/app/kelulusan/tambah.php?id_periode=<?= $_GET['id_periode'] ?>'><i class='fa fa-plus'></i></a>
         <div class='row'>
             <div class='col-xs-12'>
                 <div class='box'>
                     <div class='box-header'>
-                        <h3 class='box-title'>Daftar Data Raport <?= $periode['nm_periode'] ?> Kelas <?= $_GET['id_kelas'] ?></h3>
+                        <h3 class='box-title'>Data Siswa</h3>
                     </div>
                     <div class='box-body'>
                         <table id='example1' class='table table-bordered table-striped'>
                             <thead>
                                 <tr>
-                                    <th>KELAS</th>
-                                    <th>NAMA SISWA</th>                                    
+                                    <th>NIS</th>
+                                    <th>ID USER</th>
+                                    <th>NM SISWA</th>
+                                    <th>JK SISWA</th>
+                                    <th>ALAMAT SISWA</th>
+                                    <th>NM ORANG TUA</th>
+                                    <th>FOTO SISWA</th>
                                     <th>AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $siswas = 'SELECT * FROM `penilaian` JOIN plotting_jadwal ON penilaian.id_plotting = plotting_jadwal.id_plotting
-                                        WHERE plotting_jadwal.id_kelas = '.$_GET['id_kelas'].' AND plotting_jadwal.id_periode = '. $periode['id_periode'].' 
-                                        GROUP BY plotting_jadwal.id_siswa';
-                                    if($_SESSION['level'] == 'Orang Tua'){
-                                        $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_user = ".$_SESSION['id_user']."")->fetch_assoc();
-                                        $siswas = 'SELECT * FROM `penilaian` JOIN plotting_jadwal ON penilaian.id_plotting = plotting_jadwal.id_plotting
-                                            WHERE plotting_jadwal.id_kelas = '.$_GET['id_kelas'].' AND plotting_jadwal.id_periode = '. $periode['id_periode'].'  AND plotting_jadwal.id_siswa = '.$siswa['id_siswa'].'
-                                            GROUP BY plotting_jadwal.id_siswa';
-                                    }                           
-                                foreach (QueryManyData($siswas) as $row) {
-                                    $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = ".$row['id_siswa']."")->fetch_assoc();
+                                $kelulusan = 'SELECT siswa.* FROM siswa LEFT JOIN kelulusan ON siswa.id_siswa = kelulusan.id_siswa WHERE kelulusan.id_periode = '.$_GET['id_periode'].'';
+                                foreach (QueryManyData($kelulusan) as $row) {
                                 ?>
                                     <tr>
-                                        <td><?= $kelas['nm_kelas'] ?></td>
-                                        <td><?= $siswa['nm_siswa'] ?></td>                                        
+                                        <td><?= $row['nis'] ?></td>
                                         <td>
-                                            <a href='<?= $url ?>/app/raport/cetak.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $row['id_kelas'] ?>&id_siswa=<?= $siswa['id_siswa'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> lihat</a>
+                                            <?php
+                                            $user = QueryOnedata('SELECT * FROM user WHERE id_user = ' . $row['id_user'] . '')->fetch_assoc();
+                                            ?>
+                                            <?= $user['username'] . " | " . $user['nm_pengguna'] ?>
+                                        </td>
+                                        <td><?= $row['nm_siswa'] ?></td>
+                                        <td><?= $row['jk_siswa'] ?></td>
+                                        <td><?= $row['alamat_siswa'] ?></td>
+                                        <td><?= $row['nm_orang_tua'] ?></td>
+                                        <td>
+                                            <img src="<?= $url . '/foto/siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;">
+                                        </td>
+                                        <td>
+                                            <button onclick='ConfirmDelete(<?= $row['id_siswa'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
+                                                <i class='fas fa-trash'></i>
+                                                hapus
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php
@@ -90,11 +96,13 @@
                         let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
                         if (confirm(text) == true) {
                             text = 'You pressed OK!';
-                            window.location.href = '<?= $url ?>/aksi/periode.php?id_periode=' + id + '&action=delete'
+                            window.location.href = '<?= $url ?>/aksi/kelulusan.php?id_siswa=' + id + '&action=delete'
                         }
                     }
                 </script>
             </div>
         </div>
+
+
 </div>
 <?php include_once '../template/footer.php'; ?>
