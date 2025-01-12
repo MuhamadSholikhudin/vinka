@@ -16,7 +16,8 @@
     ?>
     <style>
         table,
-        thead,        tr,
+        thead,
+        tr,
         th,
         td {
             border: 1px solid black;
@@ -24,7 +25,8 @@
             text-align: center;
 
         }
-        table{
+
+        table {
             width: 100%;
 
         }
@@ -36,7 +38,7 @@
     <h3>Jadwal Pelajaran </h3>
     <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> </h3>
     <?php
-    $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+    $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     $jams = ['07:00', '08:00', '09:00',  '10:00', '11:00', '12:00'];
     ?>
 
@@ -44,7 +46,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>#</th>
                     <?php                // Contoh penggunaan
                     foreach ($hari as $h) {
                         echo "<th class='text-center'>" . $h . "</th>";

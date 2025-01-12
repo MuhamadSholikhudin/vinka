@@ -1,12 +1,15 @@
 <?php include_once '../template/header.php'; ?>
 <?php include_once '../template/navbar.php'; ?>
 <?php include_once '../template/sidebar.php'; ?>
+<?php 
+  $periode = QueryOnedata("SELECT * FROM periode WHERE id_periode = ".$_GET['id_periode']."")->fetch_assoc();
+?>
 <div class='content-wrapper'>
   <section class='content-header'>
-    <h1>Siswa page</h1>
+    <h1>Kelulusan Siswa page</h1>
     <ol class='breadcrumb'>
       <li><a href='#'><i class='fa fa-dashboard'></i> Edit</a></li>
-      <li class='active'>Siswa page</li>
+      <li class='active'>Kelulusan Siswa page</li>
     </ol>
   </section>
   <section class='content'>
@@ -14,7 +17,7 @@
       <div class='col-xs-12'>
       <div class='box box-info'>
         <div class='box-header with-border text-center'>
-          <h3 class='box-title'>Form Tambah Siswa</h3>
+          <h3 class='box-title'>Form Tambah Kelulusan Siswa Periode <?= $periode['nm_periode'] ?></h3>
         </div>
         <form action='<?= $url ?>/aksi/kelulusan.php' method='post' enctype='multipart/form-data' class='form-horizontal'>
           <div class='box-body'>
@@ -34,7 +37,6 @@
                   ?>
                 </select>
                 <input type='text' class='form-control' id='id_periode' style="display: none;" name='id_periode' value="<?= $_GET['id_periode'] ?>" required>
-
               </div>
             </div>
             <div class='form-group'>
@@ -57,6 +59,7 @@
                 </select>                        
               </div>
             </div>
+
             <div class='form-group'>
               <label for='inputalamat_siswa' class='col-sm-2 col-form-label'>Alamat Siswa</label>
               <div class='col-sm-10'>

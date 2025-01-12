@@ -41,7 +41,10 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
 
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title">Periode <?= $periode['nm_periode'] ?> Kelas <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> </h3> &nbsp; &nbsp; &nbsp;
+                <h3 class="box-title">PERIODE <?= $periode['nm_periode'] ?> KELAS <?= $kelas['nm_kelas'] ?> Wali Kelas <?= $guru['nm_guru'] ?> </h3> &nbsp; &nbsp; &nbsp;
+                <a target="_blank" href='<?= $url ?>/app/siswa/cetak.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>' class='btn btn-warning btn-sm '>
+                    <i class='fa fa-print'></i> cetak
+                </a><!-- /.box-body -->
             </div>
             <div class="box-body">
                 <style>
@@ -54,7 +57,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         border: 1px solid black;
                     }
                 </style>
-                <table class="table">
+                <table id="example1" class="table">
                     <thead>
                         <tr>
                             <th>NIS</th>
@@ -64,7 +67,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             <th>ALAMAT SISWA</th>
                             <th>NM ORANG TUA</th>
                             <th>FOTO SISWA</th>
-                            <th>AKSI</th>
+                            <!-- <th>AKSI</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -86,13 +89,13 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                 <td>
                                     <img src="<?= $url . '/foto/siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;">
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <a href='<?= $url ?>/app/siswa/edit.php?id_siswa=<?= $row['id_siswa'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
                                     <button onclick='ConfirmDelete(<?= $row['id_siswa'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
                                         <i class='fas fa-trash'></i>
                                         hapus
                                     </button>
-                                </td>
+                                </td> -->
                             </tr>
                         <?php
                         }

@@ -75,7 +75,7 @@
                                         <td><?= $kelas['nm_kelas'] ?></td>
                                         <td><?= $siswa['nm_siswa'] ?></td>                                        
                                         <td>
-                                            <a href='<?= $url ?>/app/raport/cetak.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $row['id_kelas'] ?>&id_siswa=<?= $siswa['id_siswa'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> lihat</a>
+                                            <a href='<?= $url ?>/app/raport/detail.php?id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $row['id_kelas'] ?>&id_siswa=<?= $siswa['id_siswa'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> lihat</a>
                                         </td>
                                     </tr>
                                 <?php

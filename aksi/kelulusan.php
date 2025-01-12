@@ -10,7 +10,7 @@ if (isset($_POST['simpankelulusan'])) {
         $process = InsertOnedata('kelulusan', $data);
         // Data yang ingin Execution
         $data = [
-                'status' => 'tidak aktif',
+                'status' => 'lulus',
         ];
         // Update data berdasarkan
         $process = UpdateOneData('siswa', $data, ' WHERE id_siswa =' . $_POST['id_siswa'] . '');

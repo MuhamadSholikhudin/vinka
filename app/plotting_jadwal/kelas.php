@@ -48,7 +48,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
             </div>
             <div class="box-body">
                 <?php
-                $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                $hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
                 $jams = ['07:00', '08:00', '09:00',  '10:00', '11:00', '12:00'];
                 ?>
                 <style>
@@ -60,21 +60,20 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                     td {
                         border: 1px solid black;
                         /* padding: 5px; */
-
                     }
                 </style>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
-                            <?php                // Contoh penggunaan
+                            <th>#</th>
+                            <?php // Contoh penggunaan
                             foreach ($hari as $h) {
                                 echo "<th class='text-center'>" . $h . "</th>";
                             }
                             ?>
                         </tr>
                     <tbody>
-                        <?php                // Contoh penggunaan
+                        <?php // Contoh penggunaan
                         for ($j = 0; $j < count($jams); $j++) {
                             echo "<tr><td class='text-center'>" . $jams[$j] . "</td>";
                             foreach ($hari as $h) {
@@ -104,7 +103,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 </a><!-- /.box-body -->
             </div>
         </div>
-        <!-- Modal -->
+        <!-- Modal AddJadwal -->
         <div class="modal fade" id="AddJadwal" tabindex="-1" role="dialog" aria-labelledby="AddJadwalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -168,7 +167,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal DetailJadwal -->
         <div class="modal fade" id="DetailJadwal" tabindex="-1" role="dialog" aria-labelledby="DetailJadwalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -180,7 +179,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                     </div>
                     <form action="<?= $url ?>/aksi/plotting_jadwal.php" method="PUT" enctype="multipart/form-data">
                         <div class="modal-body">
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="inputmapel" class="col-sm-3 col-form-label">Mata Pelajaran</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="id_mapel" id="inputmapel">
@@ -192,6 +191,26 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                         }
                                         ?>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p style="height: 40px;"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputsiswa" class="col-sm-3 col-form-label">Siswa</label>
+                                <div class="col-sm-7">
+                                <select class="form-control" style="width: 100%;" name="id_siswa" id="inputsiswa">
+                                    <?php
+                                        $siswa = QueryManyData("SELECT * FROM siswa WHERE status = 'aktif' ");
+                                        foreach ($siswa  as $val) { ?>
+                                            <option value="<?= $val['id_siswa'] ?>"><?= $val['nm_siswa'] ?></option>
+                                        <?php
+                                        }
+                                    ?>
+                                </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span class="btn btn-primary btn-sm" onclick="AddTR()"> <i class="fa fa-plus"></i> Tambah</span>
                                 </div>
                             </div>
                             <br>
@@ -250,7 +269,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         var trBody = "";
                         if(response.code == 200 ){         
                             for(let yt = 0; yt < response.data.length; yt ++){
-                                trBody += `<tr><td>`+response.data[yt].nis+`</td><td>`+response.data[yt].nm_siswa+`</td> <td> <span class="btn btn-danger" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</span> </td> </tr>`;
+                                trBody += `<tr id="removetr`+response.data[yt].id_plotting+`"><td>`+response.data[yt].nis+`</td><td>`+response.data[yt].nm_siswa+`</td> <td> <span class="btn btn-danger btn-sm" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</span> </td> </tr>`;
                             }
                         }
                         document.getElementById("bodydetailjadwal").innerHTML = trBody;
@@ -262,11 +281,39 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
             }
 
           function HapusPlot(id) {
-            let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
-            if (confirm(text) == true) {
-              text = 'You pressed OK!';
-              window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?action=delete&id_plotting=' + id + '&id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>';
-            }
+
+            let elementtr = document.getElementById("removetr"+id);
+            elementtr.remove();
+
+            // let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
+            // if (confirm(text) == true) {
+            //   text = 'You pressed OK!';
+            //   window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?action=delete&id_plotting=' + id + '&id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>';
+            // }
+          }
+
+          function AddTR(){
+            let tbody = document.getElementById("bodydetailjadwal");
+            let newrow =  document.createElement("tr");
+
+            let id_siswa =  document.getElemenById("inputsiswa").value;
+            
+
+            // let cell1 =  document.createElement("td");
+            // let cell2 =  document.createElement("td");
+            // let cell3 =  document.createElement("td");
+            
+            // cell1.textContent = "Data 1";
+            // cell2.textContent ="Data 2";
+            // cell3.textContent ="Data 3";
+            
+            //  newrow.appendChild(cell1);
+            //  newrow.appendChild(cell2);
+            //  newrow.appendChild(cell3);
+
+             newrow.appendChild(`<tr id="removetr`+response.data[yt].id_plotting+`"><td>`+response.data[yt].nis+`</td><td>`+response.data[yt].nm_siswa+`</td> <td> <span class="btn btn-danger btn-sm" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</span> </td> </tr>`);
+
+             tbody.appendChild(newrow);
           }
         </script>
     </section>

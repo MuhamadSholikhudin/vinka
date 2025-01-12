@@ -4,10 +4,14 @@
           <b></b> 
         </div>
         <strong>Copyright &copy; </strong> All rights reserved.
-    </footer>
+    </footer>  
 
     <!-- jQuery 2.1.4 -->
     <script src="<?= $url ?>/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<?= $url ?>/assets/plugins/select2/select2.js"></script> 
+    <script src="<?= $url ?>/assets/plugins/select2/select2.full.js"></script> 
+    <script src="<?= $url ?>/assets/plugins/select2/select2.min.js"></script>
+    <script src="<?= $url ?>/assets/plugins/select2/select2.full.min.sjs"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="<?= $url ?>/assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->
@@ -15,13 +19,14 @@
     <!-- FastClick -->
     <script src="<?= $url ?>/assets/plugins/fastclick/fastclick.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="<?= $url ?>/assets/dist/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
+    <script src="<?= $url ?>/assets/dist/js/app.min.js"></script>
+    <!-- page script -->
     <script src="<?= $url ?>/assets/dist/js/demo.js"></script>
-    <script src="<?= $url ?>/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= $url ?>/assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
-        <!-- page script -->
-        <script>
+    <script src="<?= $url ?>/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+
+    <script>
       $(function () {
         $("#example1").DataTable();
         $("#example2").DataTable();
@@ -37,6 +42,8 @@
           "info": true,
           "autoWidth": false
         });
+
+        $('.select2').select2();
       });
 
       $('#myModal').on('shown.bs.modal', function () {
