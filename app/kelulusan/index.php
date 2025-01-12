@@ -38,7 +38,6 @@
       <div class="box-header with-border">
         <h3 class="box-title">Periode Semester</h3>
       </div>
-
       <div class="box-body">
         <?php foreach (QueryManyData("SELECT * FROM  periode ORDER BY id_periode DESC") as $row) { ?>
           <div class="row">
@@ -48,7 +47,6 @@
               </a>
             </div>
           <?php } ?>
-
           </div>
       </div><!-- /.box-body -->
     </div>

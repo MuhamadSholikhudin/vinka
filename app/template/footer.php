@@ -8,10 +8,10 @@
 
     <!-- jQuery 2.1.4 -->
     <script src="<?= $url ?>/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script src="<?= $url ?>/assets/plugins/select2/select2.js"></script> 
+    <!-- <script src="<?= $url ?>/assets/plugins/select2/select2.js"></script> 
     <script src="<?= $url ?>/assets/plugins/select2/select2.full.js"></script> 
     <script src="<?= $url ?>/assets/plugins/select2/select2.min.js"></script>
-    <script src="<?= $url ?>/assets/plugins/select2/select2.full.min.sjs"></script>
+    <script src="<?= $url ?>/assets/plugins/select2/select2.full.min.js"></script> -->
     <!-- Bootstrap 3.3.5 -->
     <script src="<?= $url ?>/assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->
@@ -43,7 +43,7 @@
           "autoWidth": false
         });
 
-        $('.select2').select2();
+        // $('.select2').select2();
       });
 
       $('#myModal').on('shown.bs.modal', function () {

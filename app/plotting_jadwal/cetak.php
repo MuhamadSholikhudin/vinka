@@ -46,7 +46,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th class='text-center'>Waktu</th>
                     <?php                // Contoh penggunaan
                     foreach ($hari as $h) {
                         echo "<th class='text-center'>" . $h . "</th>";

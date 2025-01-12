@@ -41,7 +41,7 @@ $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_
             <div class='col-xs-12'>
                 <div class='box'>
                     <div class='box-header'>
-                        <h3 class='box-title'>Data Siswa</h3>
+                        <h3 class='box-title'>Data Kelulusan Siswa Periode <?= $periode['nm_periode'] ?></h3>
                     </div>
                     <div class='box-body'>
                         <table id='example1' class='table table-bordered table-striped'>
@@ -59,7 +59,7 @@ $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_
                             </thead>
                             <tbody>
                                 <?php
-                                $kelulusan = 'SELECT siswa.* FROM siswa LEFT JOIN kelulusan ON siswa.id_siswa = kelulusan.id_siswa WHERE kelulusan.id_periode = '.$_GET['id_periode'].'';
+                                $kelulusan = 'SELECT siswa.* FROM siswa LEFT JOIN kelulusan ON siswa.id_siswa = kelulusan.id_siswa WHERE kelulusan.id_periode = ' . $_GET['id_periode'] . '';
                                 foreach (QueryManyData($kelulusan) as $row) {
                                 ?>
                                     <tr>
@@ -102,7 +102,5 @@ $periode = QueryOnedata('SELECT * FROM periode WHERE id_periode = ' . $_GET['id_
                 </script>
             </div>
         </div>
-
-
 </div>
 <?php include_once '../template/footer.php'; ?>

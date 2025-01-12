@@ -65,7 +65,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th class='text-center'>Waktu</th>
                             <?php // Contoh penggunaan
                             foreach ($hari as $h) {
                                 echo "<th class='text-center'>" . $h . "</th>";
@@ -88,7 +88,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                     }
                                 } else {
                                     $mapel = QueryOnedata("SELECT * FROM mapel WHERE id_mapel = " . $check_jadwal->fetch_assoc()['id_mapel'] . "")->fetch_assoc();
-                                    echo "<td class='text-center'><button class='btn bg-purple btn-flat margin' data-toggle='modal' data-target='#DetailJadwal' onClick='DetailModal(`" . $h . "`, `" . $jams[$j] . ":00`, " . $mapel['id_mapel'] . ", " . $_GET['id_periode'] . ", " . $_GET['id_kelas'] . ")'> " . $mapel['nm_mapel'] . "</button></td>";
+                                    echo "<td class='text-center'><button class='btn bg-purple btn-flat margin' data-toggle='modal' data-target='#DetailJadwal' onClick='DetailModal(`" . $h . "`, `" . $jams[$j] . ":00`, `" . $jams[($j+1)] . ":00`, " . $mapel['id_mapel'] . ", " . $_GET['id_periode'] . ", " . $_GET['id_kelas'] . ")'> " . $mapel['nm_mapel'] . "</button></td>";
                                 }
                             }
                             echo "</tr>";
@@ -172,12 +172,12 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="DetailJadwalLabel">Detail Jadwal <span id="hariX"></span> <span id="jamX"></span></h5>
+                        <h5 class="modal-title" id="DetailJadwalLabel">Detail Jadwal <span id="hariXE"></span> <span id="jamXE"></span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="<?= $url ?>/aksi/plotting_jadwal.php" method="PUT" enctype="multipart/form-data">
+                    <form action="<?= $url ?>/aksi/plotting_jadwal.php" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label for="inputmapel" class="col-sm-3 col-form-label">Mata Pelajaran</label>
@@ -194,7 +194,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                 </div>
                             </div>
                             <div class="form-group">
-                                <p style="height: 40px;"></p>
+                                <p style="height: 20px;"></p>
                             </div>
                             <div class="form-group">
                                 <label for="inputsiswa" class="col-sm-3 col-form-label">Siswa</label>
@@ -229,14 +229,14 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             <div style="display: none;">
                                 <input type="text" name="id_kelas" value="<?= $_GET['id_kelas'] ?>" class="form-control">
                                 <input type="text" name="id_periode" value="<?= $_GET['id_periode'] ?>" class="form-control">
-                                <input type="text" name="hari" id="hariI" class="form-control">
-                                <input type="time" name="jam_awal" id="jam_awalI" class="form-control">
-                                <input type="time" name="jam_akhir" id="jam_akhirI" class="form-control">
+                                <input type="text" name="hari" id="hariIE" class="form-control">
+                                <input type="time" name="jam_awal" id="jam_awalIE" class="form-control">
+                                <input type="time" name="jam_akhir" id="jam_akhirIE" class="form-control">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="BTN_POST_ADD_PLOTTING" value="BTN_POST_ADD_PLOTTING" class="btn btn-success"> <i class="fa fa-edit"></i> Update</button>
+                            <button type="submit" name="BTN_POST_UPDATE_PLOTTING" value="BTN_POST_UPDATE_PLOTTING" class="btn btn-success"> <i class="fa fa-edit"></i> Update</button>
                         </div>
                     </form>
                 </div>
@@ -252,7 +252,12 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 document.getElementById("jam_akhirI").value = jamR;
             }
 
-            function DetailModal(hari, jamL, id_mapel, id_periode, id_kelas) {
+            function DetailModal(hari, jamL, jamR, id_mapel, id_periode, id_kelas) {
+                document.getElementById("hariXE").textContent = hari;
+                document.getElementById("jamXE").textContent = jamL;
+                document.getElementById("hariIE").value = hari;
+                document.getElementById("jam_awalIE").value = jamL;
+                document.getElementById("jam_akhirIE").value = jamR;
                 dataX = {
                     detail_jadwal: "searc_jadwal",
                     hari: hari,
@@ -269,7 +274,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         var trBody = "";
                         if(response.code == 200 ){         
                             for(let yt = 0; yt < response.data.length; yt ++){
-                                trBody += `<tr id="removetr`+response.data[yt].id_plotting+`"><td>`+response.data[yt].nis+`</td><td>`+response.data[yt].nm_siswa+`</td> <td> <span class="btn btn-danger btn-sm" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</span> </td> </tr>`;
+                                trBody += `<tr id="removetr`+response.data[yt].id_plotting+`"><td>`+response.data[yt].nis+` <input style="display: none;" name="id_siswa[]"  value="`+response.data[yt].id_siswa+`"/></td><td>`+response.data[yt].nm_siswa+`</td> <td> <span class="btn btn-danger btn-sm" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</span> </td> </tr>`;
                             }
                         }
                         document.getElementById("bodydetailjadwal").innerHTML = trBody;
@@ -281,39 +286,48 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
             }
 
           function HapusPlot(id) {
-
             let elementtr = document.getElementById("removetr"+id);
-            elementtr.remove();
-
-            // let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
-            // if (confirm(text) == true) {
-            //   text = 'You pressed OK!';
-            //   window.location.href = '<?= $url ?>/aksi/plotting_jadwal.php?action=delete&id_plotting=' + id + '&id_periode=<?= $_GET['id_periode'] ?>&id_kelas=<?= $_GET['id_kelas'] ?>';
-            // }
+            
+            $.ajax({
+                url: '<?= $url ?>/aksi/ajax.php', // Ganti dengan URL file server Anda
+                method: 'POST',
+                data: { id_plotting: id },
+                success: function(response) {
+                    alert(response[1]);
+                    if(response[0] == 200){
+                        elementtr.remove();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("Terjadi kesalahan: " + error);
+                }
+            });
           }
-
-          function AddTR(){
-            let tbody = document.getElementById("bodydetailjadwal");
-            let newrow =  document.createElement("tr");
-
-            let id_siswa =  document.getElemenById("inputsiswa").value;
-            
-
-            // let cell1 =  document.createElement("td");
-            // let cell2 =  document.createElement("td");
-            // let cell3 =  document.createElement("td");
-            
-            // cell1.textContent = "Data 1";
-            // cell2.textContent ="Data 2";
-            // cell3.textContent ="Data 3";
-            
-            //  newrow.appendChild(cell1);
-            //  newrow.appendChild(cell2);
-            //  newrow.appendChild(cell3);
-
-             newrow.appendChild(`<tr id="removetr`+response.data[yt].id_plotting+`"><td>`+response.data[yt].nis+`</td><td>`+response.data[yt].nm_siswa+`</td> <td> <span class="btn btn-danger btn-sm" onClick="HapusPlot(`+response.data[yt].id_plotting+`);" >Hapus</span> </td> </tr>`);
-
-             tbody.appendChild(newrow);
+          function AddTR(){             
+            let id_siswa =  document.getElementById("inputsiswa").value;            
+            $.ajax({
+                url: '<?= $url ?>/aksi/ajax.php', // Ganti dengan URL file server Anda
+                method: 'POST',
+                data: { id_siswa: id_siswa },
+                success: function(response) {
+                    let tbody = document.getElementById("bodydetailjadwal");
+                    let newrow =  document.createElement("tr"); 
+                    newrow.id = "removetr"+response.id_siswa+response.nis;
+                    let cell1 =  document.createElement("td");
+                    let cell2 =  document.createElement("td");
+                    let cell3 =  document.createElement("td");
+                    cell1.innerHTML = response.nis+'<input style="display:none;" name="id_siswa[]" value="'+response.id_siswa+'"/>';
+                    cell2.textContent = response.nm_siswa;
+                    cell3.innerHTML = '<span class="btn btn-danger btn-sm" onClick="HapusPlot('+response.id_siswa+response.nis+');" >Hapus</span> ';
+                    newrow.appendChild(cell1);
+                    newrow.appendChild(cell2);
+                    newrow.appendChild(cell3);
+                    tbody.appendChild(newrow);
+                },
+                error: function(xhr, status, error) {
+                    alert("Terjadi kesalahan: " + error);
+                }
+            });
           }
         </script>
     </section>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2025 at 10:35 PM
+-- Generation Time: Jan 08, 2025 at 12:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -135,7 +135,7 @@ CREATE TABLE `kehadiran_siswa` (
   `id_kehadiran` int(11) NOT NULL,
   `id_plotting` int(50) DEFAULT NULL,
   `tgl_kehadiran` date DEFAULT NULL,
-  `jenis_kehadiran` enum('Masuk','Alfa','Izin','Sakit') DEFAULT NULL
+  `jenis_kehadiran` enum('Masuk','Alfa','Izin') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -143,8 +143,8 @@ CREATE TABLE `kehadiran_siswa` (
 --
 
 INSERT INTO `kehadiran_siswa` (`id_kehadiran`, `id_plotting`, `tgl_kehadiran`, `jenis_kehadiran`) VALUES
-(1, 2, '2025-01-06', 'Sakit'),
-(2, 3, '2025-01-06', 'Sakit'),
+(1, 2, '2025-01-06', 'Masuk'),
+(2, 3, '2025-01-06', 'Masuk'),
 (3, 4, '2025-01-06', 'Masuk'),
 (4, 5, '2025-01-06', 'Masuk'),
 (5, 6, '2025-01-06', 'Masuk');
@@ -185,13 +185,6 @@ CREATE TABLE `kelulusan` (
   `id_siswa` int(11) DEFAULT NULL,
   `id_periode` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kelulusan`
---
-
-INSERT INTO `kelulusan` (`id_kelulusan`, `id_siswa`, `id_periode`) VALUES
-(1, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -274,10 +267,10 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id_penilaian`, `id_plotting`, `jenis_penilaian`, `nilai`, `nilai_praktek`) VALUES
-(2, 2, 'tugas', 90, 60),
-(3, 2, 'uh', 80, 70),
-(4, 2, 'uts', 70, 60),
-(5, 2, 'uas', 100, 80),
+(2, 2, 'tugas', 90, 0),
+(3, 2, 'uh', 80, 0),
+(4, 2, 'uts', 70, 0),
+(5, 2, 'uas', 100, 0),
 (6, 3, 'tugas', 80, 0),
 (7, 3, 'uh', 87, 0),
 (8, 3, 'uts', 89, 0),
@@ -357,7 +350,7 @@ CREATE TABLE `siswa` (
   `alamat_siswa` text DEFAULT NULL,
   `nm_orang_tua` varchar(50) DEFAULT NULL,
   `foto_siswa` blob DEFAULT NULL,
-  `status` enum('aktif','tidak aktif','lulus') DEFAULT NULL
+  `status` enum('aktif','tidak aktif') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -365,11 +358,12 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `id_user`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`, `status`) VALUES
-(4, '2024001', 4, 'Saifudin Andro', 'Laki-Laki', 'Pati Puri', 'Andro', 0x323032343132323830343534303975736572312d313238783132382e6a7067, 'lulus'),
+(4, '2024001', 4, 'Saifudin Andro', 'Laki-Laki', 'Pati Puri', 'Andro', 0x323032343132323830343534303975736572312d313238783132382e6a7067, 'aktif'),
 (5, '2024002', 17, 'Dimas Hendra', 'Laki-Laki', 'Jalan Raya', 'Hendra', 0x323032343132323830343537303775736572382d313238783132382e6a7067, 'aktif'),
 (6, '2024003', 18, 'Fitri Lestari', 'Perempuan', 'Sawojajar', 'Lestari', 0x323032343132323830343537323175736572332d313238783132382e6a7067, 'aktif'),
 (7, '2024004', 19, 'Budi Santoso', 'Laki-Laki', 'Kalipuro', 'Santoso', 0x3230323431323238303530343333617661746172352e706e67, 'aktif'),
-(8, '2024005', 20, 'Rina Wulandari', 'Perempuan', 'Mojokerto', 'Wulandari', 0x3230323431323238303530343437617661746172322e706e67, 'aktif');
+(8, '2024005', 20, 'Rina Wulandari', 'Perempuan', 'Mojokerto', 'Wulandari', 0x3230323431323238303530343437617661746172322e706e67, 'aktif'),
+(9, '2024006', 21, 'Agus Prasetyo', 'Laki-Laki', 'Sumber Rejo', 'Prasetyo', 0x3230323431323238303530343539617661746172332e706e67, 'aktif');
 
 -- --------------------------------------------------------
 
@@ -543,7 +537,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelulusan`
 --
 ALTER TABLE `kelulusan`
-  MODIFY `id_kelulusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kelulusan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `mapel`
@@ -573,7 +567,7 @@ ALTER TABLE `periode`
 -- AUTO_INCREMENT for table `plotting_jadwal`
 --
 ALTER TABLE `plotting_jadwal`
-  MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `siswa`

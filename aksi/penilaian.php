@@ -37,7 +37,8 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'tugas',
                         'nilai' => $_POST['tugas'][0],
-                        'nilai_praktek' => 0,
+                        'nilai' => $_POST['tugas'][0],
+                        'nilai_praktek' => $_POST['tugas_praktek'][0],
                 ];
                 // Update data berdasarkan
                 $process = UpdateOneData('penilaian', $data, ' WHERE id_penilaian =' . QueryOnedata($check_penilaian_tugas)->fetch_assoc()['id_penilaian'] . '');
@@ -46,7 +47,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'tugas',
                         'nilai' => $_POST['tugas'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['tugas_praktek'][0],
                 ];
                 // Insert satu data
                 $process = InsertOnedata('penilaian', $data);
@@ -59,7 +60,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'uh',
                         'nilai' => $_POST['uh'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['uh_praktek'][0],
                 ];
                 // Update data berdasarkan
                 $process = UpdateOneData('penilaian', $data, ' WHERE id_penilaian =' . QueryOnedata($check_penilaian_uh)->fetch_assoc()['id_penilaian'] . '');
@@ -68,7 +69,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'uh',
                         'nilai' => $_POST['uh'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['uh_praktek'][0],
                 ];
                 // Insert satu data
                 $process = InsertOnedata('penilaian', $data);
@@ -80,7 +81,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'uts',
                         'nilai' => $_POST['uts'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['uts_praktek'][0],
                 ];
                 // Update data berdasarkan
                 $process = UpdateOneData('penilaian', $data, ' WHERE id_penilaian =' . QueryOnedata($check_penilaian_uts)->fetch_assoc()['id_penilaian'] . '');
@@ -89,7 +90,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'uts',
                         'nilai' => $_POST['uts'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['uts_praktek'][0],
                 ];
                 // Insert satu data
                 $process = InsertOnedata('penilaian', $data);
@@ -101,7 +102,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'uas',
                         'nilai' => $_POST['uas'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['uas_praktek'][0],
                 ];
                 // Update data berdasarkan
                 $process = UpdateOneData('penilaian', $data, ' WHERE id_penilaian =' . QueryOnedata($check_penilaian_uas)->fetch_assoc()['id_penilaian'] . '');
@@ -110,7 +111,7 @@ if (isset($_POST['simpanpenilaian'])) {
                         'id_plotting' => QueryOnedata($plotting)->fetch_assoc()['id_plotting'],
                         'jenis_penilaian' => 'uas',
                         'nilai' => $_POST['uas'][0],
-                        'nilai_praktek' => 0,
+                        'nilai_praktek' => $_POST['uas_praktek'][0],
                 ];
                 // Insert satu data
                 $process = InsertOnedata('penilaian', $data);

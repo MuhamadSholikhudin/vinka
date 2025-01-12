@@ -151,7 +151,14 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                     <tbody>
                         <?php
                         $query_mapel = "SELECT * FROM mapel";
-                        if ($_SESSION['level'] == 'Guru') {
+                        if ($_SESSION['level'] == 'Kepala Sekolah') {
+                            $query_mapel = "SELECT plotting_jadwal.id_plotting, plotting_jadwal.id_siswa, mapel.nm_mapel, mapel.id_mapel FROM plotting_jadwal
+                            JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
+                            WHERE plotting_jadwal.id_periode = " . $_GET['id_periode'] . " 
+                            AND plotting_jadwal.id_kelas = " . $kelas['id_kelas'] . " 
+                            GROUP BY plotting_jadwal.id_siswa 
+                            ";
+                        }else if ($_SESSION['level'] == 'Guru') {
                             $gurux = QueryOnedata("SELECT * FROM guru WHERE id_user = " . $_SESSION['id_user'] . " ")->fetch_assoc();
                             $query_mapel = "SELECT plotting_jadwal.id_plotting, plotting_jadwal.id_siswa, mapel.nm_mapel, mapel.id_mapel FROM plotting_jadwal
                             JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
@@ -172,7 +179,8 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         }
                         $no = 1;
                         foreach (QueryManyData($query_mapel) as $row) {
-                            $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = " . $row['id_siswa'] . " ")->fetch_assoc();
+                            $query_siswa = "SELECT * FROM siswa WHERE id_siswa = " . $row['id_siswa'] . " ";
+                            $siswa = QueryOnedata($query_siswa)->fetch_assoc();
                         ?>                        
                             <tr>
                                 <td>

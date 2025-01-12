@@ -83,14 +83,14 @@ if (isset($_POST['simpansiswa'])) {
         exit();
 } elseif ($_GET['action'] == 'delete') {
 
-        $check_kelulusan = QueryOneData("SELECT * FROM kelulusan WHERE id_siswa = ".$_GET[id_siswa']."");
+        $check_kelulusan = QueryOneData("SELECT * FROM kelulusan WHERE id_siswa = ".$_GET['id_siswa']."");
         if($check_kelulusan->num_rows > 0) {
             $_SESSION['message'] = 'Data Siswa Masih terhubung dengan data kelulusan';
             $_SESSION['message_code'] =  400;
             header('Location: ' . $url . '/app/siswa/index.php');
             exit();
         }
-        $check_plotting = QueryOneData("SELECT * FROM plotting_jadwal WHERE id_siswa = ".$_GET[id_siswa']."");
+        $check_plotting = QueryOneData("SELECT * FROM plotting_jadwal WHERE id_siswa = ".$_GET['id_siswa']."");
         if($check_plotting->num_rows > 0) {
             $_SESSION['message'] = 'Data Siswa Masih terhubung dengan data Plotting Jadwal';
             $_SESSION['message_code'] =  400;
