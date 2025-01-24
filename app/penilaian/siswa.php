@@ -60,16 +60,29 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 <table class="table">
                     <thead>
                         <tr class="text-center">
-                            <th class="text-center">NO</th>
-                            <th class="text-center">MAPEL</th>
-                            <th class="text-center">TUGAS</th>
-                            <th class="text-center">UH</th>
-                            <th class="text-center">UTS</th>
-                            <th class="text-center">UAS</th>
-                            <th class="text-center">RATA - RATA <br> Tertulis ][ Praktek</th>
-                            <?php if($_SESSION['level'] != 'Orang Tua'){ ?>
-                                <th class="text-center">ACTION</th>
+                            <th class="text-center" rowspan="2">NO</th>
+                            <th class="text-center" rowspan="2">SISWA</th>
+                            <th class="text-center" colspan="2">TUGAS</th>
+                            <th class="text-center" colspan="2">UH</th>
+                            <th class="text-center" colspan="2">UTS</th>
+                            <th class="text-center" colspan="2">UAS</th>
+                            <th class="text-center" colspan="2">RATA - RATA </th>
+                            <?php if ($_SESSION['level'] != 'Orang Tua') { ?>
+                                <th class="text-center" rowspan="2">ACTION</th>
+                                <th class="text-center" rowspan="2">DESKRIPSI</th>
                             <?php } ?>
+                        </tr>
+                        <tr>
+                            <th>Tertulis</th>
+                            <th>Praktek</th>
+                            <th>Tertulis</th>
+                            <th>Praktek</th>
+                            <th>Tertulis</th>
+                            <th>Praktek</th>
+                            <th>Tertulis</th>
+                            <th>Praktek</th>
+                            <th>Tertulis</th>
+                            <th>Praktek</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,7 +97,7 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                             AND mapel.id_guru = " . $gurux['id_guru'] . "  
                             GROUP BY plotting_jadwal.id_siswa 
                             ";
-                        } else if($_SESSION['level'] == 'Orang Tua'){
+                        } else if ($_SESSION['level'] == 'Orang Tua') {
                             $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_user = " . $_SESSION['id_user'] . " ")->fetch_assoc();
                             $query_mapel = "SELECT plotting_jadwal.id_plotting, plotting_jadwal.id_siswa, mapel.nm_mapel, mapel.id_mapel FROM plotting_jadwal
                             JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel 
@@ -97,26 +110,27 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                         $no = 1;
                         foreach (QueryManyData($query_mapel) as $row) {
                             $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = " . $row['id_siswa'] . " ")->fetch_assoc();
-                        ?>                        
+                        ?>
                             <tr>
                                 <td>
-                                <form action="<?= $url ?>/aksi/penilaian.php" method="POST" enctype="multipart/form-data">
-                                    <?= $no++ ?>
-                                    <?php 
-                                    $id_penilaian = 0;
-                                    ?>
-                                    <input class="form-control" style="display: none;" type="number" name="id_penilaian[]" value="<?= $id_penilaian ?>" min="0" max="100" id="">
-                                    <input class="form-control" style="display: none;" type="number" name="id_periode[]" value="<?= $_GET['id_periode'] ?>" min="0" max="100" id="">
-                                    <input class="form-control" style="display: none;" type="number" name="id_kelas[]" value="<?= $_GET['id_kelas'] ?>" min="0" max="100" id="">
-                                    <input class="form-control" style="display: none;" type="number" name="id_mapel[]" value="<?= $_GET['id_mapel'] ?>" min="0" max="100" id="">
-                                    <input class="form-control" style="display: none;" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
+                                    <form action="<?= $url ?>/aksi/penilaian.php" method="POST" enctype="multipart/form-data">
+                                        <?= $no++ ?>
+                                        <?php
+                                        $id_penilaian = 0;
+                                        ?>
+                                        <input class="form-control" style="display: none;" type="number" name="id_penilaian[]" value="<?= $id_penilaian ?>" min="0" max="100" id="">
+                                        <input class="form-control" style="display: none;" type="number" name="id_periode[]" value="<?= $_GET['id_periode'] ?>" min="0" max="100" id="">
+                                        <input class="form-control" style="display: none;" type="number" name="id_kelas[]" value="<?= $_GET['id_kelas'] ?>" min="0" max="100" id="">
+                                        <input class="form-control" style="display: none;" type="number" name="id_mapel[]" value="<?= $_GET['id_mapel'] ?>" min="0" max="100" id="">
+                                        <input class="form-control" style="display: none;" type="number" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" min="0" max="100" id="">
                                 </td>
-                                <td><?= $siswa['nm_siswa'] ?></td>
+                                <td><?= $siswa['nm_siswa'] ?>
+                                </td>
                                 <td>
                                     <?php
-                                     $tugas = 0;  
-                                     $tugas_praktek = 0;  
-                                     $query_tugas = "SELECT penilaian.id_penilaian, penilaian.nilai, penilaian.nilai_praktek, penilaian.id_plotting FROM penilaian 
+                                    $tugas = 0;
+                                    $tugas_praktek = 0;
+                                    $query_tugas = "SELECT penilaian.id_penilaian, penilaian.nilai, penilaian.nilai_praktek, penilaian.id_plotting FROM penilaian 
                                      LEFT JOIN plotting_jadwal ON penilaian.id_plotting = plotting_jadwal.id_plotting
                                      WHERE plotting_jadwal.id_periode = " . $_GET['id_periode'] . " 
                                         AND plotting_jadwal.id_kelas = " . $kelas['id_kelas'] . " 
@@ -124,72 +138,85 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                                         AND plotting_jadwal.id_siswa = " . $row['id_siswa'] . " 
                                         AND penilaian.jenis_penilaian = 'tugas' 
                                         ";
-                                        $plotting = "SELECT id_plotting FROM plotting_jadwal WHERE id_siswa = " . $row['id_siswa'] . " AND id_kelas = " . $kelas['id_kelas'] . " AND id_periode = " . $_GET['id_periode'] . " ";
-                                        $check_penilaian_tugas = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'tugas' ";
-                                        if(QueryOnedata($check_penilaian_tugas)->num_rows > 0){
-                                            $tugas = QueryOnedata($check_penilaian_tugas)->fetch_assoc()['nilai'];  
-                                            $tugas_praktek = QueryOnedata($check_penilaian_tugas)->fetch_assoc()['nilai_praktek'];  
-                                        }
-                                     ?>
-                                    Tertulis : <input  type="number" name="tugas[]" value="<?= $tugas ?>" min="0" max="100" id="" style="width:50px;" >  &nbsp; &nbsp;
-                                    Praktek : <input  type="number" name="tugas_praktek[]" value="<?= $tugas_praktek ?>" min="0" max="100" id="" style="width:50px;">
+                                    $plotting = "SELECT id_plotting FROM plotting_jadwal WHERE id_siswa = " . $row['id_siswa'] . " AND id_kelas = " . $kelas['id_kelas'] . " AND id_periode = " . $_GET['id_periode'] . " ";
+                                    $check_penilaian_tugas = "SELECT * FROM penilaian WHERE id_plotting = " . QueryOnedata($plotting)->fetch_assoc()['id_plotting'] . " AND jenis_penilaian = 'tugas' ";
+                                    if (QueryOnedata($check_penilaian_tugas)->num_rows > 0) {
+                                        $tugas = QueryOnedata($check_penilaian_tugas)->fetch_assoc()['nilai'];
+                                        $tugas_praktek = QueryOnedata($check_penilaian_tugas)->fetch_assoc()['nilai_praktek'];
+                                    }
+                                    ?>
+                                    <input type="number" name="tugas[]" value="<?= $tugas ?>" min="0" max="100" id="" style="width:50px;">
                                 </td>
                                 <td>
-                                    <?php 
+                                    <input type="number" name="tugas_praktek[]" value="<?= $tugas_praktek ?>" min="0" max="100" id="" style="width:50px;">
+                                </td>
+                                <td>
+                                    <?php
                                     $uh = 0;
                                     $uh_praktek = 0;
-                                    $check_penilaian_uh = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'uh' ";
-                                    if(QueryOnedata($check_penilaian_uh)->num_rows > 0){
-                                        $uh = QueryOnedata($check_penilaian_uh)->fetch_assoc()['nilai'];  
-                                        $uh_praktek = QueryOnedata($check_penilaian_uh)->fetch_assoc()['nilai_praktek'];  
+                                    $check_penilaian_uh = "SELECT * FROM penilaian WHERE id_plotting = " . QueryOnedata($plotting)->fetch_assoc()['id_plotting'] . " AND jenis_penilaian = 'uh' ";
+                                    if (QueryOnedata($check_penilaian_uh)->num_rows > 0) {
+                                        $uh = QueryOnedata($check_penilaian_uh)->fetch_assoc()['nilai'];
+                                        $uh_praktek = QueryOnedata($check_penilaian_uh)->fetch_assoc()['nilai_praktek'];
                                     }
                                     ?>
-                                    Tertulis : <input display="width:50px;" type="number" name="uh[]" value="<?= $uh ?>" min="0" max="100" id=""> &nbsp; &nbsp;
-                                    Praktek : <input display="width:50px;" type="number" name="uh_praktek[]" value="<?= $uh_praktek ?>" min="0" max="100" id="">
+                                    <input display="width:50px;" type="number" name="uh[]" value="<?= $uh ?>" min="0" max="100" id="">
                                 </td>
                                 <td>
-                                    <?php 
+                                    <input display="width:50px;" type="number" name="uh_praktek[]" value="<?= $uh_praktek ?>" min="0" max="100" id="">
+                                </td>
+                                <td>
+                                    <?php
                                     $uts = 0;
                                     $uts_praktek = 0;
-                                    $check_penilaian_uts = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'uts' ";
-                                    if(QueryOnedata($check_penilaian_uts)->num_rows > 0){
-                                        $uts = QueryOnedata($check_penilaian_uts)->fetch_assoc()['nilai'];  
-                                        $uts_praktek = QueryOnedata($check_penilaian_uts)->fetch_assoc()['nilai_praktek'];  
+                                    $check_penilaian_uts = "SELECT * FROM penilaian WHERE id_plotting = " . QueryOnedata($plotting)->fetch_assoc()['id_plotting'] . " AND jenis_penilaian = 'uts' ";
+                                    if (QueryOnedata($check_penilaian_uts)->num_rows > 0) {
+                                        $uts = QueryOnedata($check_penilaian_uts)->fetch_assoc()['nilai'];
+                                        $uts_praktek = QueryOnedata($check_penilaian_uts)->fetch_assoc()['nilai_praktek'];
                                     }
                                     ?>
-                                    Tertulis : <input display="width:50px;" type="number" name="uts[]" value="<?= $uts ?>" min="0" max="100" id=""> &nbsp; &nbsp;
-                                    Praktek : <input display="width:50px;" type="number" name="uts_praktek[]" value="<?= $uts_praktek ?>" min="0" max="100" id="">
+                                    <input display="width:50px;" type="number" name="uts[]" value="<?= $uts ?>" min="0" max="100" id="">
                                 </td>
                                 <td>
-                                    <?php 
+                                    <input display="width:50px;" type="number" name="uts_praktek[]" value="<?= $uts_praktek ?>" min="0" max="100" id="">
+                                </td>
+                                <td>
+                                    <?php
                                     $uas = 0;
                                     $uas_praktek = 0;
-                                    $check_penilaian_uas = "SELECT * FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']." AND jenis_penilaian = 'uas' ";
-                                    if(QueryOnedata($check_penilaian_uas)->num_rows > 0){
-                                        $uas = QueryOnedata($check_penilaian_uas)->fetch_assoc()['nilai'];  
-                                        $uas_praktek = QueryOnedata($check_penilaian_uas)->fetch_assoc()['nilai_praktek'];  
+                                    $check_penilaian_uas = "SELECT * FROM penilaian WHERE id_plotting = " . QueryOnedata($plotting)->fetch_assoc()['id_plotting'] . " AND jenis_penilaian = 'uas' ";
+                                    if (QueryOnedata($check_penilaian_uas)->num_rows > 0) {
+                                        $uas = QueryOnedata($check_penilaian_uas)->fetch_assoc()['nilai'];
+                                        $uas_praktek = QueryOnedata($check_penilaian_uas)->fetch_assoc()['nilai_praktek'];
                                     }
                                     ?>
-                                   Tertulis : <input display="width:50px;" type="number" name="uas[]" value="<?= $uas ?>" min="0" max="100" id=""> &nbsp; &nbsp;
-                                   Praktek : <input display="width:50px;" type="number" name="uas_praktek[]" value="<?= $uas_praktek ?>" min="0" max="100" id="">
+                                    <input display="width:50px;" type="number" name="uas[]" value="<?= $uas ?>" min="0" max="100" id="">
+                                </td>
+                                <td>
+                                    <input display="width:50px;" type="number" name="uas_praktek[]" value="<?= $uas_praktek ?>" min="0" max="100" id="">
                                 </td>
                                 <td style="text-align:center;">
-                                    <?php 
+                                    <?php
                                     // Rata- Rata
-                                    echo round(QueryOnedata("SELECT AVG(nilai) as rata_rata FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']."")->fetch_assoc()['rata_rata']);
-                                    echo "] [";
-                                    echo round(QueryOnedata("SELECT AVG(nilai_praktek) as rata_rata FROM penilaian WHERE id_plotting = ".QueryOnedata($plotting)->fetch_assoc()['id_plotting']."")->fetch_assoc()['rata_rata']);
+                                    echo round(QueryOnedata("SELECT AVG(nilai) as rata_rata FROM penilaian WHERE id_plotting = " . QueryOnedata($plotting)->fetch_assoc()['id_plotting'] . "")->fetch_assoc()['rata_rata']);
+                                    echo " </td><td>";
+                                    echo round(QueryOnedata("SELECT AVG(nilai_praktek) as rata_rata FROM penilaian WHERE id_plotting = " . QueryOnedata($plotting)->fetch_assoc()['id_plotting'] . "")->fetch_assoc()['rata_rata']);
                                     ?>
                                 </td>
-                                <?php if($_SESSION['level'] != 'Orang Tua'){ ?>
+                                <?php if ($_SESSION['level'] != 'Orang Tua') { ?>
                                     <td>
                                         <button type="submit" name="UPDATE_PENILAIAN_DATA" value="UPDATE_PENILAIAN_DATA" class="btn btn-sm btn-success">
                                             <i class='fa fa-edit'></i> Update
                                         </button>
                                         </form>
                                     </td>
-                                <?php } ?>                                
-                            </tr>                      
+                                    <td>
+                                        <button  class="btn btn-sm btn-primary" onclick="OpenRapot(<?= $siswa['id_siswa'] ?>, <?= $mapel['id_mapel'] ?>, <?= $periode['id_periode'] ?>, '<?= $siswa['nm_siswa'] ?>')"  data-toggle='modal' data-target='#DetailRapot'>
+                                            <i class='fa fa-edit'></i> Deskripsi
+                                        </button>
+                                    </td>
+                                <?php } ?>
+                            </tr>
                         <?php
                         }
                         ?>
@@ -201,116 +228,37 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 </a><!-- /.box-body -->
             </div>
         </div>
+
         <!-- Modal -->
-        <div class="modal fade" id="AddJadwal" tabindex="-1" role="dialog" aria-labelledby="AddJadwalLabel" aria-hidden="true">
+        <div class="modal fade" id="DetailRapot" tabindex="-1" role="dialog" aria-labelledby="DetailRapotLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddJadwalLabel">Tambah Jadwal <span id="hariX"></span> <span id="jamX"></span></h5>
+                        <h5 class="modal-title" id="DetailRapotLabel">Update Deskripsi Penilian Mapel <?= $mapel['nm_mapel'] ?>  Siswa <span id="nm_siswa"></span> </span></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="<?= $url ?>/aksi/penilaian.php" method="post" enctype="multipart/form-data">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="inputmapel" class="col-sm-3 col-form-label">Mata Pelajaran</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="id_mapel" id="inputmapel">
-                                        <?php
-                                        $mapel = QueryManyData("SELECT * FROM mapel");
-                                        foreach ($mapel  as $val) { ?>
-                                            <option value="<?= $val['id_mapel'] ?>"><?= $val['nm_mapel'] ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <br>
-                            <br>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>add</th>
-                                        <th>NIS</th>
-                                        <th>Data Siswa</th>
+                    <form action="<?= $url ?>/aksi/rapot.php" method="PUT" enctype="multipart/form-data">
+                        <div class="modal-body" id="modal">
+                            <table class="table" >
+                                <tbody >
+                                    <tr >
+                                        <td>Pengetahuan </td>
+                                        <td>Ketrampilan </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach (QueryManyData("SELECT * FROM siswa WHERE status = 'aktif'") as $row) { ?>
-                                        <tr>
-                                            <td><input type="checkbox" name="id_siswa[]" value="<?= $row['id_siswa'] ?>" id=""></td>
-                                            <td><?= $row['nis'] ?> </td>
-                                            <td> <?= $row['nm_siswa'] ?> </td>
-                                        </tr>
-                                    <?php
-                                    } ?>
+                                    <tr>
+                                        <td> <input type="text" class="form-control" id="pengetahuan" > </td>
+                                        <td> <input type="text" class="form-control" id="ketrampilan" > </td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            <div style="display: none;">
-                                <input type="text" name="id_kelas" value="<?= $_GET['id_kelas'] ?>" class="form-control">
-                                <input type="text" name="id_periode" value="<?= $_GET['id_periode'] ?>" class="form-control">
-                                <input type="text" name="hari" id="hariI" class="form-control">
-                                <input type="time" name="jam_awal" id="jam_awalI" class="form-control">
-                                <input type="time" name="jam_akhir" id="jam_akhirI" class="form-control">
-                            </div>
+                            
+                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="BTN_POST_ADD_PLOTTING" value="BTN_POST_ADD_PLOTTING" class="btn btn-primary">Proses</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="DetailJadwal" tabindex="-1" role="dialog" aria-labelledby="DetailJadwalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="DetailJadwalLabel">Detail Jadwal <span id="hariX"></span> <span id="jamX"></span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="<?= $url ?>/aksi/penilaian.php" method="PUT" enctype="multipart/form-data">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="inputmapel" class="col-sm-3 col-form-label">Mata Pelajaran</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="id_mapel" id="inputmapel">
-                                        <?php
-
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <br>
-                            <br>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>NIS</th>
-                                        <th>Data Siswa</th>
-                                        <th>delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="bodydetailjadwal">
-                                </tbody>
-                            </table>
-                            <div style="display: none;">
-                                <input type="text" name="id_kelas" value="<?= $_GET['id_kelas'] ?>" class="form-control">
-                                <input type="text" name="id_periode" value="<?= $_GET['id_periode'] ?>" class="form-control">
-                                <input type="text" name="hari" id="hariI" class="form-control">
-                                <input type="time" name="jam_awal" id="jam_awalI" class="form-control">
-                                <input type="time" name="jam_akhir" id="jam_akhirI" class="form-control">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="BTN_POST_ADD_PLOTTING" value="BTN_POST_ADD_PLOTTING" class="btn btn-primary">Proses</button>
+                            <button type="submit" name="deskripsi_pengetahun_dan_ketrapilan" value="deskripsi_pengetahun_dan_ketrapilan" class="btn btn-primary">Proses</button>
                         </div>
                     </form>
                 </div>
@@ -326,27 +274,21 @@ $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $kelas['id_guru'] .
                 document.getElementById("jam_akhirI").value = jamR;
             }
 
-            function DetailModal(hari, jamL, id_mapel, id_periode, id_kelas) {
+            function OpenRapot(id_siswa, id_mapel, id_periode, nm_siswa) {
+                document.getElementById("nm_siswa").textContent = nm_siswa;
                 dataX = {
-                    detail_jadwal: "searc_jadwal",
-                    hari: hari,
-                    jam_awal: jamL,
+                    id_siswa: id_siswa,
                     id_mapel: id_mapel,
                     id_periode: id_periode,
-                    id_kelas: id_kelas,
+                    id_mapel: id_mapel,
+                    jenis : 'deskripsi_pengetahun_dan_ketrapilan'
                 };
                 $.ajax({
                     url: '<?= $url ?>/aksi/ajax.php', // Ganti dengan URL file server Anda
                     method: 'POST',
                     data: dataX,
                     success: function(response) {
-                        var trBody = "";
-                        if (response.code == 200) {
-                            for (let yt = 0; yt < response.data.length; yt++) {
-                                trBody += `<tr><td>` + response.data[yt].nis + `</td><td>` + response.data[yt].nm_siswa + `</td> <td> <button class="btn btn-danger" onClick="HapusPlot(` + response.data[yt].id_plotting + `);" >Hapus</button> </td> </tr>`;
-                            }
-                        }
-                        document.getElementById("bodydetailjadwal").innerHTML = trBody;
+                        console.log(response);
                     },
                     error: function(xhr, status, error) {
                         alert("Terjadi kesalahan: " + error);

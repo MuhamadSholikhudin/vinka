@@ -42,7 +42,18 @@
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="<?= $url ?>/assets/dist/img/avatar.png" class="user-image" alt="User Image">
-            <span class="hidden-xs"><?= $_SESSION['username'] ?></span>
+            <span class="hidden-xs"><?= $_SESSION['username'] ?> - 
+            <?php 
+					if($_SESSION['level'] == 'Guru'){
+						$guru = QueryOnedata("SELECT * FROM guru WHERE id_user = ".$_SESSION['id_user']."")->fetch_assoc();
+						if(QueryOnedata("SELECT * FROM kelas WHERE id_guru = ".$guru['id_guru']."")->num_rows > 0){
+						?>
+						<small style="color:white;">Wali Kelas <?= QueryOnedata("SELECT * FROM kelas WHERE id_guru = ".$guru['id_guru']."")->fetch_assoc()['nm_kelas'] ?></small>
+						<?php
+						}                     
+					}
+				?>
+          </span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
@@ -50,12 +61,21 @@
               <img src="<?= $url ?>/assets/dist/img/avatar.png" class="img-circle" alt="User Image">
               <p>
                 <?= $_SESSION['username'] ?> - <?= $_SESSION['level'] ?>
-                <!-- <small>Member since Nov. 2012</small> -->
+                <?php 
+                  if($_SESSION['level'] == 'Guru'){
+                    $guru = QueryOnedata("SELECT * FROM guru WHERE id_user = ".$_SESSION['id_user']."")->fetch_assoc();
+                    if(QueryOnedata("SELECT * FROM kelas WHERE id_guru = ".$guru['id_guru']."")->num_rows > 0){
+                      ?>
+                      <small>Wali Kelas <?= QueryOnedata("SELECT * FROM kelas WHERE id_guru = ".$guru['id_guru']."")->fetch_assoc()['nm_kelas'] ?></small>
+                      <?php
+                    }                     
+                  }
+                ?>
               </p>
             </li>
             <li class="user-footer">
               <div class="pull-left">
-                <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
+                <a href="<?= $url ?>/app/profile/index.php" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
                 <a href="<?= $url ?>/aksi/logout.php" class="btn btn-default btn-flat">Sign out</a>

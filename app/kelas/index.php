@@ -45,6 +45,7 @@
             <table id='example1' class='table table-bordered table-striped'>
               <thead>
                 <tr>
+                  <th>NO</th>
                   <th>GURU</th>
                   <th>NAMA KELAS</th>
                   <th>TINGKATAN</th>
@@ -54,9 +55,11 @@
               </thead>
               <tbody>
                 <?php
+                $NO = 1;
                 foreach (QueryManyData('SELECT * FROM kelas') as $row) {
                 ?>
                   <tr>
+                    <td><?= $NO++ ?></td>
                     <td>
                       <?php
                       $guru = QueryOnedata('SELECT * FROM guru WHERE guru.id_guru = ' . $row['id_guru'] . ' ')->fetch_assoc();

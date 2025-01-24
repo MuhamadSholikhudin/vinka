@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2025 at 11:12 PM
+-- Generation Time: Jan 12, 2025 at 10:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -135,7 +135,7 @@ CREATE TABLE `kehadiran_siswa` (
   `id_kehadiran` int(11) NOT NULL,
   `id_plotting` int(50) DEFAULT NULL,
   `tgl_kehadiran` date DEFAULT NULL,
-  `jenis_kehadiran` enum('Masuk','Alfa','Izin') DEFAULT NULL
+  `jenis_kehadiran` enum('Masuk','Alfa','Izin','Sakit') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -143,13 +143,11 @@ CREATE TABLE `kehadiran_siswa` (
 --
 
 INSERT INTO `kehadiran_siswa` (`id_kehadiran`, `id_plotting`, `tgl_kehadiran`, `jenis_kehadiran`) VALUES
-(1, 1, '2024-12-17', 'Masuk'),
-(2, 2, '2025-01-06', ''),
-(3, 3, '2025-01-06', ''),
-(4, 4, '2025-01-06', ''),
-(5, 5, '2025-01-06', ''),
-(6, 6, '2025-01-06', ''),
-(7, 7, '2025-01-06', '');
+(1, 2, '2025-01-06', 'Sakit'),
+(2, 3, '2025-01-06', 'Sakit'),
+(3, 4, '2025-01-06', 'Masuk'),
+(4, 5, '2025-01-06', 'Masuk'),
+(5, 6, '2025-01-06', 'Masuk');
 
 -- --------------------------------------------------------
 
@@ -187,6 +185,13 @@ CREATE TABLE `kelulusan` (
   `id_siswa` int(11) DEFAULT NULL,
   `id_periode` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kelulusan`
+--
+
+INSERT INTO `kelulusan` (`id_kelulusan`, `id_siswa`, `id_periode`) VALUES
+(1, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -227,46 +232,28 @@ CREATE TABLE `pendaftaran_siswa` (
   `id_periode` int(50) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL,
   `tgl_daftar` date DEFAULT NULL,
-  `status_pendaftaran` varchar(100) DEFAULT NULL,
   `nm_siswa` varchar(50) DEFAULT NULL,
-  `tempat_lahir` varchar(50) DEFAULT NULL,
-  `tanggal_lahir` date DEFAULT NULL,
   `jk_siswa` enum('Laki-Laki','Perempuan') DEFAULT NULL,
   `alamat_siswa` text DEFAULT NULL,
-  `agama` varchar(15) DEFAULT NULL,
-  `asal_sekolah` text DEFAULT NULL,
+  `nm_orang_tua` varchar(50) DEFAULT NULL,
+  `no_hp_orang_tua` varchar(15) DEFAULT NULL,
   `foto_siswa` blob DEFAULT NULL,
-  `nm_wali_murid` varchar(225) DEFAULT NULL,
-  `tempat_lahir_wali_murid` varchar(50) DEFAULT NULL,
-  `tanggal_lahir_wali_murid` date DEFAULT NULL,
-  `pendidikan_wali_murid` enum('SD','SMP','SMA','S1','S2','S3') DEFAULT NULL,
-  `pekerjaan_wali_murid` varchar(50) DEFAULT NULL,
-  `alamat_wali_murid` text DEFAULT NULL,
-  `no_dapat_dihubungi` varchar(15) DEFAULT NULL,
-  `nm_ayah` varchar(50) DEFAULT NULL,
-  `tempat_lahir_ayah` varchar(50) DEFAULT NULL,
-  `tanggal_lahir_ayah` date DEFAULT NULL,
-  `pendidikan_ayah` enum('SD','SMP','SMA','S1','S2','S3') DEFAULT NULL,
-  `alamat_ayah` text DEFAULT NULL,
-  `nm_ibu` varchar(50) DEFAULT NULL,
-  `tempat_lahir_ibu` varchar(50) DEFAULT NULL,
-  `tanggal_lahir_ibu` date DEFAULT NULL,
-  `pendidikan_ibu` enum('SD','SMP','SMA','S1','S2','S3') DEFAULT NULL,
-  `alamat_ibu` text DEFAULT NULL,
-  `tinggal_bersama` enum('wali','orang tua','ayah','ibu') NOT NULL
+  `status_pendaftaran` varchar(100) DEFAULT NULL,
+  `asal_sekolah` text DEFAULT NULL,
+  `nm_wali_murid` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pendaftaran_siswa`
 --
 
-INSERT INTO `pendaftaran_siswa` (`id_pendaftaran`, `id_periode`, `id_user`, `tgl_daftar`, `status_pendaftaran`, `nm_siswa`, `tempat_lahir`, `tanggal_lahir`, `jk_siswa`, `alamat_siswa`, `agama`, `asal_sekolah`, `foto_siswa`, `nm_wali_murid`, `tempat_lahir_wali_murid`, `tanggal_lahir_wali_murid`, `pendidikan_wali_murid`, `pekerjaan_wali_murid`, `alamat_wali_murid`, `no_dapat_dihubungi`, `nm_ayah`, `tempat_lahir_ayah`, `tanggal_lahir_ayah`, `pendidikan_ayah`, `alamat_ayah`, `nm_ibu`, `tempat_lahir_ibu`, `tanggal_lahir_ibu`, `pendidikan_ibu`, `alamat_ibu`, `tinggal_bersama`) VALUES
-(1, 1, 4, '2024-12-17', 'data di terima', 'Saifudin Andro', 'PATI', '2025-01-01', 'Laki-Laki', 'Pati Puri', 'ISLAM', 'TK AL-HIKMAH PATI', 0x5b424c4f42202d20323420425d, '', '', '0000-00-00', 'SD', '', '', '895413553643', 'Andro', '', '0000-00-00', 'SD', '', '', '', '0000-00-00', 'SD', '-', ''),
-(2, 1, 17, '2024-12-18', 'data di terima', 'Dimas Hendra', NULL, NULL, 'Laki-Laki', 'Jalan Raya', NULL, 'TK AL-HIKMAH PATI', 0x5b424c4f42202d20323420425d, NULL, NULL, NULL, NULL, NULL, NULL, '895413553643', 'Hendra', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'wali'),
-(3, 1, 18, '2024-12-18', 'data di terima', 'Fitri Lestari', NULL, NULL, 'Perempuan', 'Sawojajar', NULL, 'TK AL-HIKMAH PATI', 0x5b424c4f42202d20323420425d, NULL, NULL, NULL, NULL, NULL, NULL, '895413553643', 'Lestari', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'wali'),
-(4, 1, 19, '2024-12-19', 'data di terima', 'Budi Santoso', NULL, NULL, 'Laki-Laki', 'Kalipuro', NULL, 'TK AL-HIKMAH PATI', 0x5b424c4f42202d20323420425d, NULL, NULL, NULL, NULL, NULL, NULL, '895413553643', 'Santoso', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'wali'),
-(5, 1, 20, '2024-12-20', 'data di terima', 'Rina Wulandari', NULL, NULL, 'Perempuan', 'Mojokerto', NULL, 'TK AL-HIKMAH PATI', 0x5b424c4f42202d20323420425d, NULL, NULL, NULL, NULL, NULL, NULL, '895413553643', 'Wulandari', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'wali'),
-(6, 1, 21, '2024-12-21', 'data di terima', 'Agus Prasetyo', NULL, NULL, 'Laki-Laki', 'Sumber Rejo', NULL, 'TK AL-HIKMAH PATI', 0x5b424c4f42202d20323420425d, NULL, NULL, NULL, NULL, NULL, NULL, '895413553643', 'Prasetyo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'wali');
+INSERT INTO `pendaftaran_siswa` (`id_pendaftaran`, `id_periode`, `id_user`, `tgl_daftar`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `no_hp_orang_tua`, `foto_siswa`, `status_pendaftaran`, `asal_sekolah`, `nm_wali_murid`) VALUES
+(1, 1, 4, '2024-12-17', 'Saifudin Andro', 'Laki-Laki', 'Pati Puri', 'Andro', '895413553643', 0x5b424c4f42202d20323420425d, 'data di terima', 'TK AL-HIKMAH PATI', NULL),
+(2, 1, 17, '2024-12-18', 'Dimas Hendra', 'Laki-Laki', 'Jalan Raya', 'Hendra', '895413553643', 0x5b424c4f42202d20323420425d, 'data di terima', 'TK AL-HIKMAH PATI', NULL),
+(3, 1, 18, '2024-12-18', 'Fitri Lestari', 'Perempuan', 'Sawojajar', 'Lestari', '895413553643', 0x5b424c4f42202d20323420425d, 'data di terima', 'TK AL-HIKMAH PATI', NULL),
+(4, 1, 19, '2024-12-19', 'Budi Santoso', 'Laki-Laki', 'Kalipuro', 'Santoso', '895413553643', 0x5b424c4f42202d20323420425d, 'data di terima', 'TK AL-HIKMAH PATI', NULL),
+(5, 1, 20, '2024-12-20', 'Rina Wulandari', 'Perempuan', 'Mojokerto', 'Wulandari', '895413553643', 0x5b424c4f42202d20323420425d, 'data di terima', 'TK AL-HIKMAH PATI', NULL),
+(6, 1, 21, '2024-12-21', 'Agus Prasetyo', 'Laki-Laki', 'Sumber Rejo', 'Prasetyo', '895413553643', 0x5b424c4f42202d20323420425d, 'data di terima', 'TK AL-HIKMAH PATI', NULL);
 
 -- --------------------------------------------------------
 
@@ -287,26 +274,26 @@ CREATE TABLE `penilaian` (
 --
 
 INSERT INTO `penilaian` (`id_penilaian`, `id_plotting`, `jenis_penilaian`, `nilai`, `nilai_praktek`) VALUES
-(2, 2, 'tugas', 100, 100),
-(3, 2, 'uh', 100, 100),
-(4, 2, 'uts', 100, 100),
-(5, 2, 'uas', 100, 100),
-(6, 3, 'tugas', 0, 0),
-(7, 3, 'uh', 0, 0),
-(8, 3, 'uts', 0, 0),
-(9, 3, 'uas', 0, 0),
-(10, 4, 'tugas', 0, 0),
-(11, 4, 'uh', 0, 0),
-(12, 4, 'uts', 0, 0),
-(13, 4, 'uas', 0, 0),
-(14, 5, 'tugas', 0, 0),
-(15, 5, 'uh', 0, 0),
-(16, 5, 'uts', 0, 0),
-(17, 5, 'uas', 0, 0),
-(18, 6, 'tugas', 0, 0),
-(19, 6, 'uh', 0, 0),
-(20, 6, 'uts', 0, 0),
-(21, 6, 'uas', 0, 0);
+(2, 2, 'tugas', 90, 60),
+(3, 2, 'uh', 80, 70),
+(4, 2, 'uts', 70, 60),
+(5, 2, 'uas', 100, 80),
+(6, 3, 'tugas', 80, 0),
+(7, 3, 'uh', 87, 0),
+(8, 3, 'uts', 89, 0),
+(9, 3, 'uas', 78, 0),
+(10, 5, 'tugas', 75, 0),
+(11, 5, 'uh', 78, 0),
+(12, 5, 'uts', 79, 0),
+(13, 5, 'uas', 80, 0),
+(14, 6, 'tugas', 85, 0),
+(15, 6, 'uh', 90, 0),
+(16, 6, 'uts', 92, 0),
+(17, 6, 'uas', 85, 0),
+(18, 4, 'tugas', 100, 0),
+(19, 4, 'uh', 95, 0),
+(20, 4, 'uts', 95, 0),
+(21, 4, 'uas', 100, 0);
 
 -- --------------------------------------------------------
 
@@ -353,25 +340,7 @@ INSERT INTO `plotting_jadwal` (`id_plotting`, `id_siswa`, `id_kelas`, `id_mapel`
 (3, 5, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
 (4, 6, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
 (5, 7, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
-(6, 8, 3, 1, 1, 'Senin', '07:00:00', '08:00:00'),
-(7, 9, 3, 1, 1, 'Senin', '07:00:00', '08:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rapot`
---
-
-CREATE TABLE `rapot` (
-  `id_rapot` int(11) NOT NULL,
-  `id_periode` int(11) DEFAULT NULL,
-  `id_siswa` int(11) DEFAULT NULL,
-  `jenis` enum('sikap spiritual','sikap sosial','deskripsi pengetahun dan ketrapilan','ektrakulikuler','catatan wali kelas') DEFAULT NULL,
-  `value` int(11) DEFAULT NULL,
-  `deskripsi` text NOT NULL,
-  `pengetahuan` int(11) DEFAULT NULL,
-  `ketrampilan` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(6, 8, 3, 1, 1, 'Senin', '07:00:00', '08:00:00');
 
 -- --------------------------------------------------------
 
@@ -388,7 +357,7 @@ CREATE TABLE `siswa` (
   `alamat_siswa` text DEFAULT NULL,
   `nm_orang_tua` varchar(50) DEFAULT NULL,
   `foto_siswa` blob DEFAULT NULL,
-  `status` enum('aktif','tidak aktif') DEFAULT NULL
+  `status` enum('aktif','tidak aktif','lulus') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -396,12 +365,11 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `id_user`, `nm_siswa`, `jk_siswa`, `alamat_siswa`, `nm_orang_tua`, `foto_siswa`, `status`) VALUES
-(4, '2024001', 4, 'Saifudin Andro', 'Laki-Laki', 'Pati Puri', 'Andro', 0x323032343132323830343534303975736572312d313238783132382e6a7067, 'aktif'),
+(4, '2024001', 4, 'Saifudin Andro', 'Laki-Laki', 'Pati Puri', 'Andro', 0x323032343132323830343534303975736572312d313238783132382e6a7067, 'lulus'),
 (5, '2024002', 17, 'Dimas Hendra', 'Laki-Laki', 'Jalan Raya', 'Hendra', 0x323032343132323830343537303775736572382d313238783132382e6a7067, 'aktif'),
 (6, '2024003', 18, 'Fitri Lestari', 'Perempuan', 'Sawojajar', 'Lestari', 0x323032343132323830343537323175736572332d313238783132382e6a7067, 'aktif'),
 (7, '2024004', 19, 'Budi Santoso', 'Laki-Laki', 'Kalipuro', 'Santoso', 0x3230323431323238303530343333617661746172352e706e67, 'aktif'),
-(8, '2024005', 20, 'Rina Wulandari', 'Perempuan', 'Mojokerto', 'Wulandari', 0x3230323431323238303530343437617661746172322e706e67, 'aktif'),
-(9, '2024006', 21, 'Agus Prasetyo', 'Laki-Laki', 'Sumber Rejo', 'Prasetyo', 0x3230323431323238303530343539617661746172332e706e67, 'aktif');
+(8, '2024005', 20, 'Rina Wulandari', 'Perempuan', 'Mojokerto', 'Wulandari', 0x3230323431323238303530343437617661746172322e706e67, 'aktif');
 
 -- --------------------------------------------------------
 
@@ -520,12 +488,6 @@ ALTER TABLE `plotting_jadwal`
   ADD PRIMARY KEY (`id_plotting`);
 
 --
--- Indexes for table `rapot`
---
-ALTER TABLE `rapot`
-  ADD PRIMARY KEY (`id_rapot`);
-
---
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -569,7 +531,7 @@ ALTER TABLE `jenis_guru`
 -- AUTO_INCREMENT for table `kehadiran_siswa`
 --
 ALTER TABLE `kehadiran_siswa`
-  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kehadiran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -581,7 +543,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelulusan`
 --
 ALTER TABLE `kelulusan`
-  MODIFY `id_kelulusan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kelulusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mapel`
@@ -611,13 +573,7 @@ ALTER TABLE `periode`
 -- AUTO_INCREMENT for table `plotting_jadwal`
 --
 ALTER TABLE `plotting_jadwal`
-  MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `rapot`
---
-ALTER TABLE `rapot`
-  MODIFY `id_rapot` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `siswa`

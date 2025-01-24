@@ -45,6 +45,8 @@
             <table id='example1' class='table table-bordered table-striped'>
               <thead>
                 <tr>
+                  <th>NO</th>
+
                   <th>ID GURU</th>
                   <th>NAMA MAPEL</th>
                   <th>AKSI</th>
@@ -52,13 +54,15 @@
               </thead>
               <tbody>
                 <?php
+                $NO = 1;
                 foreach (QueryManyData('SELECT * FROM mapel') as $row) {
                 ?>
                   <tr>
-                    <td> 
+                    <td><?= $NO++ ?></td>
+                    <td>
                       <?php
-                          $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $row['id_guru'] . ' ')->fetch_assoc();
-                          ?>
+                      $guru = QueryOnedata('SELECT * FROM guru WHERE id_guru = ' . $row['id_guru'] . ' ')->fetch_assoc();
+                      ?>
                       <?= $guru['nip'] . " | " . $guru['nm_guru'] ?>
                     </td>
                     </td>

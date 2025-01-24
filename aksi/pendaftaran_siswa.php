@@ -23,13 +23,31 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                                         'id_user' => $_POST['id_user'],
                                         'tgl_daftar' => $_POST['tgl_daftar'],
                                         'nm_siswa' => $_POST['nm_siswa'],
+                                        'tempat_lahir' => $_POST['tempat_lahir'],
+                                        'tanggal_lahir' => $_POST['tanggal_lahir'],
                                         'jk_siswa' => $_POST['jk_siswa'],
                                         'alamat_siswa' => $_POST['alamat_siswa'],
+                                        'agama' => $_POST['agama'],
                                         'asal_sekolah' => $_POST['asal_sekolah'],
-                                        'nm_orang_tua' => $_POST['nm_orang_tua'],
-                                        'nm_wali_murid' => $_POST['nm_wali_murid'],
-                                        'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                                         'foto_siswa' => $nama_file,
+                                        'nm_wali_murid' => $_POST['nm_wali_murid'],
+                                        'tempat_lahir_wali_murid' => $_POST['tempat_lahir_wali_murid'],
+                                        'tanggal_lahir_wali_murid' => $_POST['tanggal_lahir_wali_murid'],
+                                        'pendidikan_wali_murid' => $_POST['pendidikan_wali_murid'],
+                                        'pekerjaan_wali_murid' => $_POST['pekerjaan_wali_murid'],
+                                        'alamat_wali_murid' => $_POST['alamat_wali_murid'],
+                                        'no_dapat_dihubungi' => $_POST['no_dapat_dihubungi'],
+                                        'nm_ayah' => $_POST['nm_ayah'],
+                                        'tempat_lahir_ayah' => $_POST['tempat_lahir_ayah'],
+                                        'tanggal_lahir_ayah' => $_POST['tanggal_lahir_ayah'],
+                                        'pendidikan_ayah' => $_POST['pendidikan_ayah'],
+                                        'alamat_ayah' => $_POST['alamat_ayah'],
+                                        'nm_ibu' => $_POST['nm_ibu'],
+                                        'tempat_lahir_ibu' => $_POST['tempat_lahir_ibu'],
+                                        'tanggal_lahir_ibu' => $_POST['tanggal_lahir_ibu'],
+                                        'pendidikan_ibu' => $_POST['pendidikan_ibu'],
+                                        'alamat_ibu' => $_POST['alamat_ibu'],
+                                        'tinggal_bersama' => $_POST['tinggal_bersama'],
                                 ];
                                 // Insert satu data
                                 $process = InsertOnedata('pendaftaran_siswa', $data);
@@ -79,13 +97,31 @@ if (isset($_POST['simpanpendaftaran_siswa'])) {
                 'id_user' => $_POST['id_user'],
                 'tgl_daftar' => $_POST['tgl_daftar'],
                 'nm_siswa' => $_POST['nm_siswa'],
+                'tempat_lahir' => $_POST['tempat_lahir'],
+                'tanggal_lahir' => $_POST['tanggal_lahir'],
                 'jk_siswa' => $_POST['jk_siswa'],
                 'alamat_siswa' => $_POST['alamat_siswa'],
+                'agama' => $_POST['agama'],
                 'asal_sekolah' => $_POST['asal_sekolah'],
-                'nm_orang_tua' => $_POST['nm_orang_tua'],
-                'nm_wali_murid' => $_POST['nm_wali_murid'],
-                'no_hp_orang_tua' => $_POST['no_hp_orang_tua'],
                 'foto_siswa' => $nama_file,
+                'nm_wali_murid' => $_POST['nm_wali_murid'],
+                'tempat_lahir_wali_murid' => $_POST['tempat_lahir_wali_murid'],
+                'tanggal_lahir_wali_murid' => $_POST['tanggal_lahir_wali_murid'],
+                'pendidikan_wali_murid' => $_POST['pendidikan_wali_murid'],
+                'pekerjaan_wali_murid' => $_POST['pekerjaan_wali_murid'],
+                'alamat_wali_murid' => $_POST['alamat_wali_murid'],
+                'no_dapat_dihubungi' => $_POST['no_dapat_dihubungi'],
+                'nm_ayah' => $_POST['nm_ayah'],
+                'tempat_lahir_ayah' => $_POST['tempat_lahir_ayah'],
+                'tanggal_lahir_ayah' => $_POST['tanggal_lahir_ayah'],
+                'pendidikan_ayah' => $_POST['pendidikan_ayah'],
+                'alamat_ayah' => $_POST['alamat_ayah'],
+                'nm_ibu' => $_POST['nm_ibu'],
+                'tempat_lahir_ibu' => $_POST['tempat_lahir_ibu'],
+                'tanggal_lahir_ibu' => $_POST['tanggal_lahir_ibu'],
+                'pendidikan_ibu' => $_POST['pendidikan_ibu'],
+                'alamat_ibu' => $_POST['alamat_ibu'],
+                'tinggal_bersama' => $_POST['tinggal_bersama'],
         ];
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_POST['id_pendaftaran'] . '');
@@ -109,7 +145,7 @@ Silakan melakukan lengkapi data anda : .\n
 Terima kasih atas partisipasinya. Segera lengkapi data anda sebelum pendaftaran di tutup.\n
 
 Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
-        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_hp_orang_tua'], $message);
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_dapat_dihubungi'], $message);
 
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
@@ -129,7 +165,7 @@ Jika ada penyesuaian lain yang diinginkan, silakan beri tahu!";
 Pendaftaran siswa baru atas Nama ".$dataX[0]['nm_siswa']." di MI Al-Hidayah tidak dapat menerima pendafataran.\n
 dengan alasan ".$_GET['alasan']." \n
 Terima kasih atas partisipasinya anda.";
-        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_hp_orang_tua'], $message);
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_dapat_dihubungi'], $message);
 
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');
@@ -152,7 +188,7 @@ Silakan melakukan registrasi ulang di sekolah dengan menemui Seksi Tata Usaha.\n
 ".$_GET['alasan']." \n
 Terima kasih dan kami tunggu kehadirannya.\n
 ";
-        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_hp_orang_tua'], $message);
+        $satu = zen($url_wa, $userkey, $passkey, '0' . $dataX[0]['no_dapat_dihubungi'], $message);
 
         // Update data berdasarkan
         $process = UpdateOneData('pendaftaran_siswa', $data, ' WHERE id_pendaftaran =' . $_GET['id_pendaftaran'] . '');

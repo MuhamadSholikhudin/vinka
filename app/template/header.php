@@ -10,11 +10,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-
-
-
-
-
   <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title><?= Url_web()?></title>
@@ -32,14 +27,11 @@
 	<link rel="stylesheet" href="<?= $url ?>/assets/dist/css/AdminLTE.min.css">
 
 	<link rel="stylesheet" href="<?= $url ?>/assets/dist/css/skins/_all-skins.min.css">
-
 	<!-- <link href="<?= $url ?>/assets/plugins/select2/select2.css" rel="stylesheet" />
 	<link href="<?= $url ?>/assets/plugins/select2/select2.min.css" rel="stylesheet" /> -->
 
 	<script src="<?= $url ?>/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/select2/dist/css/select2.min.css">
-
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<!-- Site wrapper -->

@@ -8,6 +8,7 @@
 				<p style="color: white;">
 					MI AL-HIDAYAH
 				</p>
+
 			</div>
       		<?php
 				// Data sub menu pada menu 
@@ -132,6 +133,24 @@
       					<i class="fa fa-folder-open-o"></i> <span>Menu</span> <i class="fa fa-angle-left pull-right"></i>
       				</a>
       				<ul class="treeview-menu <?php if (Menu_active($data_menu) == "show") { echo "menu-open style='display:block;'"; } ?>">
+						<?php 
+						$akses_wali_kelas = [];
+							if($_SESSION['level'] == 'Guru'){
+								$guru = QueryOnedata("SELECT * FROM guru WHERE id_user = ".$_SESSION['id_user']."")->fetch_assoc();
+								array_push($akses_wali_kelas, $guru);
+								if(QueryOnedata("SELECT * FROM kelas WHERE id_guru = ".$guru['id_guru']."")->num_rows > 0){
+								array_push($akses_wali_kelas, QueryOnedata("SELECT * FROM kelas WHERE id_guru = ".$guru['id_guru']."")->fetch_assoc());
+								?>
+									<li class="">
+										<a href="<?= $url ?>/app/anak-didik/index.php" class="text-white">
+											<i class='fa fa-circle '></i> Anak Didik Wali Kelas
+										</a>
+									</li>
+								<?php
+								}                     
+							}
+                		?>
+
       					<?php for ($sub = 0; $sub < count($data_menu); $sub++) {
 								$check_role = array_search($data_menu[$sub], $level[$_SESSION['level']]);
 								if ($check_role !== false) {            ?>

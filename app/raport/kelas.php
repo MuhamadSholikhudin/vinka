@@ -48,6 +48,7 @@
                         <table id='example1' class='table table-bordered table-striped'>
                             <thead>
                                 <tr>
+                                    <th>NO</th>
                                     <th>KELAS</th>
                                     <th>TINGKATAN</th>
                                     <th>WALI KELAS</th>
@@ -62,10 +63,12 @@
                                     $plot = QueryOnedata("SELECT * FROM plotting_jadwal WHERE id_periode = ".$_GET['id_periode']." AND id_siswa = ".$siswa['id_siswa']." GROUP BY id_kelas")->fetch_assoc();
                                     $kelas = "SELECT * FROM  kelas WHERE id_kelas = ".$plot['id_kelas']." ORDER BY id_kelas ASC";                        
                                 }
+                                $no = 1;
                                 foreach (QueryManyData($kelas) as $row) {
                                     $guru = QueryOnedata("SELECT * FROM guru WHERE id_guru = ".$row['id_guru']."")->fetch_assoc();
                                 ?>
                                     <tr>
+                                        <td><?=  $no++ ?></td>
                                         <td><?= $row['nm_kelas'] ?></td>
                                         <td><?= $row['tingkatan'] ?></td>
                                         <td>

@@ -45,43 +45,46 @@
             <table id='example1' class='table table-bordered table-striped'>
               <thead>
                 <tr>
-                       <th>NM PERIODE</th>
-                       <th>STATUS PERIODE</th>
-                       <th>AKSI</th>
+                  <th>NO</th>
+                  <th>NM PERIODE</th>
+                  <th>STATUS PERIODE</th>
+                  <th>AKSI</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $no = 1;
+                foreach (QueryManyData('SELECT * FROM periode ORDER BY id_periode DESC') as $row) {
+                ?>
+                  <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $row['nm_periode'] ?></td>
+                    <td><?= $row['status_periode'] ?></td>
+                    <td>
+                      <a href='<?= $url ?>/app/periode/edit.php?id_periode=<?= $row['id_periode'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
+                      <button onclick='ConfirmDelete(<?= $row['id_periode'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
+                        <i class='fas fa-trash'></i>
+                        hapus
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach (QueryManyData('SELECT * FROM periode') as $row) {
-                    ?>
-                        <tr>
-                       <td><?= $row['nm_periode'] ?></td>
-                       <td><?= $row['status_periode'] ?></td>
-                       <td>
-                              <a href='<?= $url ?>/app/periode/edit.php?id_periode=<?= $row['id_periode'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                              <button onclick='ConfirmDelete(<?= $row['id_periode'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
-                                <i class='fas fa-trash'></i>
-                                hapus
-                              </button>
-                        </td>
-                    </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
+                <?php
+                }
+                ?>
+              </tbody>
             </table>
+          </div>
         </div>
-    </div>
-    <script>
-        function ConfirmDelete(id) {
+        <script>
+          function ConfirmDelete(id) {
             let text = 'Apakah Anda Yakin Ingin Menghapus data!\n OK or Cancel.';
             if (confirm(text) == true) {
-                text = 'You pressed OK!';
-                window.location.href = '<?= $url ?>/aksi/periode.php?id_periode='+id+'&action=delete'
-           } 
-        }
-    </script>
-     </div>
-    </div>    
+              text = 'You pressed OK!';
+              window.location.href = '<?= $url ?>/aksi/periode.php?id_periode=' + id + '&action=delete'
+            }
+          }
+        </script>
+      </div>
+    </div>
 </div>
 <?php include_once '../template/footer.php'; ?>

@@ -18,6 +18,15 @@ if (isset($_POST['simpanplotting_jadwal'])) {
         header('Location: ' . $url . '/app/plotting_jadwal/index.php');
         exit();
 } elseif (isset($_POST['BTN_POST_ADD_PLOTTING'])) {
+        $mapel = QueryOnedata("SELECT * FROM mapel WHERE id_mapel =  ".$_POST['id_mapel']."")->fetch_assoc();
+        $check_jadwal_ganda = "SELECT plotting_jadwal.* FROM plotting_jadwal LEFT JOIN mapel ON plotting_jadwal.id_mapel = mapel.id_mapel  WHERE  plotting_jadwal.id_periode = ".$_POST['id_periode']." AND plotting_jadwal.hari = '".$_POST['hari']."' AND plotting_jadwal.jam_awal = '".$_POST['jam_awal']."' AND  plotting_jadwal.jam_akhir = '".$_POST['jam_akhir']."' AND mapel.id_guru = ".$mapel['id_guru']."";
+
+        if(QueryOnedata($check_jadwal_ganda)->num_rows){
+                $_SESSION['message'] = 'Data Plotting Jadwal gagal di tambahkan karena guru sudah mengajar di waktu yang sama';
+                $_SESSION['message_code'] =  400;
+                header('Location: ' . $url . '/app/plotting_jadwal/kelas.php?id_periode='.$_POST['id_periode'].'&id_kelas='.$_POST['id_kelas'].'');
+                exit();
+        }
         for($r = 0 ; $r < count($_POST['id_siswa']); $r++){                
                 $data = [
                         'id_siswa' => $_POST['id_siswa'][$r],

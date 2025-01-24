@@ -40,10 +40,23 @@
                                     <input type='date' class='form-control' id='inputtgl_daftar' name='tgl_daftar' value="<?= date('Y-m-d') ?>" required>
                                 </div>
                             </div>
+                            <hr>
+                            <h4 class="text-center">Data Siswa</h4>
+
                             <div class='form-group'>
                                 <label for='inputnm_siswa' class='col-sm-2 col-form-label'>Nama Siswa</label>
                                 <div class='col-sm-10'>
                                     <input type='text' class='form-control' id='inputnm_siswa' name='nm_siswa' required>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label for='inputtempat_lahir' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='text' class='form-control' id='inputtempat_lahir' name='tempat_lahir' required>
+                                </div>
+                                <label for='inputtanggal_lahir' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='date' class='form-control' id='inputtanggal_lahir' name='tanggal_lahir' required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -58,6 +71,12 @@
                                         }
                                         ?>
                                     </select>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label for='inputagama' class='col-sm-2 col-form-label'>Agama</label>
+                                <div class='col-sm-10'>
+                                    <input type='text' class='form-control' id='inputagama' name='agama' required>
                                 </div>
                             </div>
                             <div class='form-group'>
@@ -78,15 +97,23 @@
                                     <input type='text' class='form-control' id='inputasal_sekolah' name='asal_sekolah' placeholder="Contoh : TK Kemala Siwi" required>
                                 </div>
                             </div>
-                            <br>
-                            <hr>
-                            <br>
-                            <div class='form-group'>
-                                <label for='inputnm_orang_tua' class='col-sm-2 col-form-label'>Nama Orang Tua</label>
-                                <div class='col-sm-10'>
-                                    <input type='text' class='form-control' id='inputnm_orang_tua' name='nm_orang_tua' value='' required>
+                            <div class="form-group">
+                                <label for="inputtinggal_bersama" class="col-sm-2 col-form-label">Tinggal Bersama</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="tinggal_bersama" id="inputtinggal_bersama">
+                                        <?php
+                                        $tinggal_bersama = ['wali murid','orang tua','ayah','ibu'];
+                                        foreach ($tinggal_bersama as $val) { ?>
+                                                <option value="<?= $val ?>"><?= $val ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                             </div>
+
+                            <hr>
+                            <h4 class="text-center">Data Wali Murid</h4>
                             <div class='form-group'>
                                 <label for='inputnm_wali_murid' class='col-sm-2 col-form-label'>Nama Wali Murid</label>
                                 <div class='col-sm-10'>
@@ -96,15 +123,133 @@
                                 </div>
                             </div>
                             <div class='form-group'>
-                                <label for='inputno_hp_orang_tua' class='col-sm-2 col-form-label'>No HP Wali Murid</label>
+                                <label for='inputtempat_lahir_wali' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='text' class='form-control' id='inputtempat_lahir_wali' name='tempat_lahir_wali_murid'>
+                                </div>
+                                <label for='inputtanggal_lahir_wali' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='date' class='form-control' id='inputtanggal_lahir_wali' name='tanggal_lahir_wali_murid'>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputpendidikan_wali_murid" class="col-sm-2 col-form-label">Pendidikan Wali Murid</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="pendidikan_wali_murid" id="inputpendidikan_wali_murid">
+                                        <?php
+                                        $pendidikan_wali_murid = ['SD', 'SMP', 'SMA', 'S1', 'S2', 'S3'];
+                                        foreach ($pendidikan_wali_murid    as $val) { ?>
+                                            <option value="<?= $val ?>"><?= $val ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <label for='inputpekerjaan_wali_murid' class='col-sm-2 col-form-label'>Pekerjaan Wali Murid</label>
+                                <div class='col-sm-4'>
+                                    <input type='text' class='form-control' id='inputpekerjaan_wali_murid' name='pekerjaan_wali_murid'>
+                                </div>
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='inputalamat_wali_murid' class='col-sm-2 col-form-label'>Alamat Wali Murid</label>
                                 <div class='col-sm-10'>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">+62</span>
-                                        <input type="text" class='form-control' id='inputno_hp_orang_tua' name='no_hp_orang_tua' placeholder="897558xxxx" required>
-                                    </div>
+                                    <textarea class='form-control' id='inputalamat_wali_murid' name='alamat_wali_murid' required></textarea>
                                 </div>
                             </div>
                             <div class='form-group'>
+                                <label for='inputno_dapat_dihubungi' class='col-sm-2 col-form-label'>No Yang Dapat di Hubungi</label>
+                                <div class='col-sm-10'>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">+62</span>
+                                        <input type="text" class='form-control' id='inputno_dapat_dihubungi' name='no_dapat_dihubungi' placeholder="897558xxxx" required>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <hr>
+                            <h4 class="text-center">Data Orang Tua</h4>
+
+                            <div class='form-group'>
+                                <label for='inputnm_ayah' class='col-sm-2 col-form-label'>Nama Ayah</label>
+                                <div class='col-sm-10'>
+                                    <input type='text' class='form-control' id='inputnm_ayah' name='nm_ayah'  required>
+                                </div>
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='inputtempat_lahir_ayah' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='text' class='form-control' id='inputtempat_lahir_ayah' name='tempat_lahir_ayah'  required>
+                                </div>
+                                <label for='inputtanggal_lahir_ayah' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='date' class='form-control' id='inputtanggal_lahir_ayah' name='tanggal_lahir_ayah'  required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputpendidikan_ayah" class="col-sm-2 col-form-label">Pendidikan Ayah</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="pendidikan_ayah" id="inputpendidikan_ayah">
+                                        <?php
+                                        $pendidikan_ayah = ['SD', 'SMP', 'SMA', 'S1', 'S2', 'S3'];
+                                        foreach ($pendidikan_ayah    as $val) {?>
+                                                <option value="<?= $val ?>"><?= $val ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label for='inputalamat_ayah' class='col-sm-2 col-form-label'>Alamat Ayah</label>
+                                <div class='col-sm-10'>
+                                    <textarea class='form-control' id='inputalamat_ayah' name='alamat_ayah' required></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class='form-group'>
+                                <label for='inputnm_ibu' class='col-sm-2 col-form-label'>Nama Ibu</label>
+                                <div class='col-sm-10'>
+                                    <input type='text' class='form-control' id='inputnm_ibu' name='nm_ibu' >
+                                </div>
+                            </div>
+
+                            <div class='form-group'>
+                                <label for='inputtempat_lahir_ibu' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='text' class='form-control' id='inputtempat_lahir_ibu' name='tempat_lahir_ibu' >
+                                </div>
+                                <label for='inputtanggal_lahir_ibu' class='col-sm-2 col-form-label'>Tempat Lahir</label>
+                                <div class='col-sm-4'>
+                                    <input type='date' class='form-control' id='inputtanggal_lahir_ibu' name='tanggal_lahir_ibu' >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputpendidikan_ibu" class="col-sm-2 col-form-label">Pendidikan Ibu</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="pendidikan_ibu" id="inputpendidikan_ibu">
+                                        <?php
+                                        $pendidikan_ibu = ['SD', 'SMP', 'SMA', 'S1', 'S2', 'S3'];
+                                        foreach ($pendidikan_ibu as $val) { ?>
+                                                <option value="<?= $val ?>"><?= $val ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label for='inputalamat_ibu' class='col-sm-2 col-form-label'>Alamat Ibu</label>
+                                <div class='col-sm-10'>
+                                    <textarea class='form-control' id='inputalamat_ibu' name='alamat_ibu' required></textarea>
+                                </div>
+                            </div>
+                            <div class='form-group' style="display: none;">
                                 <label for='inputid_user' class='col-sm-2 col-form-label'>User Wali</label>
                                 <div class='col-sm-10'>
                                     <?php ?>

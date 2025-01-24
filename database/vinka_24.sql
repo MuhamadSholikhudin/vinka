@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2025 at 11:12 PM
+-- Generation Time: Jan 23, 2025 at 09:56 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -179,18 +179,6 @@ INSERT INTO `kelas` (`id_kelas`, `id_guru`, `nm_kelas`, `tingkatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelulusan`
---
-
-CREATE TABLE `kelulusan` (
-  `id_kelulusan` int(11) NOT NULL,
-  `id_siswa` int(11) DEFAULT NULL,
-  `id_periode` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `mapel`
 --
 
@@ -359,23 +347,6 @@ INSERT INTO `plotting_jadwal` (`id_plotting`, `id_siswa`, `id_kelas`, `id_mapel`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rapot`
---
-
-CREATE TABLE `rapot` (
-  `id_rapot` int(11) NOT NULL,
-  `id_periode` int(11) DEFAULT NULL,
-  `id_siswa` int(11) DEFAULT NULL,
-  `jenis` enum('sikap spiritual','sikap sosial','deskripsi pengetahun dan ketrapilan','ektrakulikuler','catatan wali kelas') DEFAULT NULL,
-  `value` int(11) DEFAULT NULL,
-  `deskripsi` text NOT NULL,
-  `pengetahuan` int(11) DEFAULT NULL,
-  `ketrampilan` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `siswa`
 --
 
@@ -484,12 +455,6 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
--- Indexes for table `kelulusan`
---
-ALTER TABLE `kelulusan`
-  ADD PRIMARY KEY (`id_kelulusan`);
-
---
 -- Indexes for table `mapel`
 --
 ALTER TABLE `mapel`
@@ -518,12 +483,6 @@ ALTER TABLE `periode`
 --
 ALTER TABLE `plotting_jadwal`
   ADD PRIMARY KEY (`id_plotting`);
-
---
--- Indexes for table `rapot`
---
-ALTER TABLE `rapot`
-  ADD PRIMARY KEY (`id_rapot`);
 
 --
 -- Indexes for table `siswa`
@@ -578,12 +537,6 @@ ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `kelulusan`
---
-ALTER TABLE `kelulusan`
-  MODIFY `id_kelulusan` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
@@ -612,12 +565,6 @@ ALTER TABLE `periode`
 --
 ALTER TABLE `plotting_jadwal`
   MODIFY `id_plotting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `rapot`
---
-ALTER TABLE `rapot`
-  MODIFY `id_rapot` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `siswa`

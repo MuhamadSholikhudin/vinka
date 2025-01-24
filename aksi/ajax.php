@@ -52,6 +52,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
             echo json_encode($response);
+
+    }else if(isset($_POST['jenis'])){
+
+        $data = ["
+        
+        "];
+
+        header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
+        echo json_encode($_POST);
+
     }else{
         // Ambil data dari input AJAX
         $id_user = isset($_POST['id_user']) ? $_POST['id_user'] : '';

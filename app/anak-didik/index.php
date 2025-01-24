@@ -3,11 +3,11 @@
 <?php include_once '../template/sidebar.php'; ?>
 <div class='content-wrapper'>
   <section class='content-header'>
-    <h1>Siswa page
+    <h1>Anak Didik page
     </h1>
     <ol class='breadcrumb'>
       <li><a href='#'><i class='fa fa-dashboard'></i> Index</a></li>
-      <li class='active'>Siswa page</li>
+      <li class='active'>Anak Didik page</li>
     </ol>
   </section>
   <section class='content'>
@@ -34,30 +34,12 @@
       unset($_SESSION['message']);
       unset($_SESSION['message_code']);
     } ?>
-    
-    <a class='btn btn-social-icon btn-info btn-sm' data-toggle='tooltip' data-placement='top' title='Tambah data siswa' href='<?= $url ?>/app/siswa/tambah.php'><i class='fa fa-plus'></i></a>
-    <div class="box box-danger">
-      <div class="box-header with-border">
-        <h3 class="box-title">Periode Semester</h3>
-      </div>
-      <div class="box-body">
-        <?php foreach (QueryManyData("SELECT * FROM  periode ORDER BY id_periode DESC") as $row) { ?>
-          <div class="row">
-            <div class="col-xs-6">
-              <a href="<?= $url ?>/app/siswa/periode.php?id_periode=<?= $row['id_periode'] ?>" class="btn btn-block btn-social btn-bitbucket">
-                <i class="fa fa-flickr"></i> <?= $row['nm_periode'] ?>
-              </a>
-            </div>
-          <?php } ?>
-
-          </div>
-      </div><!-- /.box-body -->
-    </div>    
+       
     <div class='row'>
       <div class='col-xs-12'>
         <div class='box'>
           <div class='box-header'>
-            <h3 class='box-title'>Data Siswa</h3>
+            <h3 class='box-title'>Data Siswa Kelas  <?= $akses_wali_kelas[1]['nm_kelas'] ?></h3>
           </div>
           <div class='box-body'>
             <table id='example1' class='table table-bordered table-striped'>
@@ -76,11 +58,16 @@
               </thead>
               <tbody>
                 <?php
-                $no = 1;
-                foreach (QueryManyData('SELECT * FROM siswa ORDER BY id_siswa DESC') as $row) {
+                $periode_sekarang = QueryOnedata("SELECT * FROM periode ORDER BY id_periode DESC")->fetch_assoc();
+                // Menampilkan anak didik wali kelas
+                $siswa = "SELECT siswa.* FROM siswa LEFT JOIN plotting_jadwal ON siswa.id_siswa = plotting_jadwal.id_siswa WHERE 
+                plotting_jadwal.id_kelas = ".$akses_wali_kelas[1]['id_kelas']."
+                AND plotting_jadwal.id_periode = ".$periode_sekarang['id_periode']."";
+                $no =1;
+                foreach (QueryManyData($siswa) as $row) {
                 ?>
                   <tr>
-                    <td><?= $no ++ ?></td>
+                    <td><?= $no++ ?></td>
                     <td><?= $row['nis'] ?></td>
                     <td>
                       <?php
@@ -96,11 +83,8 @@
                       <img src="<?= $url . '/foto/siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;">
                     </td>
                     <td>
-                      <a href='<?= $url ?>/app/siswa/edit.php?id_siswa=<?= $row['id_siswa'] ?>' class='btn bg-olive btn-flat btn-sm'><i class='fa fa-edit'></i> edit</a>
-                      <button onclick='ConfirmDelete(<?= $row['id_siswa'] ?>)' class='btn bg-maroon btn-flat btn-sm'>
-                        <i class='fas fa-trash'></i>
-                        hapus
-                      </button>
+                      <a href='<?= $url ?>/app/anak-didik/lihat.php?id_siswa=<?= $row['id_siswa'] ?>' class='btn bg-info btn-flat btn-sm'><i class='fa fa-eye'></i> Lihat</a>
+                     
                     </td>
                   </tr>
                 <?php

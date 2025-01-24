@@ -52,6 +52,7 @@
                         <table id='example1' class='table table-bordered table-striped'>
                             <thead>
                                 <tr>
+                                    <th>NO</th>
                                     <th>KELAS</th>
                                     <th>NAMA SISWA</th>                                    
                                     <th>AKSI</th>
@@ -67,11 +68,13 @@
                                         $siswas = 'SELECT * FROM `penilaian` JOIN plotting_jadwal ON penilaian.id_plotting = plotting_jadwal.id_plotting
                                             WHERE plotting_jadwal.id_kelas = '.$_GET['id_kelas'].' AND plotting_jadwal.id_periode = '. $periode['id_periode'].'  AND plotting_jadwal.id_siswa = '.$siswa['id_siswa'].'
                                             GROUP BY plotting_jadwal.id_siswa';
-                                    }                           
+                                    }        
+                                    $no =1;                   
                                 foreach (QueryManyData($siswas) as $row) {
                                     $siswa = QueryOnedata("SELECT * FROM siswa WHERE id_siswa = ".$row['id_siswa']."")->fetch_assoc();
                                 ?>
                                     <tr>
+                                        <td><?= $no++ ?></td>
                                         <td><?= $kelas['nm_kelas'] ?></td>
                                         <td><?= $siswa['nm_siswa'] ?></td>                                        
                                         <td>

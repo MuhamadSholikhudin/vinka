@@ -50,7 +50,7 @@
                   <th>NAMA SISWA</th>
                   <th>JK SISWA</th>
                   <th>ALAMAT SISWA</th>
-                  <th>NAMA ORANG TUA</th>
+                  <th>NAMA WALI MURID</th>
                   <th>FOTO SISWA</th>
                   <th>STATUS</th>
                   <th>AKSI</th>
@@ -73,7 +73,7 @@
                     <td><?= $row['nm_siswa'] ?></td>
                     <td><?= $row['jk_siswa'] ?></td>
                     <td><?= $row['alamat_siswa'] ?></td>
-                    <td><?= $row['nm_orang_tua'] ?></td>
+                    <td><?= $row['nm_wali_murid'] ?></td>
                     <td> <img src="<?= $url . '/foto/siswa/' . $row['foto_siswa']; ?>" alt="" srcset="" style="width: 50px; height:50px;"> </td>
                     <td> <?= $row['status_pendaftaran'] ?></td>
                     <td>                   

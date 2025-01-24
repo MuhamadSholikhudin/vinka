@@ -216,3 +216,19 @@ function penyebut($nilai) {
     }     
     return $temp;
 }
+
+function getPredikat($nilai, $kkm = 75) {
+    if ($nilai < 0 || $nilai > 100) {
+        return "Nilai tidak valid";
+    }
+
+    if ($nilai < $kkm) {
+        return "D";
+    } elseif ($nilai >= $kkm && $nilai <= 82) {
+        return "C";
+    } elseif ($nilai >= 83 && $nilai <= 91) {
+        return "B";
+    } elseif ($nilai >= 92 && $nilai <= 100) {
+        return "A";
+    }
+}
