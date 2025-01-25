@@ -29,6 +29,7 @@
 					'penilaian',
 					'raport',
 					'kelulusan',
+					'broadcast',
 				];
 
 				$result = [
@@ -89,6 +90,7 @@
 						'informasi_sekolah',
 						'pendaftaran_siswa',
 						'validasi_siswa_baru',
+						'broadcast',
 					],
 				];
 				// Hak Akses pada user menggunakan sub menu

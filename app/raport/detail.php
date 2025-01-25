@@ -372,7 +372,6 @@ $smt = explode(" ", $periode['nm_periode']);
                 </table>
                 <hr>
                 <h4>DESKRIPSI PENGETAHUAN DAN KETRAMPILAN</h4>
-
                 <table>
                     <thead>
                         <tr>
@@ -383,12 +382,24 @@ $smt = explode(" ", $periode['nm_periode']);
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        $no_rapot = 1;
+                        $rapot = "SELECT * FROM rapot WHERE id_periode = ".$_GET['id_periode']."  AND id_siswa = ".$_GET['id_siswa']." AND jenis = 'deskripsi pengetahun dan ketrampilan'";
+                        foreach(QueryManyData($rapot) as $row){
+                        ?>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><?= $no_rapot++ ?></td>
+                            <td>
+                                <?php
+                                $mapel = QueryOnedata("SELECT * FROM mapel WHERE id_mapel = ".$row['value']."")->fetch_assoc();
+                                echo $mapel['nm_mapel'] ?>
+                                </td>
+                            <td><?=  $row['pengetahuan'] ?></td>
+                            <td><?=  $row['ketrampilan'] ?></td>
                         </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
 
@@ -398,14 +409,63 @@ $smt = explode(" ", $periode['nm_periode']);
                         <tr>
                             <th>No</th>
                             <th>Kegiatan Ekstrakulikuler</th>
+                            <th>Nilai</th>
                             <th>Keterangan</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>                       
+                        <tr>                        
+                        <?php
+                        $check_ektrakulikuler = "SELECT * FROM rapot WHERE id_periode = " . $_GET['id_periode'] . " AND id_siswa = " . $_GET['id_siswa'] . " AND jenis = 'ektrakulikuler' ";
+                        if (QueryOnedata($check_ektrakulikuler)->num_rows > 0) { // Jika ada maka update data
+                        ?>
+                            <td>1</td>
+                            <td><?= QueryOnedata($check_ektrakulikuler)->fetch_assoc()['pengetahuan'] ?></td>
+                            <td><?= QueryOnedata($check_ektrakulikuler)->fetch_assoc()['value'] ?></td>
+                            <td><?= QueryOnedata($check_ektrakulikuler)->fetch_assoc()['deskripsi'] ?></td>
+
+                            <?php
+                        } else {
+                        ?>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        <?php
+                        }
+                        ?> 
+                        </tr>
+                    </tbody>
+                </table>
+                <h4>D .PRESTASI</h4>
+                <table>
+                    <thead>
                         <tr>
-                            <td>No</td>
-                            <td>Kegiatan Ekstrakulikuler</td>
-                            <td>Keterangan</td>
+                            <th>No</th>
+                            <th>Jenis Prestasi</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>                       
+                        <tr>
+                        
+                        <?php
+                        $check_prestasi = "SELECT * FROM rapot WHERE id_periode = " . $_GET['id_periode'] . " AND id_siswa = " . $_GET['id_siswa'] . " AND jenis = 'prestasi' ";
+                        if (QueryOnedata($check_prestasi)->num_rows > 0) { // Jika ada maka update data
+                        ?>
+                            <td>1</td>
+                            <td><?= QueryOnedata($check_prestasi)->fetch_assoc()['value'] ?></td>
+                            <td><?= QueryOnedata($check_prestasi)->fetch_assoc()['deskripsi'] ?></td>
+
+                            <?php
+                        } else {
+                        ?>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        <?php
+                        }
+                        ?> 
                         </tr>
                     </tbody>
                 </table>
@@ -458,7 +518,7 @@ $smt = explode(" ", $periode['nm_periode']);
 
                 <table>
                     <tr>
-                    <?php
+                        <?php
                         $check_catatan_wali_kelas = "SELECT * FROM rapot WHERE id_periode = " . $_GET['id_periode'] . " AND id_siswa = " . $_GET['id_siswa'] . " AND jenis = 'catatan wali kelas' ";
                         if (QueryOnedata($check_catatan_wali_kelas)->num_rows > 0) { // Jika ada maka update data
                         ?>

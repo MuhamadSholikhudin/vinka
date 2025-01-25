@@ -20,9 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             "data" => $data,
         ];
         header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
-
         echo json_encode($output);
 
+    }else if(isset($_POST['jenis'])){
+        $query_rapot = "SELECT * FROM rapot WHERE id_periode = ".$_POST['id_periode']." AND id_siswa = ".$_POST['id_siswa']."  AND value = ".$_POST['id_mapel']." AND jenis = '".$_POST['jenis']."' ";
+        $data = [
+            "pengetahuan" => "",
+            "ketrampilan" => "",
+        ];
+        if(QueryOnedata($query_rapot)->num_rows > 0){
+            $data = [
+                "pengetahuan" => QueryOnedata($query_rapot)->fetch_assoc()['pengetahuan'],
+                "ketrampilan" => QueryOnedata($query_rapot)->fetch_assoc()['ketrampilan'],
+            ];
+        }
+        header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
+        echo json_encode($data);
     }else if(isset($_POST['id_siswa'])){
         // Ambil data dari input AJAX
         $id_siswa = isset($_POST['id_siswa']) ? $_POST['id_siswa'] : '';
@@ -52,20 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
             echo json_encode($response);
-
-    }else if(isset($_POST['jenis'])){
-
-        $data = ["
-        
-        "];
-
-        header('Content-Type: application/json'); // Tentukan tipe konten sebagai JSON
-        echo json_encode($_POST);
-
     }else{
         // Ambil data dari input AJAX
         $id_user = isset($_POST['id_user']) ? $_POST['id_user'] : '';
-
         // Lakukan validasi atau proses data
         if (!empty($id_user)) {
             // Contoh: Formatkan respons

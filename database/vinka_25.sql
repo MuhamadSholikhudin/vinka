@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2025 at 07:56 AM
+-- Generation Time: Jan 23, 2025 at 11:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -366,24 +366,12 @@ CREATE TABLE `rapot` (
   `id_rapot` int(11) NOT NULL,
   `id_periode` int(11) DEFAULT NULL,
   `id_siswa` int(11) DEFAULT NULL,
-  `jenis` enum('sikap spiritual','sikap sosial','deskripsi pengetahun dan ketrampilan','ektrakulikuler','catatan wali kelas','prestasi') DEFAULT NULL,
-  `value` varchar(20) DEFAULT NULL,
+  `jenis` enum('sikap spiritual','sikap sosial','deskripsi pengetahun dan ketrapilan','ektrakulikuler','catatan wali kelas') DEFAULT NULL,
+  `value` int(11) DEFAULT NULL,
   `deskripsi` text NOT NULL,
-  `pengetahuan` text DEFAULT NULL,
-  `ketrampilan` text DEFAULT NULL
+  `pengetahuan` int(11) DEFAULT NULL,
+  `ketrampilan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `rapot`
---
-
-INSERT INTO `rapot` (`id_rapot`, `id_periode`, `id_siswa`, `jenis`, `value`, `deskripsi`, `pengetahuan`, `ketrampilan`) VALUES
-(1, 1, 4, 'deskripsi pengetahun dan ketrampilan', '1', '', 'oke1', 'sip1'),
-(2, 1, 4, 'sikap sosial', 'SANGAT BAIK', 'SANGAT BAIK', NULL, NULL),
-(3, 1, 4, 'sikap spiritual', 'SANGAT BAIK', 'MAMPU', NULL, NULL),
-(4, 1, 4, 'ektrakulikuler', 'BAIK', 'Sangat baik voli', 'VOLI', NULL),
-(5, 1, 4, 'catatan wali kelas', NULL, 'BAIK', NULL, NULL),
-(6, 1, 4, 'prestasi', 'PIDATO BAHASA ARAB', 'PIDATO BAHASA ARAB 2', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -629,7 +617,7 @@ ALTER TABLE `plotting_jadwal`
 -- AUTO_INCREMENT for table `rapot`
 --
 ALTER TABLE `rapot`
-  MODIFY `id_rapot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_rapot` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `siswa`

@@ -262,13 +262,13 @@
                                                     if (QueryOnedata($check_sikap_sosial)->num_rows > 0) { // Jika ada maka update data
                                                     ?>
                                                         <input id="" class="form-control" name="value" value="<?= QueryOnedata($check_sikap_sosial)->fetch_assoc()['value'] ?>">
-                                                        <?php
+                                                    <?php
                                                     } else {
                                                     ?>
                                                         <input id="" class="form-control" name="value" value="">
-                                                        <?php
+                                                    <?php
                                                     }
-                                                    ?>                                                    
+                                                    ?>
                                                     <input id="" style="display:none;" class="form-control" name="id_periode" value="<?= $periode_sekarang['id_periode'] ?>">
                                                     <input id="" style="display:none;" class="form-control" name="id_siswa" value="<?= $_GET['id_siswa'] ?>">
                                                     <input id="" style="display:none;" class="form-control" name="jenis" value="sikap sosial">
@@ -301,23 +301,118 @@
 
                         <div class="box box-primary">
                             <div class='box-header with-border text-center'>
-                                <h4>CATATAN WALI KELAS</h4>
+                                <h4>EKSTRA KULIKULER</h4>
                             </div>
                             <div class="box-body">
                             <form action="<?= $url ?>/aksi/rapot.php" method="POST" enctype="multipart/form-data">
-                                <table border="1px solid black;" style="width: 100%; text-align:center;">
+                            <table border="1px solid black;" style="width: 100%; text-align:center;">                                    
                                     <tbody>
-                                        <tr>
-                                            <td>
+                                        <tr style="text-align: center;">
+                                            <td>No</td>
+                                            <td>Kegiatan Ekstrakulikuler</td>
+                                            <td>Nilai</td>
+                                            <td>Keterangan</td>
+                                            <td>AKSI</td>
+                                        </tr>
+
+                                        <tr style="text-align: center;">
+                                            <td>1
                                                 <input id="" style="display:none;" class="form-control" name="id_periode" value="<?= $periode_sekarang['id_periode'] ?>">
                                                 <input id="" style="display:none;" class="form-control" name="id_siswa" value="<?= $_GET['id_siswa'] ?>">
-                                                <input id="" style="display:none;" class="form-control" name="jenis" value="catatan wali kelas">
-                                                <?php
+                                                <input id="" style="display:none;" class="form-control" name="jenis" value="ektrakulikuler">
+                                            </td>
+                                            <?php
+                                            $check_ektrakulikuler = "SELECT * FROM rapot WHERE id_periode = " . $periode_sekarang['id_periode'] . " AND id_siswa = " . $_GET['id_siswa'] . " AND jenis = 'ektrakulikuler' ";
+                                            if (QueryOnedata($check_ektrakulikuler)->num_rows > 0) { // Jika ada maka update data
+                                            ?>                                              
+                                                <td><input id="" class="form-control" name="pengetahuan" value="<?= QueryOnedata($check_ektrakulikuler)->fetch_assoc()['pengetahuan'] ?>"></td>
+                                                <td><input id="" class="form-control" name="value" value="<?= QueryOnedata($check_ektrakulikuler)->fetch_assoc()['value'] ?>"></td>
+                                                <td><textarea name="deskripsi" id="" style="width:100%;" class="form-control"><?= QueryOnedata($check_ektrakulikuler)->fetch_assoc()['deskripsi'] ?></textarea></td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <td><input id="" class="form-control" name="value" value=""></td>
+                                                <td><input id="" class="form-control" name="deskripsi" value=""></td>
+                                                <td><textarea name="deskripsi" id="" style="width:100%;" class="form-control"></textarea></td>                                           
+                                                 <?php
+                                            }
+                                            ?>
+                                            <td style="padding:3px;">
+                                                <button type="submit" name="ektrakulikuler" value="ektrakulikuler" class="btn btn-sm btn-success">
+                                                    <i class='fa fa-edit'></i> Update
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                            </div>
+                        </div>
+                        <div class="box box-primary">
+                            <div class='box-header with-border text-center'>
+                                <h4>PRESTASI</h4>
+                            </div>
+                            <div class="box-body">
+                            <form action="<?= $url ?>/aksi/rapot.php" method="POST" enctype="multipart/form-data">
+                            <table border="1px solid black;" style="width: 100%; text-align:center;">                                    
+                                    <tbody>
+                                        <tr style="text-align: center;">
+                                            <td>No</td>
+                                            <td>Jenis Prestasi</td>
+                                            <td>Keterangan</td>
+                                        </tr>
+
+                                        <tr style="text-align: center;">
+                                            <td>1
+                                                <input id="" style="display:none;" class="form-control" name="id_periode" value="<?= $periode_sekarang['id_periode'] ?>">
+                                                <input id="" style="display:none;" class="form-control" name="id_siswa" value="<?= $_GET['id_siswa'] ?>">
+                                                <input id="" style="display:none;" class="form-control" name="jenis" value="prestasi">
+                                            </td>
+                                            <?php
+                                            $check_prestasi = "SELECT * FROM rapot WHERE id_periode = " . $periode_sekarang['id_periode'] . " AND id_siswa = " . $_GET['id_siswa'] . " AND jenis = 'prestasi' ";
+                                            if (QueryOnedata($check_prestasi)->num_rows > 0) { // Jika ada maka update data
+                                            ?>                                              
+                                                <td><input id="" class="form-control" name="value" value="<?= QueryOnedata($check_prestasi)->fetch_assoc()['value'] ?>"></td>
+                                                <td><textarea name="deskripsi" id="" style="width:100%;" class="form-control"><?= QueryOnedata($check_prestasi)->fetch_assoc()['deskripsi'] ?></textarea></td>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <td><input id="" class="form-control" name="value" value=""></td>
+                                                <td><textarea name="deskripsi" id="" style="width:100%;" class="form-control"></textarea></td>                                           
+                                                 <?php
+                                            }
+                                            ?>
+                                            <td style="padding:3px;">
+                                                <button type="submit" name="prestasi" value="prestasi" class="btn btn-sm btn-success">
+                                                    <i class='fa fa-edit'></i> Update
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                            </div>
+                        </div>
+
+                        <div class="box box-primary">
+                            <div class='box-header with-border text-center'>
+                                <h4>CATATAN WALI KELAS</h4>
+                            </div>
+                            <div class="box-body">
+                                <form action="<?= $url ?>/aksi/rapot.php" method="POST" enctype="multipart/form-data">
+                                    <table border="1px solid black;" style="width: 100%; text-align:center;">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input id="" style="display:none;" class="form-control" name="id_periode" value="<?= $periode_sekarang['id_periode'] ?>">
+                                                    <input id="" style="display:none;" class="form-control" name="id_siswa" value="<?= $_GET['id_siswa'] ?>">
+                                                    <input id="" style="display:none;" class="form-control" name="jenis" value="catatan wali kelas">
+                                                    <?php
                                                     $check_catatan_wali_kelas = "SELECT * FROM rapot WHERE id_periode = " . $periode_sekarang['id_periode'] . " AND id_siswa = " . $_GET['id_siswa'] . " AND jenis = 'catatan wali kelas' ";
                                                     if (QueryOnedata($check_catatan_wali_kelas)->num_rows > 0) { // Jika ada maka update data
                                                     ?>
                                                         <textarea name="deskripsi" id="" style="width:100%;" class="form-control"><?= QueryOnedata($check_catatan_wali_kelas)->fetch_assoc()['deskripsi'] ?></textarea>
-                                                        <?php
+                                                    <?php
                                                     } else {
                                                     ?>
                                                         <textarea name="deskripsi" id="" style="width:100%;" class="form-control"></textarea>
@@ -325,15 +420,15 @@
                                                     <?php
                                                     }
                                                     ?>
-                                            </td>
-                                            <td style="width: 50px; padding:3px;">
-                                                <button type="submit" name="UPDATE_catatan_wali_kelas" value="UPDATE_catatan_wali_kelas" class="btn btn-sm btn-success">
-                                                    <i class='fa fa-edit'></i> Update
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                </td>
+                                                <td style="width: 50px; padding:3px;">
+                                                    <button type="submit" name="UPDATE_catatan_wali_kelas" value="UPDATE_catatan_wali_kelas" class="btn btn-sm btn-success">
+                                                        <i class='fa fa-edit'></i> Update
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </form>
                             </div>
                         </div>
